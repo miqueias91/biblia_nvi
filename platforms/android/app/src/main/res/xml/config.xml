@@ -15,9 +15,6 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="PushNotification">
-        <param name="android-package" value="com.adobe.phonegap.push.PushPlugin" />
-    </feature>
     <name>Bíblia Sagrada NVI</name>
     <description>
         A Nova Versão Internacional (NVI) é uma das mais recentes traduções da Bíblia. Foi publicada pela Sociedade Bíblica Internacional.

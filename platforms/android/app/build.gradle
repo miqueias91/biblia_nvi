@@ -91,7 +91,6 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
-apply from: "../phonegap-plugin-push/teindico-push.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -266,9 +265,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
-    compile "com.android.support:support-v13:23+"
-    compile "com.google.android.gms:play-services-gcm:9.8+"
-    compile "me.leolin:ShortcutBadger:1.1.4@aar"
     // SUB-PROJECT DEPENDENCIES END
 }
 
