@@ -39,6 +39,27 @@ module.exports = [
     "clobbers": [
       "PushNotification"
     ]
+  },
+  {
+    "id": "cordova-promise-polyfill.Promise",
+    "file": "plugins/cordova-promise-polyfill/www/Promise.js",
+    "pluginId": "cordova-promise-polyfill",
+    "runs": true
+  },
+  {
+    "id": "cordova-promise-polyfill.promise.min",
+    "file": "plugins/cordova-promise-polyfill/www/promise.min.js",
+    "pluginId": "cordova-promise-polyfill"
+  },
+  {
+    "id": "cordova-plugin-admob-free.AdMob",
+    "file": "plugins/cordova-plugin-admob-free/www/admob.js",
+    "pluginId": "cordova-plugin-admob-free",
+    "clobbers": [
+      "admob",
+      "AdMob",
+      "plugins.AdMob"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -51,7 +72,10 @@ module.exports.metadata =
   "cordova-plugin-whitelist": "1.2.2",
   "cordova-support-google-services": "1.1.0",
   "phonegap-plugin-multidex": "1.0.0",
-  "phonegap-plugin-push": "2.2.3"
+  "phonegap-plugin-push": "2.2.3",
+  "cordova-promise-polyfill": "0.0.2",
+  "cordova-admob-sdk": "0.24.1",
+  "cordova-plugin-admob-free": "0.27.0"
 };
 // BOTTOM OF METADATA
 });

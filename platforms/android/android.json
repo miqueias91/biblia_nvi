@@ -27,6 +27,10 @@
             {
               "xml": "<feature name=\"PushNotification\"><param name=\"android-package\" value=\"com.adobe.phonegap.push.PushPlugin\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"AdMob\"><param name=\"android-package\" value=\"name.ratson.cordova.admob.AdMob\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -76,6 +80,24 @@
             {
               "xml": "<service android:name=\"com.adobe.phonegap.push.PushInstanceIDListenerService\"><intent-filter><action android:name=\"com.google.firebase.INSTANCE_ID_EVENT\" /></intent-filter></service>",
               "count": 1
+            },
+            {
+              "xml": "<activity android:configChanges=\"keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize\" android:name=\"com.google.android.gms.ads.AdActivity\" android:theme=\"@android:style/Theme.Translucent\" />",
+              "count": 1
+            },
+            {
+              "xml": "<meta-data android:name=\"com.google.android.gms.ads.APPLICATION_ID\" android:value=\"ca-app-pub-7091486462236476~4004927104\" />",
+              "count": 1
+            }
+          ],
+          "/*": [
+            {
+              "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+              "count": 1
             }
           ]
         }
@@ -107,6 +129,18 @@
     "phonegap-plugin-push": {
       "ANDROID_SUPPORT_V13_VERSION": "27.+",
       "FCM_VERSION": "11.6.2",
+      "PACKAGE_NAME": "com.phonegap.teindico"
+    },
+    "cordova-promise-polyfill": {
+      "PACKAGE_NAME": "com.phonegap.teindico"
+    },
+    "cordova-admob-sdk": {
+      "PLAY_SERVICES_VERSION": "11.0.4",
+      "PACKAGE_NAME": "com.phonegap.teindico"
+    },
+    "cordova-plugin-admob-free": {
+      "ADMOB_APP_ID": "ca-app-pub-7091486462236476~4004927104",
+      "PLAY_SERVICES_VERSION": "11.0.4",
       "PACKAGE_NAME": "com.phonegap.teindico"
     }
   },
@@ -151,6 +185,27 @@
       "clobbers": [
         "PushNotification"
       ]
+    },
+    {
+      "id": "cordova-promise-polyfill.Promise",
+      "file": "plugins/cordova-promise-polyfill/www/Promise.js",
+      "pluginId": "cordova-promise-polyfill",
+      "runs": true
+    },
+    {
+      "id": "cordova-promise-polyfill.promise.min",
+      "file": "plugins/cordova-promise-polyfill/www/promise.min.js",
+      "pluginId": "cordova-promise-polyfill"
+    },
+    {
+      "id": "cordova-plugin-admob-free.AdMob",
+      "file": "plugins/cordova-plugin-admob-free/www/admob.js",
+      "pluginId": "cordova-plugin-admob-free",
+      "clobbers": [
+        "admob",
+        "AdMob",
+        "plugins.AdMob"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -161,6 +216,9 @@
     "cordova-plugin-whitelist": "1.2.2",
     "cordova-support-google-services": "1.1.0",
     "phonegap-plugin-multidex": "1.0.0",
-    "phonegap-plugin-push": "2.2.3"
+    "phonegap-plugin-push": "2.2.3",
+    "cordova-promise-polyfill": "0.0.2",
+    "cordova-admob-sdk": "0.24.1",
+    "cordova-plugin-admob-free": "0.27.0"
   }
 }

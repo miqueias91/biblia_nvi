@@ -6,12 +6,15 @@
     },
     "displayName": "biblia_nvi",
     "dependencies": {
+        "cordova-admob-sdk": "0.24.1",
         "cordova-android": "^7.1.4",
+        "cordova-plugin-admob-free": "^0.27.0",
         "cordova-plugin-console": "~1.0.3",
         "cordova-plugin-dialogs": "~1.2.1",
         "cordova-plugin-splashscreen": "^5.0.3",
         "cordova-plugin-statusbar": "~2.1.3",
         "cordova-plugin-whitelist": "~1.2.1",
+        "cordova-promise-polyfill": "0.0.2",
         "cordova-support-google-services": "^1.1.0",
         "phonegap-plugin-multidex": "^1.0.0",
         "phonegap-plugin-push": "^2.2.3"
@@ -25,6 +28,9 @@
             "phonegap-plugin-push": {
                 "ANDROID_SUPPORT_V13_VERSION": "27.+",
                 "FCM_VERSION": "11.6.2"
+            },
+            "cordova-plugin-admob-free": {
+                "ADMOB_APP_ID": "ca-app-pub-7091486462236476~4004927104"
             }
         },
         "platforms": [
