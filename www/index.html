@@ -28,8 +28,8 @@
             <div class="center"><center>Bíblia Sagrada NVI</center></div>
         </ons-toolbar>
         <ons-tabbar swipeable id="appTabbar" position="auto">
-            <ons-tab label="Antigo Testamento" page="antigo_testamento.html" active></ons-tab>
-            <ons-tab label="Novo Testamento" page="novo_testamento.html"></ons-tab>
+            <ons-tab onclick="int()" label="Antigo Testamento" page="antigo_testamento.html" active></ons-tab>
+            <ons-tab onclick="int()" label="Novo Testamento" page="novo_testamento.html"></ons-tab>
         </ons-tabbar>
 
         <script>
@@ -537,28 +537,34 @@
             interstitial: 'ca-app-pub-7091486462236476/6017665160',
         }
     }
+
     document.addEventListener('deviceready', function () {
         admob.banner.prepare({ 
             id: admobid.banner, 
             isTesting: false, 
             autoShow: true, 
         })
-        /*admob.interstitial.config({
-            id: admobid.interstitial,
-            isTesting: false,
-            autoShow: false,
-        })*/
-        admob.interstitial.prepare({
+        admob.interstitial.config({
             id: admobid.interstitial,
             isTesting: false,
             autoShow: false,
         })
+        admob.interstitial.prepare()
         document.getElementsByClassName('showAd').disabled = true
         document.getElementsByClassName('showAd').onclick = function() {
             admob.interstitial.show()
         }
     }, false);
 
+    function int() {
+        admob.interstitial.config({
+            id: admobid.interstitial,
+            isTesting: false,
+            autoShow: false,
+        })
+        admob.interstitial.prepare()
+        admob.interstitial.show()
+    }
     document.addEventListener('admob.banner.events.LOAD_FAIL', function(event) {
         //alert(JSON.stringify(event))
     })
