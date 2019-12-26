@@ -551,6 +551,7 @@
         admob.interstitial.prepare()
         document.getElementsByClassName('showAd').disabled = true
         document.getElementsByClassName('showAd').onclick = function() {
+            alert("Clicou")
             admob.interstitial.show()
         }
     }, false);
