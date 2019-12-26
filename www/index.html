@@ -538,10 +538,14 @@
         }
     }
     document.addEventListener('deviceready', function () {
-        admob.banner.prepare({ id: admobid.banner, isTesting: false, autoShow: true, })
+        admob.banner.prepare({ 
+            id: admobid.banner, 
+            isTesting: false, 
+            autoShow: true, 
+        })
         admob.interstitial.config({
             id: admobid.interstitial,
-            isTesting: true,
+            isTesting: false,
             autoShow: false,
         })
         admob.interstitial.prepare()
