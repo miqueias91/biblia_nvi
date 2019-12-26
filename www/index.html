@@ -553,10 +553,6 @@
         document.getElementsByClassName('showAd').onclick = function() {
             admob.interstitial.show()
         }
-        $(".showAd").click(function(){
-            alert("Clicou")
-            admob.interstitial.show()
-        });
     }, false);
 
     document.addEventListener('admob.banner.events.LOAD_FAIL', function(event) {
