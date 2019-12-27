@@ -1,4 +1,6 @@
-/* Licensed to the Apache Software Foundation (ASF) under one
+ext {
+    var = 29
+}/* Licensed to the Apache Software Foundation (ASF) under one
    or more contributor license agreements.  See the NOTICE file
    distributed with this work for additional information
    regarding copyright ownership.  The ASF licenses this file
@@ -24,12 +26,13 @@ buildscript {
             url "https://maven.google.com"
         }
         jcenter()
+        google()
     }
     dependencies {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.google.gms:google-services:4.3.2'
     }
 }
 
@@ -39,6 +42,7 @@ allprojects {
             url "https://maven.google.com"
         }
         jcenter()
+        google()  // Google's Maven repository
     }
     //This replaces project.properties w.r.t. build settings
     project.ext {

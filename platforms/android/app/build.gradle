@@ -26,10 +26,13 @@ buildscript {
             url "https://maven.google.com"
         }
         jcenter()
+        google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        implementation 'com.google.firebase:firebase-analytics:17.2.0'
+        classpath 'com.android.tools.build:gradle:3.5.3'
+
     }
 }
 
@@ -147,19 +150,21 @@ cdvBuildRelease.dependsOn {
     return computeBuildTargetName(false)
 }
 
-task cdvPrintProps << {
-    println('cdvCompileSdkVersion=' + cdvCompileSdkVersion)
-    println('cdvBuildToolsVersion=' + cdvBuildToolsVersion)
-    println('cdvVersionCode=' + cdvVersionCode)
-    println('cdvVersionCodeForceAbiDigit=' + cdvVersionCodeForceAbiDigit)
-    println('cdvMinSdkVersion=' + cdvMinSdkVersion)
-    println('cdvBuildMultipleApks=' + cdvBuildMultipleApks)
-    println('cdvReleaseSigningPropertiesFile=' + cdvReleaseSigningPropertiesFile)
-    println('cdvDebugSigningPropertiesFile=' + cdvDebugSigningPropertiesFile)
-    println('cdvBuildArch=' + cdvBuildArch)
-    println('computedVersionCode=' + android.defaultConfig.versionCode)
-    android.productFlavors.each { flavor ->
-        println('computed' + flavor.name.capitalize() + 'VersionCode=' + flavor.versionCode)
+task cdvPrintProps {
+    doLast {
+        println('cdvCompileSdkVersion=' + cdvCompileSdkVersion)
+        println('cdvBuildToolsVersion=' + cdvBuildToolsVersion)
+        println('cdvVersionCode=' + cdvVersionCode)
+        println('cdvVersionCodeForceAbiDigit=' + cdvVersionCodeForceAbiDigit)
+        println('cdvMinSdkVersion=' + cdvMinSdkVersion)
+        println('cdvBuildMultipleApks=' + cdvBuildMultipleApks)
+        println('cdvReleaseSigningPropertiesFile=' + cdvReleaseSigningPropertiesFile)
+        println('cdvDebugSigningPropertiesFile=' + cdvDebugSigningPropertiesFile)
+        println('cdvBuildArch=' + cdvBuildArch)
+        println('computedVersionCode=' + android.defaultConfig.versionCode)
+        android.productFlavors.each { flavor ->
+            println('computed' + flavor.name.capitalize() + 'VersionCode=' + flavor.versionCode)
+        }
     }
 }
 
@@ -168,6 +173,7 @@ android {
     defaultConfig {
         versionCode cdvVersionCode ?: new BigInteger("" + privateHelpers.extractIntFromManifest("versionCode"))
         applicationId privateHelpers.extractStringFromManifest("package")
+        minSdkVersion 19
 
         if (cdvMinSdkVersion != null) {
             minSdkVersion cdvMinSdkVersion
@@ -178,8 +184,8 @@ android {
       abortOnError false;
     }
 
-    compileSdkVersion cdvCompileSdkVersion
-    buildToolsVersion cdvBuildToolsVersion
+    compileSdkVersion 27
+    buildToolsVersion '29.0.2'
 
     // This code exists for Crosswalk and other Native APIs.
     // By default, we multiply the existing version code in the
@@ -267,11 +273,13 @@ dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
-    compile "com.android.support:support-v13:27.+"
-    compile "me.leolin:ShortcutBadger:1.1.17@aar"
-    compile "com.google.firebase:firebase-messaging:11.6.2"
-    compile "com.google.android.gms:play-services-base:11.0.4"
-    compile "com.google.android.gms:play-services-ads:11.0.4"
+    implementation "com.android.support:support-v13:27.+"
+    implementation "me.leolin:ShortcutBadger:1.1.17@aar"
+    implementation "com.google.firebase:firebase-messaging:11.0.4"
+    implementation "com.google.android.gms:play-services-base:11.0.4"
+    implementation "com.google.android.gms:play-services-ads:11.0.4"
+    classpath 'com.google.gms:google-services:4.3.2'
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
     // SUB-PROJECT DEPENDENCIES END
 }
 
@@ -334,3 +342,4 @@ for (def func : cdvPluginPostBuildExtras) {
 if (hasProperty('postBuildExtras')) {
     postBuildExtras()
 }
+apply plugin: 'com.google.gms.google-services'
