@@ -34,6 +34,7 @@
 
         <script>
           ons.getScriptPage().addEventListener('prechange', function(event) {
+            admob.interstitial.show();
             if (event.target.matches('#appTabbar')) {
               event.currentTarget.querySelector('ons-toolbar .center center').innerHTML = 'Bíblia Sagrada NVI';
             }
@@ -523,12 +524,6 @@
         </style>
     </ons-page>
 </template>
-
-
-<!-- JS dependencies (order matters!) -->
-<script type="text/javascript" src="cordova.js"></script>
-<script src="js/jquery.3.3.1.js"></script>
-<script src="lib/onsen/js/onsenui.js"></script>
 <script>
     var admobid = {}
     if (/(android)/i.test(navigator.userAgent)) {  // for android & amazon-fireos
@@ -574,6 +569,12 @@
         admob.interstitial.prepare()
     })
 </script>
+
+
+<!-- JS dependencies (order matters!) -->
+<script type="text/javascript" src="cordova.js"></script>
+<script src="js/jquery.3.3.1.js"></script>
+<script src="lib/onsen/js/onsenui.js"></script>
 <script src="js/index.js"></script>
 
 </body>
