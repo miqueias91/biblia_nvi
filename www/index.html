@@ -39,7 +39,6 @@
 
         <script>
           ons.getScriptPage().addEventListener('prechange', function(event) {
-            admob.interstitial.show();
             if (event.target.matches('#appTabbar')) {
               event.currentTarget.querySelector('ons-toolbar .center center').innerHTML = 'Bíblia Sagrada NVI';
             }
@@ -437,6 +436,7 @@
         </div>
         <script>
         ons.getScriptPage().onInit = function () {
+            admob.interstitial.show();
             var dados = this.data.title.split('||'); 
             this.querySelector('ons-toolbar div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
@@ -470,7 +470,7 @@
             <div class="right">
                 <div style="margin-right: 20px!important;color: #fff">                    
                     <ons-icon icon="fa-angle-left" id="anterior" style="float: left;"></ons-icon>
-                    <ons-icon icon="fa-angle-right" id="proximo"></ons-icon>
+                    <ons-icon  class="showAd" icon="fa-angle-right" id="proximo"></ons-icon>
                 </div>
             </div>
         </ons-toolbar>
@@ -540,11 +540,6 @@
     }
 
     document.addEventListener('deviceready', function () {
-        /*admob.banner.prepare({ 
-            id: admobid.banner, 
-            isTesting: false, 
-            autoShow: true, 
-        })*/
         admob.banner.config({ 
             id: admobid.banner, 
             isTesting: false, 
@@ -559,20 +554,10 @@
         })
         admob.interstitial.prepare()
 
-        document.querySelector(".showAd").addEventListener("click", function(){
-            alert('1')
-            admob.interstitial.show()
-        });
-
         document.getElementsByClassName('showAd').disabled = true
         document.getElementsByClassName('showAd').onclick = function() {
-            alert('2')
             admob.interstitial.show()
         }
-        document.querySelector(".showAd").addEventListener("click", function(){
-            alert('3')
-            admob.interstitial.show()
-        });
     }, false);
 
     document.addEventListener('admob.banner.events.LOAD_FAIL', function(event) {
