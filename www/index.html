@@ -558,10 +558,21 @@
             autoShow: false,
         })
         admob.interstitial.prepare()
+
+        document.querySelector(".showAd").addEventListener("click", function(){
+            alert('1')
+            admob.interstitial.show()
+        });
+
         document.getElementsByClassName('showAd').disabled = true
         document.getElementsByClassName('showAd').onclick = function() {
+            alert('2')
             admob.interstitial.show()
         }
+        document.querySelector(".showAd").addEventListener("click", function(){
+            alert('3')
+            admob.interstitial.show()
+        });
     }, false);
 
     document.addEventListener('admob.banner.events.LOAD_FAIL', function(event) {
