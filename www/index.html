@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css" />
     <link rel="stylesheet" href="css/index.css" />
 
+    <!-- JS dependencies (order matters!) -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="js/jquery.3.3.1.js"></script>
+    <script src="lib/onsen/js/onsenui.js"></script>
+
     <title>Bíblia Sagrada NVI</title>
 </head>
 
@@ -524,6 +529,7 @@
         </style>
     </ons-page>
 </template>
+
 <script>
     var admobid = {}
     if (/(android)/i.test(navigator.userAgent)) {  // for android & amazon-fireos
@@ -534,11 +540,18 @@
     }
 
     document.addEventListener('deviceready', function () {
-        admob.banner.prepare({ 
+        /*admob.banner.prepare({ 
+            id: admobid.banner, 
+            isTesting: false, 
+            autoShow: true, 
+        })*/
+        admob.banner.config({ 
             id: admobid.banner, 
             isTesting: false, 
             autoShow: true, 
         })
+        admob.banner.prepare()
+        
         admob.interstitial.config({
             id: admobid.interstitial,
             isTesting: false,
@@ -569,12 +582,6 @@
         admob.interstitial.prepare()
     })
 </script>
-
-
-<!-- JS dependencies (order matters!) -->
-<script type="text/javascript" src="cordova.js"></script>
-<script src="js/jquery.3.3.1.js"></script>
-<script src="lib/onsen/js/onsenui.js"></script>
 <script src="js/index.js"></script>
 
 </body>
