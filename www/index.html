@@ -33,8 +33,9 @@
             <div class="center"><center>Bíblia Sagrada NVI</center></div>
         </ons-toolbar>
         <ons-tabbar swipeable id="appTabbar" position="auto">
-            <ons-tab label="Antigo Testamento" page="antigo_testamento.html" active></ons-tab>
-            <ons-tab label="Novo Testamento" page="novo_testamento.html"></ons-tab>
+            <ons-tab label="Versão 1.0.5" page="home.html" active></ons-tab>
+            <!--<ons-tab label="Antigo Testamento" page="antigo_testamento.html"></ons-tab>
+            <ons-tab label="Novo Testamento" page="novo_testamento.html"></ons-tab>-->
         </ons-tabbar>
 
         <script>
@@ -55,10 +56,120 @@
     </p>
 </ons-modal>
 
+<template id="home.html">
+  <ons-page>
+    <ons-row>
+        <ons-col>
+            <ons-card onclick="fn.pushPage({'id': 'biblia.html', 'title': 'Bíblia Sagrada'})">
+              <div class="title titulo_menu"><i class="fas fa-book-open"></i><br>BÍBLIA SAGRADA</div>
+            </ons-card>
+        </ons-col>
+        <ons-col>
+            <ons-card onclick="fn.pushPage({'id': 'dialogs.html', 'title': 'Dialogs'})">
+              <div class="title titulo_menu"><i class="fas fa-comment"></i><br>PALAVRA DO DIA</div>
+            </ons-card>
+        </ons-col>
+    </ons-row>
+
+    <ons-row>
+        <ons-col>
+            <ons-card onclick="fn.pushPage({'id': 'buttons.html', 'title': 'Buttons'})">
+              <div class="title titulo_menu"><i class="fas fa-comments"></i><br>QUIZ DA BÍBLIA</div>
+            </ons-card>
+        </ons-col>
+        <ons-col>
+            <ons-card onclick="fn.pushPage({'id': 'carousel.html', 'title': 'Carousel'})">
+              <div class="title titulo_menu"><i class="fas fa-edit"></i><br>VERSÍCLOS MARCADOS</div>
+            </ons-card>
+        </ons-col>
+    </ons-row>
+
+    <ons-row>
+        <ons-col>
+            <ons-card onclick="fn.pushPage({'id': 'infiniteScroll.html', 'title': 'Infinite Scroll'})">
+              <div class="title titulo_menu"><i class="fas fa-list-alt"></i><br>PLANO DE LEITURA</div>
+            </ons-card>
+        </ons-col>
+        <ons-col>
+            <ons-card onclick="fn.pushPage({'id': 'progress.html', 'title': 'Progress'})">
+              <div class="title titulo_menu"><i class="fab fa-google-play"></i><br>OUTROS APP'S</div>
+            </ons-card>
+        </ons-col>
+    </ons-row>
+    <style>
+      .intro {
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
+<template id="biblia.html">
+  <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-back-button>Bíblia Sagrada</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+    <ons-card onclick="fn.pushPage({'id': 'antigo_testamento.html', 'title': 'Antigo Testamento'})">
+        <div class="title">Antigo Testamento</div>
+    </ons-card>
+    <ons-card onclick="fn.pushPage({'id': 'novo_testamento.html', 'title': 'Novo Testamento'})">
+        <div class="title">Novo Testamento</div>
+    </ons-card>
+    <script>
+        ons.getScriptPage().onInit = function () {
+            this.querySelector('ons-toolbar div.center').textContent = 'Bíblia Sagrada';
+        }
+    </script>
+    <style>
+        .button-margin {
+            margin: 6px 0;
+        }
+
+      .intro {
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
 <template id="antigo_testamento.html">
     <ons-page id="antigo_testamento" class="">
         <input type="hidden" id="OneSignalUserId" value="">
         <input type="hidden" id="OneSignalPushToken" value="">
+
+        <ons-toolbar>
+            <div class="left">
+                <ons-back-button>Antigo Testamento</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
 
         <ons-list id="lista_livro_antigo">
 
@@ -261,20 +372,31 @@
       
         </ons-list>
 
-        <style>
-          .button-margin {
+    <script>
+        ons.getScriptPage().onInit = function () {
+            this.querySelector('ons-toolbar div.center').textContent = 'Antigo Testamento';
+        }
+    </script>
+    <style>        
+        .button-margin {
             margin: 6px 0;
           }
           .card__title,
           .card--material__title {
             font-size: 20px;
           }
-        </style>
+    </style>
     </ons-page>
 </template>
 
 <template id="novo_testamento.html">
     <ons-page id="novo_testamento">
+        <ons-toolbar>
+            <div class="left">
+                <ons-back-button>Novo Testamento</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
         <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'Mt||Mateus||28'})">
             <div class="left"></div>
             <div class="center" style="font-size: 20px;">Mateus  
@@ -419,6 +541,20 @@
             </div>
             <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
         </ons-list-item>
+    <script>
+        ons.getScriptPage().onInit = function () {
+            this.querySelector('ons-toolbar div.center').textContent = 'Novo Testamento';
+        }
+    </script>
+    <style>        
+        .button-margin {
+            margin: 6px 0;
+          }
+          .card__title,
+          .card--material__title {
+            font-size: 20px;
+          }
+    </style>
     </ons-page>
 </template>
 
