@@ -65,7 +65,7 @@
             </ons-card>
         </ons-col>
         <ons-col>
-            <ons-card onclick="fn.pushPage({'id': 'dialogs.html', 'title': 'Dialogs'})">
+            <ons-card onclick="fn.pushPage({'id': 'palavra_dia.html', 'title': 'Palavra do dia'})">
               <div class="title titulo_menu"><i class="fas fa-comment"></i><br>PALAVRA DO DIA</div>
             </ons-card>
         </ons-col>
@@ -91,12 +91,56 @@
             </ons-card>
         </ons-col>
         <ons-col>
-            <ons-card onclick="fn.pushPage({'id': 'progress.html', 'title': 'Progress'})">
+            <ons-card onclick="fn.loadLink('https://play.google.com/store/apps/collection/cluster?clp=igNKChkKEzU4MzY0OTEwMzM3MTQyMDQzODIQCBgDEisKJWNvbS5waG9uZWdhcC5naXJpYXNlc3RhZG9zYnJhc2lsZWlyb3MQARgDGAE%3D:S:ANO1ljIUr74&gsr=Ck2KA0oKGQoTNTgzNjQ5MTAzMzcxNDIwNDM4MhAIGAMSKwolY29tLnBob25lZ2FwLmdpcmlhc2VzdGFkb3NicmFzaWxlaXJvcxABGAMYAQ%3D%3D:S:ANO1ljJSHsA')">
               <div class="title titulo_menu"><i class="fab fa-google-play"></i><br>OUTROS APP'S</div>
             </ons-card>
         </ons-col>
     </ons-row>
     <style>
+      .intro {
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
+<template id="palavra_dia.html">
+  <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-back-button>Palavra do Dia</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+        <div id="textoVersiculo">
+            
+        </div>
+
+    <script>
+        ons.getScriptPage().onInit = function () {
+            admob.interstitial.show();
+            this.querySelector('ons-toolbar div.center').textContent = 'Palavra do Dia';
+            var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13'];
+            app.buscaVersiculo('nvi',versiculos[parseInt(Math.random()*50)]);
+        }
+    </script>
+    <style>
+        .button-margin {
+            margin: 6px 0;
+        }
+
       .intro {
         text-align: center;
         padding: 0 20px;
@@ -125,10 +169,10 @@
             <div class="center"></div>
         </ons-toolbar>
     <ons-card onclick="fn.pushPage({'id': 'antigo_testamento.html', 'title': 'Antigo Testamento'})">
-        <div class="title">Antigo Testamento</div>
+        <div class="title" style="color: #F5F5F5;">Antigo Testamento</div>
     </ons-card>
     <ons-card onclick="fn.pushPage({'id': 'novo_testamento.html', 'title': 'Novo Testamento'})">
-        <div class="title">Novo Testamento</div>
+        <div class="title" style="color: #F5F5F5;">Novo Testamento</div>
     </ons-card>
     <script>
         ons.getScriptPage().onInit = function () {
