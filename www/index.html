@@ -221,17 +221,29 @@
             </div>
             <div class="center"></div>
         </ons-toolbar>
-        <div id="textoVersiculo">
+        <ons-list id="textoCapitulosLidos">
             
-        </div>
+        </ons-list>
 
     <script>
         ons.getScriptPage().onInit = function () {
             admob.interstitial.show();
-            $("#textoVersiculo").html('');
-            this.querySelector('#versiculosMarcados_ div.center').textContent = 'Capítulos Lidos';
+            $("#textoCapitulosLidos").html('');
+            this.querySelector('#capitulosLidos_ div.center').textContent = 'Capítulos Lidos';
             var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
             lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos'));
+            if (lista_capitulos) {
+              for(var i=0; i<lista_capitulos.length; i++) {
+                $("#textoCapitulosLidos").append(
+                    '<ons-list-item class="showAd">'+
+                    '    <div class="left"></div>'+
+                    '    <div class="center" style="font-size: 20px;">'+lista_capitulos[i]+'</div>'+
+                    '    <div class="right"></div>'+
+                    '</ons-list-item>'
+                );
+               
+              }   
+            }
         }
     </script>
     <style>
@@ -539,6 +551,7 @@
             </div>
             <div class="center"></div>
         </ons-toolbar>
+        <ons-list id="lista_livro_novo">
         <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'Mt||Mateus||28'})">
             <div class="left"></div>
             <div class="center" style="font-size: 20px;">Mateus  
@@ -683,6 +696,7 @@
             </div>
             <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
         </ons-list-item>
+    </ons-list>
     <script>
         ons.getScriptPage().onInit = function () {
             this.querySelector('#novoTestamento_ div.center').textContent = 'Novo Testamento';
