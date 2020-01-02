@@ -1,7 +1,6 @@
 var timeout = 5000;
 // Pega a lista já cadastrada, se não houver vira um array vazio
 window.fn = {};
-
 window.fn.toggleMenu = function () {
   document.getElementById('appSplitter').right.toggle();
 };
@@ -42,8 +41,7 @@ var app = {
   // deviceready Event Handler    
   // Bind any cordova events here. Common events are:
   // 'pause', 'resume', etc.
-  onDeviceReady: function() {
-    
+  onDeviceReady: function() {    
     this.receivedEvent('deviceready');  
   },
   // Update DOM on a Received Event
@@ -66,17 +64,22 @@ var app = {
           array.splice(indice, 1);
         }
     }
+    var lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores') || '[]');
     localStorage.removeItem(lista_marcadores);
     localStorage.setItem("lista-marcadores", JSON.stringify(array));
   },
   incluirMarcador: function(search_array) {
     array = JSON.parse(localStorage.getItem('lista-marcadores'));
-    for(var i=0; i<array.length; i++) {
-        if(array[i] === search_array) {
-          return true;
-        }
-      return false;
+    if (array) {
+      for(var i=0; i<array.length; i++) {
+          if(array[i] === search_array) {
+            return true;
+          }
+        return false;
+      }   
+      return false;   
     }
+    return false;
   },  
   buscaTexto: function(version,livro,capitulo) {
     $("#textoLivro").html('');
@@ -141,14 +144,16 @@ var app = {
 
 
         $( ".txt_versiculo" ).click(function() {
-          var marcado = $(this).attr('marcado');
+          marcado = $(this).attr('marcado');
           var id = $(this).attr('id');
           var versiculo = $(this).attr('livro')+"||"+$(this).attr('num_capitulo')+'.'+$(this).attr('num_versiculo')
 
           if (marcado==0) {
               $('#'+id).attr('marcado',1);
               $('#'+id).css("background","yellow");
-                      // Adiciona pessoa ao cadastro
+              // Adiciona pessoa ao cadastro
+              var lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores') || '[]');
+
               lista_marcadores.push(versiculo);
               // Salva a lista alterada
               localStorage.setItem("lista-marcadores", JSON.stringify(lista_marcadores));
