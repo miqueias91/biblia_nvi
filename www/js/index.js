@@ -1,5 +1,6 @@
 var timeout = 5000;
-
+// Pega a lista já cadastrada, se não houver vira um array vazio
+var lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores') || '[]');
 window.fn = {};
 
 window.fn.toggleMenu = function () {
@@ -37,7 +38,6 @@ window.fn.hideDialog = function (id) {
 var app = {
   // Application Constructor
   initialize: function() {
-    console.log('initialize');
     document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
   },
   // deviceready Event Handler    
@@ -60,6 +60,24 @@ var app = {
       
     }
   },
+  retirarMarcador: function(search_array, array) {
+    for(var i=0; i<array.length; i++) {
+        if(array[i] === search_array) {
+          var indice = array.indexOf(search_array);
+          array.splice(indice, 1);
+        }
+    }
+    localStorage.removeItem(lista_marcadores);
+    localStorage.setItem("lista-marcadores", JSON.stringify(array));
+  },
+  incluirMarcador: function(search_array) {
+    array = JSON.parse(localStorage.getItem('lista-marcadores'));
+    for(var i=0; i<array.length; i++) {
+        if(array[i] === search_array) {
+          return true;
+        }
+    }
+  },  
   buscaTexto: function(version,livro,capitulo) {
     $("#textoLivro").html('');
     var version = version || "nvi";
@@ -100,10 +118,47 @@ var app = {
 
           for (var i in myBook.chapters[obj.chapter - 1][parseInt(capitulo)]) {
             if (myBook.chapters[obj.chapter - 1][capitulo][i]) {
-              obj.text += '<ons-list-item><p style="font-size: 15px;"><span style="font-weight:bold;">'+i+'</span>&nbsp;'+myBook.chapters[obj.chapter - 1][capitulo][i] + "</p></ons-list-item>";
+              var marcado = 0;
+              var background = '#f5f5f5';
+              var existe_marcado = app.incluirMarcador(livro+'||'+capitulo+'.'+i);
+              
+              if (existe_marcado) {
+                marcado = 1;
+                background = 'yellow';
+              }
+
+              obj.text += '<ons-list-item>'+
+                            '<p style="font-size: 20px;text-align:justify;line-height: 25px;background:'+background+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'">'+
+                              '<span style="font-weight:bold;">'+i+'</span>'+
+                              '&nbsp;&nbsp;'+myBook.chapters[obj.chapter - 1][capitulo][i] + 
+                            '</p>'+
+                          '</ons-list-item>';
             }
           }
+          obj.text += '<section style="margin: 16px"><ons-button modifier="large" class="button-margin">MARCAR CAPÍTULO COMO LIDO</ons-button></section>'
           $("#textoLivro").html(obj.text);
+        });
+
+
+        $( ".txt_versiculo" ).click(function() {
+          var marcado = $(this).attr('marcado');
+          var id = $(this).attr('id');
+          var versiculo = $(this).attr('livro')+"||"+$(this).attr('num_capitulo')+'.'+$(this).attr('num_versiculo')
+
+          if (marcado==0) {
+              $('#'+id).attr('marcado',1);
+              $('#'+id).css("background","yellow");
+                      // Adiciona pessoa ao cadastro
+              lista_marcadores.push(versiculo);
+              // Salva a lista alterada
+              localStorage.setItem("lista-marcadores", JSON.stringify(lista_marcadores));
+          }
+          else{
+              $(this).attr('marcado',0);
+              $(this).css("background","#f5f5f5");
+              lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores'));
+              app.retirarMarcador(versiculo, lista_marcadores);
+          }      
         });
       }
     });

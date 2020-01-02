@@ -29,19 +29,19 @@
 
 <template id="tabbar.html">
     <ons-page id="tabbar-page" class="">
-        <ons-toolbar>
+        <ons-toolbar id="tabbar_">
             <div class="center"><center>Bíblia Sagrada NVI</center></div>
         </ons-toolbar>
         <ons-tabbar swipeable id="appTabbar" position="auto">
             <ons-tab label="Versão 1.0.5" page="home.html" active></ons-tab>
-            <!--<ons-tab label="Antigo Testamento" page="antigo_testamento.html"></ons-tab>
-            <ons-tab label="Novo Testamento" page="novo_testamento.html"></ons-tab>-->
+            <!--<ons-tab label="Antigo Testamento" page="antigoTestamento.html"></ons-tab>
+            <ons-tab label="Novo Testamento" page="novoTestamento.html"></ons-tab>-->
         </ons-tabbar>
 
         <script>
           ons.getScriptPage().addEventListener('prechange', function(event) {
             if (event.target.matches('#appTabbar')) {
-              event.currentTarget.querySelector('ons-toolbar .center center').innerHTML = 'Bíblia Sagrada NVI';
+              event.currentTarget.querySelector('#tabbar_ .center center').innerHTML = 'Bíblia Sagrada NVI';
             }
           });
         </script>
@@ -65,7 +65,7 @@
             </ons-card>
         </ons-col>
         <ons-col>
-            <ons-card onclick="fn.pushPage({'id': 'palavra_dia.html', 'title': 'Palavra do dia'})">
+            <ons-card onclick="fn.pushPage({'id': 'palavraDia.html', 'title': 'Palavra do dia'})">
               <div class="title titulo_menu"><i class="fas fa-comment"></i><br>PALAVRA DO DIA</div>
             </ons-card>
         </ons-col>
@@ -79,7 +79,7 @@
         </ons-col>
         <ons-col>
             <ons-card onclick="fn.pushPage({'id': 'carousel.html', 'title': 'Carousel'})">
-              <div class="title titulo_menu"><i class="fas fa-edit"></i><br>VERSÍCLOS MARCADOS</div>
+              <div class="title titulo_menu"><i class="fas fa-edit"></i><br>VERSÍCULOS MARCADOS</div>
             </ons-card>
         </ons-col>
     </ons-row>
@@ -96,6 +96,7 @@
             </ons-card>
         </ons-col>
     </ons-row>
+
     <style>
       .intro {
         text-align: center;
@@ -116,9 +117,9 @@
   </ons-page>
 </template>
 
-<template id="palavra_dia.html">
+<template id="palavraDia.html">
   <ons-page>
-        <ons-toolbar>
+        <ons-toolbar id="palavraDia_">
             <div class="left">
                 <ons-back-button>Palavra do Dia</ons-back-button>
             </div>
@@ -131,7 +132,7 @@
     <script>
         ons.getScriptPage().onInit = function () {
             admob.interstitial.show();
-            this.querySelector('ons-toolbar div.center').textContent = 'Palavra do Dia';
+            this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
             var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13'];
             app.buscaVersiculo('nvi',versiculos[parseInt(Math.random()*50)]);
         }
@@ -162,21 +163,21 @@
 
 <template id="biblia.html">
   <ons-page>
-        <ons-toolbar>
+        <ons-toolbar id="biblia_">
             <div class="left">
                 <ons-back-button>Bíblia Sagrada</ons-back-button>
             </div>
             <div class="center"></div>
         </ons-toolbar>
-    <ons-card onclick="fn.pushPage({'id': 'antigo_testamento.html', 'title': 'Antigo Testamento'})">
+    <ons-card onclick="fn.pushPage({'id': 'antigoTestamento.html', 'title': 'Antigo Testamento'})">
         <div class="title" style="color: #F5F5F5;">Antigo Testamento</div>
     </ons-card>
-    <ons-card onclick="fn.pushPage({'id': 'novo_testamento.html', 'title': 'Novo Testamento'})">
+    <ons-card onclick="fn.pushPage({'id': 'novoTestamento.html', 'title': 'Novo Testamento'})">
         <div class="title" style="color: #F5F5F5;">Novo Testamento</div>
     </ons-card>
     <script>
         ons.getScriptPage().onInit = function () {
-            this.querySelector('ons-toolbar div.center').textContent = 'Bíblia Sagrada';
+            this.querySelector('#biblia_ div.center').textContent = 'Bíblia Sagrada';
         }
     </script>
     <style>
@@ -203,12 +204,12 @@
   </ons-page>
 </template>
 
-<template id="antigo_testamento.html">
-    <ons-page id="antigo_testamento" class="">
+<template id="antigoTestamento.html">
+    <ons-page id="antigoTestamento_" class="">
         <input type="hidden" id="OneSignalUserId" value="">
         <input type="hidden" id="OneSignalPushToken" value="">
 
-        <ons-toolbar>
+        <ons-toolbar id="">
             <div class="left">
                 <ons-back-button>Antigo Testamento</ons-back-button>
             </div>
@@ -418,7 +419,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            this.querySelector('ons-toolbar div.center').textContent = 'Antigo Testamento';
+            this.querySelector('#antigoTestamento_ div.center').textContent = 'Antigo Testamento';
         }
     </script>
     <style>        
@@ -433,9 +434,9 @@
     </ons-page>
 </template>
 
-<template id="novo_testamento.html">
-    <ons-page id="novo_testamento">
-        <ons-toolbar>
+<template id="novoTestamento.html">
+    <ons-page id="novoTestamento">
+        <ons-toolbar id="novoTestamento_">
             <div class="left">
                 <ons-back-button>Novo Testamento</ons-back-button>
             </div>
@@ -587,7 +588,7 @@
         </ons-list-item>
     <script>
         ons.getScriptPage().onInit = function () {
-            this.querySelector('ons-toolbar div.center').textContent = 'Novo Testamento';
+            this.querySelector('#novoTestamento_ div.center').textContent = 'Novo Testamento';
         }
     </script>
     <style>        
@@ -605,7 +606,7 @@
 
 <template id="conteudoLivro.html">
     <ons-page>
-        <ons-toolbar>
+        <ons-toolbar id="conteudoLivro_">
             <div class="left">
                 <ons-back-button>Conteúdo do Livro</ons-back-button>
             </div>
@@ -616,9 +617,9 @@
         </div>
         <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            //admob.interstitial.show();
             var dados = this.data.title.split('||'); 
-            this.querySelector('ons-toolbar div.center').textContent = dados[1];
+            this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
             for (var i = 0; i < parseInt(dados[2]); i++) {
                 var cap = i+1;
@@ -642,26 +643,45 @@
 
 <template id="textoLivro.html">
     <ons-page>
-        <ons-toolbar>
+        <ons-toolbar id="textoLivro_">
             <div class="left">
                 <ons-back-button>Texto do Livro</ons-back-button>
             </div>
             <div class="center"></div>
             <div class="right">
-                <div style="margin-right: 20px!important;color: #fff">                    
-                    <ons-icon icon="fa-angle-left" id="anterior" style="float: left;"></ons-icon>
-                    <ons-icon  class="showAd" icon="fa-angle-right" id="proximo"></ons-icon>
-                </div>
             </div>
         </ons-toolbar>
-        <div id='textoLivro'>
-             
+        <div id='textoLivro'>             
         </div>
+
+        <ons-fab position="bottom right" style="bottom: 169px;" id="proximo">
+          <ons-icon icon="fa-angle-right"></ons-icon>
+        </ons-fab>
+
+        <ons-fab position="bottom left" style="bottom: 169px;" id="anterior">
+          <ons-icon icon="fa-angle-left"></ons-icon>
+        </ons-fab>
+
+
+        <!--<ons-speed-dial position="bottom right" direction="bottom" :open.sync="spdOpen">
+          <ons-fab position="top right">
+            <ons-icon icon="md-share"></ons-icon>
+          </ons-fab>
+          <ons-speed-dial-item onclick="ons.notification.confirm(`Share on Twitter?`)">
+            <ons-icon icon="md-twitter"></ons-icon>
+          </ons-speed-dial-item>
+          <ons-speed-dial-item onclick="ons.notification.confirm(`Share on Facebook?`)">
+            <ons-icon icon="md-facebook"></ons-icon>
+          </ons-speed-dial-item>
+          <ons-speed-dial-item onclick="ons.notification.confirm(`Share on Google+`)">
+            <ons-icon icon="md-google-plus"></ons-icon>
+          </ons-speed-dial-item>
+        </ons-speed-dial>-->
         <script>
           ons.getScriptPage().onInit = function () {
             var dados = this.data.title.split('||'); 
             var ultimoCap = dados[2];
-            this.querySelector('ons-toolbar div.center').textContent = dados[1]+' '+dados[3];
+            this.querySelector('#textoLivro_ div.center').textContent = dados[1]+' '+dados[3];
 
             //CHAMA DA FUNÇÃO PARA ABRIR MODAL
             fn.showDialog('modal-aguarde');
@@ -672,10 +692,11 @@
 
             var atual = dados[3];
 
+
             $( "#proximo" ).click(function() {
                 if (atual < ultimoCap) {
                     atual++;
-                    $('ons-toolbar div.center').html(dados[1]+' '+atual);
+                    $('#textoLivro_ div.center').html(dados[1]+' '+atual);
 
                     //CHAMA DA FUNÇÃO PARA ABRIR MODAL
                     fn.showDialog('modal-aguarde');
@@ -689,7 +710,7 @@
             $( "#anterior" ).click(function() {
                 if (atual > 1) {
                     atual--;
-                    $('ons-toolbar div.center').html(dados[1]+' '+atual);
+                    $('#textoLivro_ div.center').html(dados[1]+' '+atual);
 
                     //CHAMA DA FUNÇÃO PARA ABRIR MODAL
                     fn.showDialog('modal-aguarde');
@@ -699,7 +720,6 @@
                     timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
                 }      
             });
-
           }
         </script>
         <style>
