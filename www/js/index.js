@@ -168,7 +168,7 @@ var app = {
       }
     });
   },
-  buscaVersiculo: function(version,livro_capitulo_versiculo) {
+  buscaVersiculo: function(version,livro_capitulo_versiculo, id) {
     $("#textoLivro").html('');
     var version = version || "nvi";
     var selector = this;
@@ -192,7 +192,7 @@ var app = {
           var reg = new RegExp('([0-9]?[a-zA-Z]{2,3})([0-9]+)[\.|:]([0-9]+)-?([0-9]{1,3})?');
           var regex = reg.exec(ref);                    
           var myBook = null;
-          var obj = {
+          var obj_v = {
             ref : ref,
             book : regex[1].toLowerCase(),
             chapter : parseInt(regex[2]),
@@ -200,7 +200,7 @@ var app = {
           };
 
           for(i in data){
-            if(data[i].abbrev == obj.book){
+            if(data[i].abbrev == obj_v.book){
                 myBook = data[i];
             }
           }
@@ -209,16 +209,16 @@ var app = {
 
 
           for(var i = start; i <=  end; i++){
-            if (myBook.chapters[obj.chapter - 1][capitulo][i]) {
-                obj.text += '<ons-list-item>'+
+            if (myBook.chapters[obj_v.chapter - 1][capitulo][i]) {
+                obj_v.text += '<ons-list-item>'+
                   '<p style="font-size: 20px;line-height:30px;text-align:justify">'+
-                    myBook.chapters[obj.chapter - 1][capitulo][i] +
+                    myBook.chapters[obj_v.chapter - 1][capitulo][i] +
                   '</p>'+
-                  '<p style="font-size: 15px;">'+livro.toUpperCase()+' '+capitulo+':'+versiculo+'</p>'+
+                  '<p style="font-size: 15px;">'+livro.toUpperCase()+' '+capitulo+':'+i+'</p>'+
                 '</ons-list-item>';
             }
           }
-          $("#textoVersiculo").html(obj.text);
+          $("#"+id).append(obj_v.text);
         });
       }
     });

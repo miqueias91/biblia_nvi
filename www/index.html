@@ -78,7 +78,7 @@
             </ons-card>
         </ons-col>
         <ons-col>
-            <ons-card onclick="fn.pushPage({'id': 'carousel.html', 'title': 'Carousel'})">
+            <ons-card onclick="fn.pushPage({'id': 'versiculosMarcados.html', 'title': 'Carousel'})">
               <div class="title titulo_menu"><i class="fas fa-edit"></i><br>VERSÍCULOS MARCADOS</div>
             </ons-card>
         </ons-col>
@@ -117,6 +117,57 @@
   </ons-page>
 </template>
 
+<template id="versiculosMarcados.html">
+  <ons-page>
+        <ons-toolbar id="versiculosMarcados_">
+            <div class="left">
+                <ons-back-button>Versículos Marcados</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+        <div id="textoVersiculo">
+            
+        </div>
+
+    <script>
+        ons.getScriptPage().onInit = function () {
+            admob.interstitial.show();
+            $("#textoVersiculo").html('');
+            this.querySelector('#versiculosMarcados_ div.center').textContent = 'Versículos Marcados';
+            var lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores') || '[]');
+            lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores'));
+            if (lista_marcadores) {
+              for(var i=0; i<lista_marcadores.length; i++) {
+                app.buscaVersiculo('nvi',lista_marcadores[i],"textoVersiculo");
+               
+              }   
+            }
+        }
+    </script>
+    <style>
+        .button-margin {
+            margin: 6px 0;
+        }
+
+      .intro {
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
 <template id="palavraDia.html">
   <ons-page>
         <ons-toolbar id="palavraDia_">
@@ -132,9 +183,10 @@
     <script>
         ons.getScriptPage().onInit = function () {
             admob.interstitial.show();
+            $("#textoVersiculo").html('');
             this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
             var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13'];
-            app.buscaVersiculo('nvi',versiculos[parseInt(Math.random()*50)]);
+            app.buscaVersiculo('nvi',versiculos[parseInt(Math.random()*50)],"textoVersiculo");
         }
     </script>
     <style>
