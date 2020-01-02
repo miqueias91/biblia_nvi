@@ -81,6 +81,30 @@ var app = {
     }
     return false;
   },  
+  retirarCapitulo: function(search_array, array) {
+    for(var i=0; i<array.length; i++) {
+        if(array[i] === search_array) {
+          var indice = array.indexOf(search_array);
+          array.splice(indice, 1);
+        }
+    }
+    var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
+    localStorage.removeItem(lista_capitulos);
+    localStorage.setItem("lista-capitulos", JSON.stringify(array));
+  },
+  incluirCapitulo: function(search_array) {
+    array = JSON.parse(localStorage.getItem('lista-capitulos'));
+    if (array) {
+      for(var i=0; i<array.length; i++) {
+          if(array[i] === search_array) {
+            return true;
+          }
+        return false;
+      }   
+      return false;   
+    }
+    return false;
+  },  
   buscaTexto: function(version,livro,capitulo) {
     $("#textoLivro").html('');
     var version = version || "nvi";
@@ -122,12 +146,18 @@ var app = {
           for (var i in myBook.chapters[obj.chapter - 1][parseInt(capitulo)]) {
             if (myBook.chapters[obj.chapter - 1][capitulo][i]) {
               var marcado = 0;
+              var capitulo_marcado = 0;
               var background = '#f5f5f5';
               var existe_marcado = app.incluirMarcador(livro+'||'+capitulo+'.'+i);
-              
+              var existe_capitulo = app.incluirCapitulo(livro+' '+capitulo);
+
               if (existe_marcado) {
                 marcado = 1;
                 background = 'yellow';
+              }
+
+              if (existe_capitulo) {
+                capitulo_marcado = 1;
               }
 
               obj.text += '<ons-list-item>'+
@@ -138,8 +168,30 @@ var app = {
                           '</ons-list-item>';
             }
           }
-          obj.text += '<section style="margin: 16px"><ons-button modifier="large" class="button-margin">MARCAR CAPÍTULO COMO LIDO</ons-button></section>'
+          obj.text += '<section style="margin: 16px"><ons-button capitulo_marcado="'+capitulo_marcado+'" modifier="large" class="button-margin marcar_capitulo" livro_marcar="'+livro+'" num_capitulo_marcar="'+capitulo+'">MARCAR CAPÍTULO COMO LIDO</ons-button></section>'
           $("#textoLivro").html(obj.text);
+        });
+
+        $( ".marcar_capitulo" ).click(function() {
+          var capitulo_marcar = $(this).attr('livro_marcar')+" "+$(this).attr('num_capitulo_marcar');
+          capitulo = $(this).attr('capitulo_marcado');
+
+          if (capitulo == 0) {
+            $(this).attr('capitulo_marcado',1);
+            // Adiciona pessoa ao cadastro
+            var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
+            lista_capitulos.push(capitulo_marcar);
+            // Salva a lista alterada
+            localStorage.setItem("lista-capitulos", JSON.stringify(lista_capitulos));
+            ons.notification.toast('Capítulo marcado como lido.', { buttonLabel: 'Ok', timeout: 1500 });
+          }
+          else{
+            $(this).attr('capitulo_marcado',0);
+            lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos'));
+            app.retirarCapitulo(capitulo_marcar, lista_capitulos);
+            ons.notification.toast('Capítulo desmarcado como lido.', { buttonLabel: 'Ok', timeout: 1500 });
+          }
+
         });
 
 

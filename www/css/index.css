@@ -61,6 +61,9 @@ ons-fab.fab--material{
 }
 
 .card--material {
-    background-color: #00008B;
+    background-color: #4682B4;
     border-radius: 20px;
+}
+.card {
+    padding: 7px;
 }
