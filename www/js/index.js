@@ -1,6 +1,5 @@
 var timeout = 5000;
 // Pega a lista já cadastrada, se não houver vira um array vazio
-var lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores') || '[]');
 window.fn = {};
 
 window.fn.toggleMenu = function () {
@@ -71,13 +70,13 @@ var app = {
     localStorage.setItem("lista-marcadores", JSON.stringify(array));
   },
   incluirMarcador: function(search_array) {
-    /*array = JSON.parse(localStorage.getItem('lista-marcadores'));
+    array = JSON.parse(localStorage.getItem('lista-marcadores'));
     for(var i=0; i<array.length; i++) {
         if(array[i] === search_array) {
           return true;
         }
-    }*/
-    return false;
+      return false;
+    }
   },  
   buscaTexto: function(version,livro,capitulo) {
     $("#textoLivro").html('');

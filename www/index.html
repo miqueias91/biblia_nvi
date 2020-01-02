@@ -618,6 +618,7 @@
         <script>
         ons.getScriptPage().onInit = function () {
             admob.interstitial.show();
+            var lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores') || '[]');
             var dados = this.data.title.split('||'); 
             this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
