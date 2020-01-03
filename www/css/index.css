@@ -33,6 +33,7 @@ body {
 ons-fab.fab--material{
     background-color: #333!important;
     color: #F5F5F5!important;
+    opacity: 0.6!important;
 }
 .page--material__background {
     background-color: #F5F5F5!important;
