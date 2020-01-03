@@ -1394,7 +1394,7 @@
         </div>
         <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            //admob.interstitial.show();
             var dados = this.data.title.split('||'); 
             this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
@@ -1456,7 +1456,7 @@
 
 
             $( "#proximo" ).click(function() {
-                if (atual < ultimoCap) {
+                if (parseInt(atual) < parseInt(ultimoCap)) {
                     atual++;
                     $('#textoLivro_ div.center').html(dados[1]+' '+atual);
 
@@ -1470,7 +1470,7 @@
             });
 
             $( "#anterior" ).click(function() {
-                if (atual > 1) {
+                if (parseInt(atual) > 1) {
                     atual--;
                     $('#textoLivro_ div.center').html(dados[1]+' '+atual);
 
