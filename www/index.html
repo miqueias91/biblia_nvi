@@ -20,32 +20,161 @@
 
 <body>
 <ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
-    <ons-page>
-        <ons-splitter id="appSplitter">
-            <ons-splitter-content page="tabbar.html"></ons-splitter-content>
-        </ons-splitter>
-    </ons-page>
+  <ons-page>
+    <ons-splitter id="appSplitter">
+      <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="left" collapse="" width="260px"></ons-splitter-side>
+      <ons-splitter-content page="tabbar.html"></ons-splitter-content>
+    </ons-splitter>
+  </ons-page>
 </ons-navigator>
 
 <template id="tabbar.html">
-    <ons-page id="tabbar-page" class="">
-        <ons-toolbar id="tabbar_">
-            <div class="center"><center>Bíblia Sagrada NVI</center></div>
-        </ons-toolbar>
-        <ons-tabbar swipeable id="appTabbar" position="auto">
-            <ons-tab label="Versão 1.0.5" page="home.html" active></ons-tab>
-            <!--<ons-tab label="Antigo Testamento" page="antigoTestamento.html"></ons-tab>
-            <ons-tab label="Novo Testamento" page="novoTestamento.html"></ons-tab>-->
-        </ons-tabbar>
+  <ons-page id="tabbar-page">
+    <ons-toolbar id="tabbar_">
+        <div class="center"><center>Bíblia Sagrada NVI</center></div>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.toggleMenu()">
+          <ons-icon style="color: #f5f5f5" icon="ion-navicon, material:md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+    <ons-tabbar swipeable id="appTabbar" position="bottom">
+        <ons-tab label="Versão 1.0.6" page="home.html" active></ons-tab>
+    </ons-tabbar>
 
-        <script>
-          ons.getScriptPage().addEventListener('prechange', function(event) {
-            if (event.target.matches('#appTabbar')) {
+    <script>
+      ons.getScriptPage().addEventListener('prechange', function(event) {
+        if (event.target.matches('#appTabbar')) {
               event.currentTarget.querySelector('#tabbar_ .center center').innerHTML = 'Bíblia Sagrada NVI';
-            }
-          });
-        </script>
-    </ons-page>
+        }
+      });
+    </script>
+  </ons-page>
+</template>
+
+<template id="sidemenu.html">
+  <ons-page>
+    <div class="profile-pic">
+      <img src="img/logo.png">
+    </div>
+
+    <ons-list>
+      <ons-list-item onclick="fn.pushPage({'id': 'biblia.html', 'title': 'Bíblia Sagrada'})">
+        <div class="left">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="center">
+          Bíblia Sagrada
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+      <ons-list-item onclick="fn.pushPage({'id': 'palavraDia.html', 'title': 'Palavra do dia'})">
+        <div class="left">
+          <i class="fas fa-comment"></i>
+        </div>
+        <div class="center">
+          Palavra do dia
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+      <ons-list-item onclick="fn.pushPage({'id': 'quizBiblia.html', 'title': 'Quiz da Bíblia'})">
+        <div class="left">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="center">
+          Quiz da Bíblia
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+    <ons-list-item onclick="fn.pushPage({'id': 'versiculosMarcados.html', 'title': 'Versículos Marcados'})">
+        <div class="left">
+            <i class="fas fa-edit"></i>
+        </div>
+        <div class="center">
+          Versículos Marcados
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+    <ons-list-item onclick="fn.pushPage({'id': 'anotacoes.html', 'title': 'Anotações'})">
+        <div class="left">
+            <i class="fas fa-copy"></i>
+        </div>
+        <div class="center">
+          Anotações
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+    <ons-list-item onclick="fn.pushPage({'id': 'capitulosLidos.html', 'title': 'Capítulos Lidos'})">
+        <div class="left">
+            <i class="fas fa-list-alt"></i>
+        </div>
+        <div class="center">
+          Capítulos Lidos
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+    </ons-list>
+
+    
+
+    <ons-list>
+      <ons-list-item onclick="fn.loadLink('https://play.google.com/store/apps/collection/cluster?clp=igNKChkKEzU4MzY0OTEwMzM3MTQyMDQzODIQCBgDEisKJWNvbS5waG9uZWdhcC5naXJpYXNlc3RhZG9zYnJhc2lsZWlyb3MQARgDGAE%3D:S:ANO1ljIUr74&gsr=Ck2KA0oKGQoTNTgzNjQ5MTAzMzcxNDIwNDM4MhAIGAMSKwolY29tLnBob25lZ2FwLmdpcmlhc2VzdGFkb3NicmFzaWxlaXJvcxABGAMYAQ%3D%3D:S:ANO1ljJSHsA')">
+        <div class="left">
+          <i class="fab fa-google-play"></i>
+        </div>
+        <div class="center">
+          Outros app's
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-external-link"></ons-icon>
+        </div>
+      </ons-list-item>
+    </ons-list>
+
+    <script>
+      ons.getScriptPage().onInit = function() {
+        // Set ons-splitter-side animation
+        this.parentElement.setAttribute('animation', ons.platform.isAndroid() ? 'overlay' : 'reveal');
+      };
+    </script>
+
+    <style>
+      .profile-pic {
+        width: 100%;
+        background-color: #333;
+        margin: 0 auto;
+      }
+
+        .profile-pic > img {
+            width: 80px;
+            height: 80px;
+            display: block;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+      ons-list-item {
+        color: #444;
+      }
+    </style>
+  </ons-page>
 </template>
 
 <!-- MODAL DE AGUARDE -->
@@ -58,50 +187,22 @@
 
 <template id="home.html">
   <ons-page>
-    <ons-row>
-        <ons-col>
-            <ons-card onclick="fn.pushPage({'id': 'biblia.html', 'title': 'Bíblia Sagrada'})">
-              <div class="title titulo_menu"><i class="fas fa-book-open"></i><br>BÍBLIA SAGRADA</div>
-            </ons-card>
-        </ons-col>
-        <ons-col>
-            <ons-card onclick="fn.pushPage({'id': 'palavraDia.html', 'title': 'Palavra do dia'})">
-              <div class="title titulo_menu"><i class="fas fa-comment"></i><br>PALAVRA DO DIA</div>
-            </ons-card>
-        </ons-col>
-    </ons-row>
+<p class="intro">Essa tradução foi feita a partir das línguas em que os textos bíblicos foram originalmente escritos (hebraico, aramaico e grego). A NVI foi produzida com os seguintes objetivos fundamentais:</p>
 
-    <ons-row>
-        <ons-col>
-            <ons-card onclick="fn.pushPage({'id': 'quizBiblia.html', 'title': 'Buttons'})">
-              <div class="title titulo_menu"><i class="fas fa-comments"></i><br>QUIZ DA BÍBLIA</div>
-            </ons-card>
-        </ons-col>
-        <ons-col>
-            <ons-card onclick="fn.pushPage({'id': 'versiculosMarcados.html', 'title': 'Carousel'})">
-              <div class="title titulo_menu"><i class="fas fa-edit"></i><br>VERSÍCULOS MARCADOS</div>
-            </ons-card>
-        </ons-col>
-    </ons-row>
+<p class="intro">Clareza — o texto foi traduzido de forma que pudesse ser lido pela população em geral sem maiores dificuldades, porém sem ser demasiadamente informal. Arcaísmos, por exemplo, foram banidos, e regionalismos, evitados.</p>
 
-    <ons-row>
-        <ons-col>
-            <ons-card onclick="fn.pushPage({'id': 'capitulosLidos.html', 'title': 'Infinite Scroll'})">
-              <div class="title titulo_menu"><i class="fas fa-list-alt"></i><br>CAPÍTULOS LIDOS</div>
-            </ons-card>
-        </ons-col>
-        <ons-col>
-            <ons-card onclick="fn.loadLink('https://play.google.com/store/apps/collection/cluster?clp=igNKChkKEzU4MzY0OTEwMzM3MTQyMDQzODIQCBgDEisKJWNvbS5waG9uZWdhcC5naXJpYXNlc3RhZG9zYnJhc2lsZWlyb3MQARgDGAE%3D:S:ANO1ljIUr74&gsr=Ck2KA0oKGQoTNTgzNjQ5MTAzMzcxNDIwNDM4MhAIGAMSKwolY29tLnBob25lZ2FwLmdpcmlhc2VzdGFkb3NicmFzaWxlaXJvcxABGAMYAQ%3D%3D:S:ANO1ljJSHsA')">
-              <div class="title titulo_menu"><i class="fab fa-google-play"></i><br>OUTROS APP'S</div>
-            </ons-card>
-        </ons-col>
-    </ons-row>
+<p class="intro">Fidelidade — a tradução deve ser fiel ao significado pretendido pelos autores originais.</p>
+
+<p class="intro">Beleza de estilo — o resultado deve permitir uma leitura agradável, e uma boa sonoridade ao ser falado em público.
+O projeto de tradução para a língua portuguesa começou em 1990, com a reunião da comissão da Sociedade Bíblica Internacional, sob coordenação do linguista e hebraista, Rev. Luiz Sayão. Inicialmente foi publicado uma versão do Novo Testamento, em 1991. O projeto foi totalmente patrocinado pela International Bible Society, ainda que difundida e vendida por outras editoras. A editora Zondervan, tradicional casa publicadora de linha reformada norte-americana de origem holandesa, conhecida publicadora de Bíblias por décadas, como a King James Version, a Berkeley Version, a Amplified Bible e a NIV, teve participação divulgação e distribuição da NVI, ainda que não em sua elaboração.</p>
+
+<p class="intro">A tradução definitiva e completa em português foi publicada em 2000, a partir das línguas originais, com base na mesma filosofia tradutológica da New International Version (NIV).</p>
+
 
     <style>
       .intro {
-        text-align: center;
+        text-align: justify;
         padding: 0 20px;
-        margin-top: 40px;
       }
 
       ons-card {
@@ -131,7 +232,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            //admob.interstitial.show();
             $("#textoVersiculo").html('');
             this.querySelector('#versiculosMarcados_ div.center').textContent = 'Versículos Marcados';
             var lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores') || '[]');
@@ -182,7 +283,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            //admob.interstitial.show();
             $("#textoVersiculo").html('');
             this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
             var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13'];
@@ -579,7 +680,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            //admob.interstitial.show();
             this.querySelector('#quizBiblia_ div.center').textContent = 'Quiz da Bíblia';
         
             var currentValue1 = '';
@@ -851,7 +952,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            //admob.interstitial.show();
             this.querySelector('#quizBibliaResposta_ div.center').textContent = 'Quiz da Bíblia Resposta';
         }
     </script>
@@ -892,7 +993,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            //admob.interstitial.show();
             $("#textoCapitulosLidos").html('');
             this.querySelector('#capitulosLidos_ div.center').textContent = 'Capítulos Lidos';
             var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
@@ -1393,7 +1494,7 @@
         </div>
         <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            //admob.interstitial.show();
             var dados = this.data.title.split('||'); 
             this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
@@ -1446,7 +1547,7 @@
 
             //CHAMA DA FUNÇÃO PARA ABRIR MODAL
             fn.showDialog('modal-aguarde');
-            app.buscaTexto('nvi',dados[0],dados[3]);
+            app.buscaTexto('nvi',dados[0],dados[3], dados[1]);
             var timeoutID = 0;
             clearTimeout(timeoutID);
             timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
@@ -1461,7 +1562,7 @@
 
                     //CHAMA DA FUNÇÃO PARA ABRIR MODAL
                     fn.showDialog('modal-aguarde');
-                    app.buscaTexto('nvi',dados[0],atual);
+                    app.buscaTexto('nvi',dados[0],atual, dados[1]);
                     var timeoutID = 0;
                     clearTimeout(timeoutID);
                     timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
@@ -1475,7 +1576,7 @@
 
                     //CHAMA DA FUNÇÃO PARA ABRIR MODAL
                     fn.showDialog('modal-aguarde');
-                    app.buscaTexto('nvi',dados[0],atual);
+                    app.buscaTexto('nvi',dados[0],atual, dados[1]);
                     var timeoutID = 0;
                     clearTimeout(timeoutID);
                     timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);

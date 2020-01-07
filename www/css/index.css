@@ -65,3 +65,6 @@ ons-fab.fab--material{
     background-color: #4682B4;
     border-radius: 20px;
 }
+.list-item--material__center {
+    padding: 0 10px!important;
+}

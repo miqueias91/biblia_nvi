@@ -1,9 +1,18 @@
 var timeout = 5000;
-// Pega a lista já cadastrada, se não houver vira um array vazio
 window.fn = {};
+var ultimo_livro_lido = localStorage.getItem('ultimo_livro_lido');
+var ultimo_livro_lido_abr = localStorage.getItem('ultimo_livro_lido_abr');
+var ultimo_capitulo_lido = localStorage.getItem('ultimo_capitulo_lido');
+
+
+
 window.fn.toggleMenu = function () {
-  document.getElementById('appSplitter').right.toggle();
+  document.getElementById('appSplitter').left.toggle();
 };
+
+/*window.fn.toggleMenu = function () {
+  document.getElementById('appSplitter').right.toggle();
+};*/
 
 window.fn.loadView = function (index) {
   document.getElementById('appTabbar').setActiveTab(index);
@@ -36,6 +45,12 @@ window.fn.hideDialog = function (id) {
 var app = {
   // Application Constructor
   initialize: function() {
+    if (JSON.parse(ultimo_capitulo_lido)) {
+      fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
+    }
+    else{
+      fn.pushPage({'id': 'textoLivro.html', 'title': 'Gn||Gênesis||50||1'});
+    }
     document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
   },
   // deviceready Event Handler    
@@ -105,7 +120,11 @@ var app = {
     }
     return false;
   },  
-  buscaTexto: function(version,livro,capitulo) {
+  buscaTexto: function(version,livro,capitulo, nome) {
+    localStorage.setItem("ultimo_livro_lido", nome);
+    localStorage.setItem("ultimo_livro_lido_abr", livro);
+    localStorage.setItem("ultimo_capitulo_lido", capitulo);
+
     $("#textoLivro").html('');
     var version = version || "nvi";
     var selector = this;
