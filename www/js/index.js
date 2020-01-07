@@ -3,7 +3,7 @@ window.fn = {};
 var ultimo_livro_lido = localStorage.getItem('ultimo_livro_lido');
 var ultimo_livro_lido_abr = localStorage.getItem('ultimo_livro_lido_abr');
 var ultimo_capitulo_lido = localStorage.getItem('ultimo_capitulo_lido');
-
+var id = '';
 
 
 window.fn.toggleMenu = function () {
@@ -165,13 +165,14 @@ var app = {
           for (var i in myBook.chapters[obj.chapter - 1][parseInt(capitulo)]) {
             if (myBook.chapters[obj.chapter - 1][capitulo][i]) {
               var marcado = 0;
+              var txt_marcado = 0;
               var capitulo_marcado = 0;
               var background = '#f5f5f5';
               var existe_marcado = app.incluirMarcador(livro+'||'+capitulo+'.'+i);
               var existe_capitulo = app.incluirCapitulo(livro+' '+capitulo);
 
               if (existe_marcado) {
-                marcado = 1;
+                txt_marcado = 1;
                 background = 'yellow';
               }
 
@@ -180,7 +181,7 @@ var app = {
               }
 
               obj.text += '<ons-list-item>'+
-                            '<p style="font-size: 20px;text-align:justify;line-height: 25px;background:'+background+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'">'+
+                            '<p style="font-size: 20px;text-align:justify;line-height: 25px;background:'+background+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'" txt_marcado="'+txt_marcado+'">'+
                               '<span style="font-weight:bold;">'+i+'</span>'+
                               '&nbsp;&nbsp;'+myBook.chapters[obj.chapter - 1][capitulo][i] + 
                             '</p>'+
@@ -216,24 +217,52 @@ var app = {
 
         $( ".txt_versiculo" ).click(function() {
           marcado = $(this).attr('marcado');
-          var id = $(this).attr('id');
+          id = $(this).attr('id');
           var versiculo = $(this).attr('livro')+"||"+$(this).attr('num_capitulo')+'.'+$(this).attr('num_versiculo')
 
           if (marcado==0) {
               $('#'+id).attr('marcado',1);
-              $('#'+id).css("background","yellow");
-              // Adiciona pessoa ao cadastro
-              var lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores') || '[]');
-
-              lista_marcadores.push(versiculo);
-              // Salva a lista alterada
-              localStorage.setItem("lista-marcadores", JSON.stringify(lista_marcadores));
+              $('#'+id).attr('txt_marcado',0);
+              $(".botao_controle").css("display","none");
+              $(".cores").css("display","");
+              $('#'+id).css("background","#ccc");
+              lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores'));
+              app.retirarMarcador(versiculo, lista_marcadores);
           }
           else{
               $(this).attr('marcado',0);
-              $(this).css("background","#f5f5f5");
+              $(this).attr('txt_marcado',0);
+              $(".cores").css("display","none");
+              $(".botao_controle").css("display","");
+              $('#'+id).css("background","#f5f5f5");
               lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores'));
               app.retirarMarcador(versiculo, lista_marcadores);
+          }      
+        });
+
+        $( ".cores" ).click(function() {
+          marcado = $(this).attr('marcado');
+          var cor = $(this).attr('id');
+          var versiculo = $('#'+id).attr('livro')+"||"+$('#'+id).attr('num_capitulo')+'.'+$('#'+id).attr('num_versiculo')
+
+          if (marcado==0) {
+              $('#'+id).attr('marcado',1);
+              $('#'+id).attr('txt_marcado',0);
+              $(".botao_controle").css("display","none");
+              $(".cores").css("display","");
+              $('#'+id).css("background","#f5f5f5");
+              lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores'));
+              app.retirarMarcador(versiculo, lista_marcadores);
+          }
+          else{
+              $("#"+id).attr('marcado',0);
+              $('#'+id).attr('txt_marcado',1);
+              $(".cores").css("display","none");
+              $(".botao_controle").css("display","");
+              $("#"+id).css("background",cor);
+              var lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores') || '[]');
+              lista_marcadores.push(versiculo);
+              localStorage.setItem("lista-marcadores", JSON.stringify(lista_marcadores));
           }      
         });
       }
