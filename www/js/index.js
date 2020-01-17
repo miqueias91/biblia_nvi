@@ -1,9 +1,9 @@
-var timeout = 5000;
 window.fn = {};
 var ultimo_livro_lido = localStorage.getItem('ultimo_livro_lido');
 var ultimo_livro_lido_abr = localStorage.getItem('ultimo_livro_lido_abr');
 var ultimo_capitulo_lido = localStorage.getItem('ultimo_capitulo_lido');
 var id = '';
+var usar_cores = 0;
 
 
 window.fn.toggleMenu = function () {
@@ -72,27 +72,24 @@ var app = {
       
     }
   },
-  retirarMarcador: function(search_array, array) {
+  retirarMarcadorVersiculo: function(livro, num_capitulo, num_versiculo, array) {
     for(var i=0; i<array.length; i++) {
-        if(array[i] === search_array) {
-          var indice = array.indexOf(search_array);
-          array.splice(indice, 1);
-        }
+      if((array[i]['livro'] === livro) && (array[i]['num_capitulo'] === num_capitulo) && (array[i]['num_versiculo'] === num_versiculo)) {
+        array.splice(i, 1);
+      }
     }
-    var lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores') || '[]');
-    localStorage.removeItem(lista_marcadores);
-    localStorage.setItem("lista-marcadores", JSON.stringify(array));
+    var lista_versiculos = JSON.parse(localStorage.getItem('lista-versiculos') || '[]');
+    localStorage.removeItem(lista_versiculos);
+    localStorage.setItem("lista-versiculos", JSON.stringify(array));
   },
-  incluirMarcador: function(search_array) {
-    array = JSON.parse(localStorage.getItem('lista-marcadores'));
+  incluirMarcadorVersiculo: function(livro, num_capitulo, num_versiculo) {
+    array = JSON.parse(localStorage.getItem('lista-versiculos'));
     if (array) {
-      for(var i=0; i<array.length; i++) {
-          if(array[i] === search_array) {
-            return true;
-          }
-        return false;
+      for(var i=0; i< array.length; i++) {
+        if((array[i]['livro'] === livro) && (array[i]['num_capitulo'] === num_capitulo) && (array[i]['num_versiculo'] === num_versiculo)) {
+          return array[i]['cor'];
+        }
       }   
-      return false;   
     }
     return false;
   },  
@@ -168,12 +165,11 @@ var app = {
               var txt_marcado = 0;
               var capitulo_marcado = 0;
               var background = '#f5f5f5';
-              var existe_marcado = app.incluirMarcador(livro+'||'+capitulo+'.'+i);
+              var existe_marcado = app.incluirMarcadorVersiculo(livro, capitulo, i);
               var existe_capitulo = app.incluirCapitulo(livro+' '+capitulo);
-
               if (existe_marcado) {
                 txt_marcado = 1;
-                background = 'yellow';
+                background = existe_marcado;
               }
 
               if (existe_capitulo) {
@@ -198,10 +194,8 @@ var app = {
 
           if (capitulo == 0) {
             $(this).attr('capitulo_marcado',1);
-            // Adiciona pessoa ao cadastro
             var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
             lista_capitulos.push(capitulo_marcar);
-            // Salva a lista alterada
             localStorage.setItem("lista-capitulos", JSON.stringify(lista_capitulos));
             ons.notification.toast('Capítulo marcado como lido.', { buttonLabel: 'Ok', timeout: 1500 });
           }
@@ -211,58 +205,85 @@ var app = {
             app.retirarCapitulo(capitulo_marcar, lista_capitulos);
             ons.notification.toast('Capítulo desmarcado como lido.', { buttonLabel: 'Ok', timeout: 1500 });
           }
-
         });
 
 
         $( ".txt_versiculo" ).click(function() {
           marcado = $(this).attr('marcado');
-          id = $(this).attr('id');
-          var versiculo = $(this).attr('livro')+"||"+$(this).attr('num_capitulo')+'.'+$(this).attr('num_versiculo')
-
+          id = $(this).attr('id');          
+          var livro = $('#'+id).attr('livro');
+          var num_capitulo = $('#'+id).attr('num_capitulo');
+          var num_versiculo = $('#'+id).attr('num_versiculo');
           if (marcado==0) {
-              $('#'+id).attr('marcado',1);
-              $('#'+id).attr('txt_marcado',0);
-              $(".botao_controle").css("display","none");
+            usar_cores++;
+            if(parseInt(usar_cores) === 1){
               $(".cores").css("display","");
-              $('#'+id).css("background","#ccc");
-              lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores'));
-              app.retirarMarcador(versiculo, lista_marcadores);
+            }
+            else{
+              $(".cores").css("display","none");
+            }
+            $('#'+id).attr('marcado',1);
+            $('#'+id).attr('txt_marcado',0);
+            $(".botao_controle").css("display","none");
+            $('#'+id).css("background","#ccc");
+
+            lista_versiculos = JSON.parse(localStorage.getItem('lista-versiculos'));
+            app.retirarMarcadorVersiculo(livro, num_capitulo, num_versiculo, lista_versiculos);
           }
           else{
-              $(this).attr('marcado',0);
-              $(this).attr('txt_marcado',0);
+            usar_cores--;
+            $(this).attr('marcado',0);
+            $(this).attr('txt_marcado',0);
+            if(parseInt(usar_cores) === 1){
+              $(".cores").css("display","");
+              $(".botao_controle").css("display","none");
+            }
+            else{
               $(".cores").css("display","none");
-              $(".botao_controle").css("display","");
-              $('#'+id).css("background","#f5f5f5");
-              lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores'));
-              app.retirarMarcador(versiculo, lista_marcadores);
+              if(parseInt(usar_cores) > 1){
+                $(".botao_controle").css("display","none");
+              }
+              else{
+                $(".botao_controle").css("display","");
+              }
+            }              
+            $('#'+id).css("background","#f5f5f5");
+            lista_versiculos = JSON.parse(localStorage.getItem('lista-versiculos'));
+            app.retirarMarcadorVersiculo(livro, num_capitulo, num_versiculo, lista_versiculos);
           }      
         });
 
         $( ".cores" ).click(function() {
           marcado = $(this).attr('marcado');
           var cor = $(this).attr('id');
-          var versiculo = $('#'+id).attr('livro')+"||"+$('#'+id).attr('num_capitulo')+'.'+$('#'+id).attr('num_versiculo')
-
+          var livro = $('#'+id).attr('livro');
+          var num_capitulo = $('#'+id).attr('num_capitulo');
+          var num_versiculo = $('#'+id).attr('num_versiculo');
+    
           if (marcado==0) {
-              $('#'+id).attr('marcado',1);
-              $('#'+id).attr('txt_marcado',0);
-              $(".botao_controle").css("display","none");
-              $(".cores").css("display","");
-              $('#'+id).css("background","#f5f5f5");
-              lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores'));
-              app.retirarMarcador(versiculo, lista_marcadores);
+            $('#'+id).attr('marcado',1);
+            $('#'+id).attr('txt_marcado',0);
+            $(".botao_controle").css("display","none");
+            $(".cores").css("display","");
+            $('#'+id).css("background","#f5f5f5");
+            lista_versiculos = JSON.parse(localStorage.getItem('lista-versiculos'));
+            app.retirarMarcadorVersiculo(livro, num_capitulo, num_versiculo, lista_versiculos);
           }
           else{
-              $("#"+id).attr('marcado',0);
-              $('#'+id).attr('txt_marcado',1);
-              $(".cores").css("display","none");
-              $(".botao_controle").css("display","");
-              $("#"+id).css("background",cor);
-              var lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores') || '[]');
-              lista_marcadores.push(versiculo);
-              localStorage.setItem("lista-marcadores", JSON.stringify(lista_marcadores));
+            id = $("[marcado=1]").attr('id');
+            $("#"+id).attr('marcado',0);
+            $('#'+id).attr('txt_marcado',1);
+            $(".cores").css("display","none");
+            $(".botao_controle").css("display","");
+            $("#"+id).css("background",cor);
+            var livro = $('#'+id).attr('livro');
+            var num_capitulo = $('#'+id).attr('num_capitulo');
+            var num_versiculo = $('#'+id).attr('num_versiculo');
+
+            var lista_versiculos = JSON.parse(localStorage.getItem('lista-versiculos') || '[]');
+            lista_versiculos.push({cor: cor, livro: livro, num_capitulo: num_capitulo, num_versiculo: num_versiculo});
+            localStorage.setItem("lista-versiculos", JSON.stringify(lista_versiculos));
+            usar_cores = 0;
           }      
         });
       }
