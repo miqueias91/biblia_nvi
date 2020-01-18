@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app" ng-csp>
+<html lang="pt-br" ng-app="app" ng-csp>
 <head>
     <meta charset="utf-8" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -95,7 +95,7 @@
         </div>
       </ons-list-item>
 
-    <ons-list-item onclick="fn.pushPage({'id': 'versiculosMarcados.html', 'title': 'Versículos Marcados'})">
+      <ons-list-item onclick="fn.pushPage({'id': 'versiculosMarcados.html', 'title': 'Versículos Marcados'})">
         <div class="left">
             <i class="fas fa-edit"></i>
         </div>
@@ -107,19 +107,7 @@
         </div>
       </ons-list-item>
 
-    <ons-list-item onclick="fn.pushPage({'id': 'anotacoes.html', 'title': 'Anotações'})">
-        <div class="left">
-            <i class="fas fa-copy"></i>
-        </div>
-        <div class="center">
-          Anotações
-        </div>
-        <div class="right">
-          <ons-icon icon="fa-link"></ons-icon>
-        </div>
-      </ons-list-item>
-
-    <ons-list-item onclick="fn.pushPage({'id': 'capitulosLidos.html', 'title': 'Capítulos Lidos'})">
+      <ons-list-item onclick="fn.pushPage({'id': 'capitulosLidos.html', 'title': 'Capítulos Lidos'})">
         <div class="left">
             <i class="fas fa-list-alt"></i>
         </div>
@@ -129,12 +117,20 @@
         <div class="right">
           <ons-icon icon="fa-link"></ons-icon>
         </div>
+      </ons-list-item>    
+
+      <ons-list-item onclick="fn.loadLink('https://www.instagram.com/oficialumavidacomdeus/')">
+        <div class="left">
+            <i class="fab fa-instagram"></i>
+        </div>
+        <div class="center">
+          Instagram
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-external-link"></ons-icon>
+        </div>
       </ons-list-item>
-    </ons-list>
 
-    
-
-    <ons-list>
       <ons-list-item onclick="fn.loadLink('https://play.google.com/store/apps/collection/cluster?clp=igNKChkKEzU4MzY0OTEwMzM3MTQyMDQzODIQCBgDEisKJWNvbS5waG9uZWdhcC5naXJpYXNlc3RhZG9zYnJhc2lsZWlyb3MQARgDGAE%3D:S:ANO1ljIUr74&gsr=Ck2KA0oKGQoTNTgzNjQ5MTAzMzcxNDIwNDM4MhAIGAMSKwolY29tLnBob25lZ2FwLmdpcmlhc2VzdGFkb3NicmFzaWxlaXJvcxABGAMYAQ%3D%3D:S:ANO1ljJSHsA')">
         <div class="left">
           <i class="fab fa-google-play"></i>
@@ -232,7 +228,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
 
     <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             $("#textoVersiculo").html('');
             this.querySelector('#versiculosMarcados_ div.center').textContent = 'Versículos Marcados';
             var lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores') || '[]');
@@ -283,7 +279,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
 
     <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             $("#textoVersiculo").html('');
             this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
             var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13'];
@@ -680,7 +676,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
 
     <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             this.querySelector('#quizBiblia_ div.center').textContent = 'Quiz da Bíblia';
         
             var currentValue1 = '';
@@ -952,7 +948,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
 
     <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             this.querySelector('#quizBibliaResposta_ div.center').textContent = 'Quiz da Bíblia Resposta';
         }
     </script>
@@ -993,7 +989,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
 
     <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             $("#textoCapitulosLidos").html('');
             this.querySelector('#capitulosLidos_ div.center').textContent = 'Capítulos Lidos';
             var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
@@ -1494,7 +1490,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
         </div>
         <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             var dados = this.data.title.split('||'); 
             this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
