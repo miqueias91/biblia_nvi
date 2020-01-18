@@ -85,9 +85,9 @@ var app = {
   incluirMarcadorVersiculo: function(livro, num_capitulo, num_versiculo) {
     array = JSON.parse(localStorage.getItem('lista-versiculos'));
     if (array) {
-      for(var i=0; i< array.length; i++) {
-        if((array[i]['livro'] === livro) && (array[i]['num_capitulo'] === num_capitulo) && (array[i]['num_versiculo'] === num_versiculo)) {
-          return array[i]['cor'];
+      for(var k=0; k < array.length; k++) {
+        if((array[k]['livro'] == livro) && (array[k]['num_capitulo'] == num_capitulo) && (array[k]['num_versiculo'] == num_versiculo)) {
+          return array[k]['cor'];
         }
       }   
     }
