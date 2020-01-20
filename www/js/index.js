@@ -296,13 +296,13 @@ var app = {
             var livro = $(this).attr('livro');
             var num_capitulo = $(this).attr('num_capitulo');
             var num_versiculo = $(this).attr('num_versiculo');
-            text += txt_versiculo+'&nbsp;'+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+            text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
           });
 
           text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
           cordova.plugins.clipboard.copy(text);
           cordova.plugins.clipboard.paste(function (text) { 
-            ons.notification.toast('Copiado para a área de transferência.', { buttonLabel: 'Ok', timeout: 1500 });
+            ons.notification.toast('Copiado para a área de transferência.', { buttonLabel: 'Ok', timeout: 2000 });
           });
           //cordova.plugins.clipboard.clear();
         });
