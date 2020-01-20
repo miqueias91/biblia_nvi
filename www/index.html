@@ -1535,10 +1535,10 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
           null, 
           null, 
           function() {
-            ons.notification.toast('Versículo compartilhado.', { buttonLabel: 'Ok', timeout: 1500 });
+            ons.notification.toast('Compartilhado no WhatsApp.', { buttonLabel: 'Ok', timeout: 1500 });
           }, 
           function(errormsg){
-            ons.notification.toast('Não foi possível compartilhar.', { buttonLabel: 'Ok', timeout: 1500 });
+            ons.notification.toast('Não foi possível compartilhar no WhatsApp.', { buttonLabel: 'Ok', timeout: 1500 });
           }
         )">
         <ons-icon icon="md-whatsapp"></ons-icon>
@@ -1549,12 +1549,29 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
           null, 
           null, 
           function() {
-            ons.notification.toast('Versículo compartilhado.', { buttonLabel: 'Ok', timeout: 1500 });
+            ons.notification.toast('Compartilhado no Facebook.', { buttonLabel: 'Ok', timeout: 1500 });
           }, 
           function(errormsg){
-            ons.notification.toast('Não foi possível compartilhar.', { buttonLabel: 'Ok', timeout: 1500 });
+            alert(errormsg)
           }
         )">
+        <ons-icon icon="md-facebook"></ons-icon>
+      </ons-speed-dial-item>
+      
+      <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaFacebookWithPasteMessageHint(
+          'Message via Facebook', 
+          null, 
+          null, 
+          'Paste it dude!', 
+          function() {
+            ons.notification.toast('Compartilhado no Facebook.', { buttonLabel: 'Ok', timeout: 1500 });
+          }, 
+          function(errormsg){
+            alert(errormsg)
+          }
+        )">
+
+
         <ons-icon icon="md-facebook"></ons-icon>
       </ons-speed-dial-item>
 
@@ -1562,10 +1579,10 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
           'Message via Instagram', 
           null, 
           function() {
-            ons.notification.toast('Versículo compartilhado.', { buttonLabel: 'Ok', timeout: 1500 });
+            ons.notification.toast('Compartilhado no Instagram.', { buttonLabel: 'Ok', timeout: 1500 });
           }, 
           function(errormsg){
-            ons.notification.toast('Não foi possível compartilhar.', { buttonLabel: 'Ok', timeout: 1500 });
+            ons.notification.toast('Não foi possível compartilhar no Instagram.', { buttonLabel: 'Ok', timeout: 1500 });
           }
         )">
         <ons-icon icon="md-instagram"></ons-icon>
