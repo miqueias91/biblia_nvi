@@ -1530,7 +1530,18 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
       <ons-fab class="compartilhar">
         <ons-icon icon="md-share"></ons-icon>
       </ons-fab>
-      <ons-speed-dial-item onclick="ons.notification.confirm(`Share on Twitter?`)">
+      <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaWhatsApp(
+        'Message via WhatsApp', 
+        null /* img */, 
+        null /* url */, 
+        function() {
+          alert('share ok')
+        }, 
+        function(errormsg){
+          alert(errormsg)
+        }
+        )">
+
         <ons-icon icon="md-whatsapp"></ons-icon>
       </ons-speed-dial-item>
       <ons-speed-dial-item onclick="ons.notification.confirm(`Share on Facebook?`)">
