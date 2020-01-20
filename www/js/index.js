@@ -175,11 +175,11 @@ var app = {
               if (existe_capitulo) {
                 capitulo_marcado = 1;
               }
-
+              var texto = myBook.chapters[obj.chapter - 1][capitulo][i];
               obj.text += '<ons-list-item>'+
-                            '<p style="font-size: 20px;text-align:justify;line-height: 25px;background:'+background+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'" txt_marcado="'+txt_marcado+'" txt_versiculo="'+myBook.chapters[obj.chapter - 1][capitulo][i]+'">'+
+                            '<p style="font-size: 20px;text-align:justify;line-height: 25px;background:'+background+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'" txt_marcado="'+txt_marcado+'" txt_versiculo="'+texto+'">'+
                               '<span style="font-weight:bold;">'+i+'</span>'+
-                              '&nbsp;&nbsp;'+myBook.chapters[obj.chapter - 1][capitulo][i] + 
+                              '&nbsp;&nbsp;'+texto+ 
                             '</p>'+
                           '</ons-list-item>';
             }
@@ -293,7 +293,7 @@ var app = {
         $( ".copiar" ).click(function() {
           var text = '';
           $("[marcado=1]").each(function() {
-            var txt_versiculo = $(this).attr('txt_versiculo');
+            var txt_versiculo = $(this).text().substr(2);
             var livro = $(this).attr('livro');
             var num_capitulo = $(this).attr('num_capitulo');
             var num_versiculo = $(this).attr('num_versiculo');
