@@ -272,6 +272,7 @@ var app = {
             app.retirarMarcadorVersiculo(livro, num_capitulo, num_versiculo, lista_versiculos);
           }
           else{
+            $(".copiar").css("display","none");
             id = $("[marcado=1]").attr('id');
             $("#"+id).attr('marcado',0);
             $('#'+id).attr('txt_marcado',1);
