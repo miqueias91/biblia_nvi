@@ -74,6 +74,14 @@ module.exports = [
     "clobbers": [
       "window.plugins.socialsharing"
     ]
+  },
+  {
+    "id": "cordova-clipboard.Clipboard",
+    "file": "plugins/cordova-clipboard/www/clipboard.js",
+    "pluginId": "cordova-clipboard",
+    "clobbers": [
+      "cordova.plugins.clipboard"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -91,7 +99,8 @@ module.exports.metadata =
   "cordova-admob-sdk": "0.24.1",
   "cordova-plugin-admob-free": "0.27.0",
   "es6-promise-plugin": "4.2.2",
-  "cordova-plugin-x-socialsharing": "5.6.3"
+  "cordova-plugin-x-socialsharing": "5.6.3",
+  "cordova-clipboard": "1.3.0"
 };
 // BOTTOM OF METADATA
 });

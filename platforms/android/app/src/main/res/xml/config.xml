@@ -25,6 +25,9 @@
     <feature name="SocialSharing">
         <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
     </feature>
+    <feature name="Clipboard">
+        <param name="android-package" value="com.verso.cordova.clipboard.Clipboard" />
+    </feature>
     <name>Bíblia Sagrada NVI</name>
     <description>
         A Nova Versão Internacional (NVI) é uma das mais recentes traduções da Bíblia. Foi publicada pela Sociedade Bíblica Internacional.
@@ -40,6 +43,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />
     <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
     <icon density="mdpi" src="www/res/icon/android/drawable-mdpi-icon.png" />
     <icon density="hdpi" src="www/res/icon/android/drawable-hdpi-icon.png" />

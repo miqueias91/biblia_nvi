@@ -177,7 +177,7 @@ var app = {
               }
 
               obj.text += '<ons-list-item>'+
-                            '<p style="font-size: 20px;text-align:justify;line-height: 25px;background:'+background+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'" txt_marcado="'+txt_marcado+'">'+
+                            '<p style="font-size: 20px;text-align:justify;line-height: 25px;background:'+background+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'" txt_marcado="'+txt_marcado+'" txt_versiculo="'+myBook.chapters[obj.chapter - 1][capitulo][i]+'">'+
                               '<span style="font-weight:bold;">'+i+'</span>'+
                               '&nbsp;&nbsp;'+myBook.chapters[obj.chapter - 1][capitulo][i] + 
                             '</p>'+
@@ -218,6 +218,7 @@ var app = {
             usar_cores++;
             if(parseInt(usar_cores) === 1){
               $(".cores").css("display","");
+              $(".copiar").css("display","");
             }
             else{
               $(".cores").css("display","none");
@@ -245,6 +246,7 @@ var app = {
               }
               else{
                 $(".botao_controle").css("display","");
+                $(".copiar").css("display","none");
               }
             }              
             $('#'+id).css("background","#f5f5f5");
@@ -285,6 +287,23 @@ var app = {
             localStorage.setItem("lista-versiculos", JSON.stringify(lista_versiculos));
             usar_cores = 0;
           }      
+        });
+
+        $( ".copiar" ).click(function() {
+          var text = '';
+          $("[marcado=1]").each(function() {
+            var txt_versiculo = $(this).attr('txt_versiculo');
+            var livro = $(this).attr('livro');
+            var num_capitulo = $(this).attr('num_capitulo');
+            var num_versiculo = $(this).attr('num_versiculo');
+            text += txt_versiculo+'\n'+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+          });
+          text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
+          cordova.plugins.clipboard.copy(text);
+          cordova.plugins.clipboard.paste(function (text) { 
+            console.log(text); 
+          });
+          cordova.plugins.clipboard.clear();
         });
       }
     });

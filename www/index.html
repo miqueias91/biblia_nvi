@@ -1517,67 +1517,71 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
 
 <template id="textoLivro.html">
     <ons-page>
-        <ons-toolbar id="textoLivro_">
-            <div class="left">
-                <ons-back-button>Texto do Livro</ons-back-button>
-            </div>
-            <div class="center"></div>
-            <div class="right"></div>
-        </ons-toolbar>
-        <div id='textoLivro'></div>
+      <ons-toolbar id="textoLivro_">
+        <div class="left">
+          <ons-back-button>Texto do Livro</ons-back-button>
+        </div>
+        <div class="center"></div>
+        <div class="right"></div>
+      </ons-toolbar>
+      <div id='textoLivro'></div>
 
-    <ons-speed-dial position="top right" direction="down" :open.sync="spdOpen">
-      <ons-fab class="compartilhar">
-        <ons-icon icon="md-share"></ons-icon>
+      <ons-fab class="copiar" position="top left" style="display: none;">
+        <ons-icon icon="md-copy"></ons-icon>
       </ons-fab>
-      <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaWhatsApp(
-          'Message via WhatsApp', 
-          null, 
-          null, 
-          function() {
-            ons.notification.toast('Compartilhado no WhatsApp.', { buttonLabel: 'Ok', timeout: 1500 });
-          }, 
-          function(errormsg){
-            ons.notification.toast('Não foi possível compartilhar no WhatsApp.', { buttonLabel: 'Ok', timeout: 1500 });
-          }
-        )">
-        <ons-icon icon="md-whatsapp"></ons-icon>
-      </ons-speed-dial-item>
 
-      <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaTwitter('Message via Twitter')">
-        <ons-icon icon="md-twitter"></ons-icon>
-      </ons-speed-dial-item>
-
-      <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaInstagram(
-          'Message via Instagram', 
-          null, 
-          function() {
-            ons.notification.toast('Compartilhado no Instagram.', { buttonLabel: 'Ok', timeout: 1500 });
-          }, 
-          function(errormsg){
-            ons.notification.toast('Não foi possível compartilhar no Instagram.', { buttonLabel: 'Ok', timeout: 1500 });
-          }
-        )">
-        <ons-icon icon="md-instagram"></ons-icon>
-      </ons-speed-dial-item>
-    </ons-speed-dial>
-
-        <ons-fab class="cores" position="bottom right" style="display:none;bottom: 80px;background-color: yellow!important;opacity: 1!important;" id="yellow">
+      <ons-speed-dial position="top right" direction="down" :open.sync="spdOpen" style="display: none;">
+        <ons-fab class="compartilhar">
+          <ons-icon icon="md-share"></ons-icon>
         </ons-fab>
+        <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaWhatsApp(
+            'Message via WhatsApp', 
+            null, 
+            null, 
+            function() {
+              ons.notification.toast('Compartilhado no WhatsApp.', { buttonLabel: 'Ok', timeout: 1500 });
+            }, 
+            function(errormsg){
+              ons.notification.toast('Não foi possível compartilhar no WhatsApp.', { buttonLabel: 'Ok', timeout: 1500 });
+            }
+          )">
+          <ons-icon icon="md-whatsapp"></ons-icon>
+        </ons-speed-dial-item>
 
-        <ons-fab class="cores" position="bottom center" style="display:none;bottom: 80px;background-color: green!important;opacity: 1!important;" id="green">
-        </ons-fab>
+        <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaTwitter('Message via Twitter')">
+          <ons-icon icon="md-twitter"></ons-icon>
+        </ons-speed-dial-item>
 
-        <ons-fab class="cores" position="bottom left" style="display:none;bottom: 80px;background-color: orange!important;opacity: 1!important;" id="orange">
-        </ons-fab>
+        <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaInstagram(
+            'Message via Instagram', 
+            null, 
+            function() {
+              ons.notification.toast('Compartilhado no Instagram.', { buttonLabel: 'Ok', timeout: 1500 });
+            }, 
+            function(errormsg){
+              ons.notification.toast('Não foi possível compartilhar no Instagram.', { buttonLabel: 'Ok', timeout: 1500 });
+            }
+          )">
+          <ons-icon icon="md-instagram"></ons-icon>
+        </ons-speed-dial-item>
+      </ons-speed-dial>
 
-        <ons-fab class="botao_controle" position="bottom right" style="bottom: 75px;" id="proximo">
-          <ons-icon icon="fa-angle-right"></ons-icon>
-        </ons-fab>
+      <ons-fab class="cores" position="bottom right" style="display:none;bottom: 80px;background-color: yellow!important;opacity: 1!important;" id="yellow">
+      </ons-fab>
 
-        <ons-fab class="botao_controle" position="bottom left" style="bottom: 75px;" id="anterior">
-          <ons-icon icon="fa-angle-left"></ons-icon>
-        </ons-fab>
+      <ons-fab class="cores" position="bottom center" style="display:none;bottom: 80px;background-color: green!important;opacity: 1!important;" id="green">
+      </ons-fab>
+
+      <ons-fab class="cores" position="bottom left" style="display:none;bottom: 80px;background-color: orange!important;opacity: 1!important;" id="orange">
+      </ons-fab>
+
+      <ons-fab class="botao_controle" position="bottom right" style="bottom: 75px;" id="proximo">
+        <ons-icon icon="fa-angle-right"></ons-icon>
+      </ons-fab>
+
+      <ons-fab class="botao_controle" position="bottom left" style="bottom: 75px;" id="anterior">
+        <ons-icon icon="fa-angle-left"></ons-icon>
+      </ons-fab>
 
         <script>
           ons.getScriptPage().onInit = function () {
