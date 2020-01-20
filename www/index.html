@@ -1545,7 +1545,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
       </ons-speed-dial-item>
 
       <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaFacebook(
-          'Message via Facebook', 
+          null, 
           null, 
           null, 
           function() {
@@ -1555,23 +1555,6 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
             alert(errormsg)
           }
         )">
-        <ons-icon icon="md-facebook"></ons-icon>
-      </ons-speed-dial-item>
-      
-      <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaFacebookWithPasteMessageHint(
-          'Message via Facebook', 
-          null, 
-          null, 
-          'Paste it dude!', 
-          function() {
-            ons.notification.toast('Compartilhado no Facebook.', { buttonLabel: 'Ok', timeout: 1500 });
-          }, 
-          function(errormsg){
-            alert(errormsg)
-          }
-        )">
-
-
         <ons-icon icon="md-facebook"></ons-icon>
       </ons-speed-dial-item>
 
