@@ -1543,7 +1543,18 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
         )">
         <ons-icon icon="md-whatsapp"></ons-icon>
       </ons-speed-dial-item>
-      <ons-speed-dial-item onclick="ons.notification.confirm(`Share on Facebook?`)">
+
+      <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaFacebook(
+          'Message via Facebook', 
+          null, 
+          null, 
+          function() {
+            ons.notification.toast('Versículo compartilhado.', { buttonLabel: 'Ok', timeout: 1500 });
+          }, 
+          function(errormsg){
+            ons.notification.toast('Não foi possível compartilhar.', { buttonLabel: 'Ok', timeout: 1500 });
+          }
+        )">
         <ons-icon icon="md-facebook"></ons-icon>
       </ons-speed-dial-item>
 
