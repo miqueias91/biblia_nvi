@@ -296,13 +296,13 @@ var app = {
             var livro = $(this).attr('livro');
             var num_capitulo = $(this).attr('num_capitulo');
             var num_versiculo = $(this).attr('num_versiculo');
-            text += txt_versiculo+'\n'+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+            text += txt_versiculo+'&nbsp;'+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
           });
-          
+
           text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
           cordova.plugins.clipboard.copy(text);
           cordova.plugins.clipboard.paste(function (text) { 
-            alert(text); 
+            ons.notification.toast('Copiado para a área de transferência.', { buttonLabel: 'Ok', timeout: 1500 });
           });
           //cordova.plugins.clipboard.clear();
         });
@@ -319,7 +319,6 @@ var app = {
     var dados1 = dados0[1].split('.');
     var capitulo = dados1[0];
     var versiculo = dados1[1];
-          //console.log(versiculo)
 
 
     $.ajax({
