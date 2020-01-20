@@ -60,6 +60,20 @@ module.exports = [
       "AdMob",
       "plugins.AdMob"
     ]
+  },
+  {
+    "id": "es6-promise-plugin.Promise",
+    "file": "plugins/es6-promise-plugin/www/promise.js",
+    "pluginId": "es6-promise-plugin",
+    "runs": true
+  },
+  {
+    "id": "cordova-plugin-x-socialsharing.SocialSharing",
+    "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
+    "pluginId": "cordova-plugin-x-socialsharing",
+    "clobbers": [
+      "window.plugins.socialsharing"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -75,7 +89,9 @@ module.exports.metadata =
   "phonegap-plugin-push": "2.2.3",
   "cordova-promise-polyfill": "0.0.2",
   "cordova-admob-sdk": "0.24.1",
-  "cordova-plugin-admob-free": "0.27.0"
+  "cordova-plugin-admob-free": "0.27.0",
+  "es6-promise-plugin": "4.2.2",
+  "cordova-plugin-x-socialsharing": "5.6.3"
 };
 // BOTTOM OF METADATA
 });

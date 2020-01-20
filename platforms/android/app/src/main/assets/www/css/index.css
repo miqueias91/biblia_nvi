@@ -6,7 +6,7 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#fff;
+    background-color:#F5F5F5;
     background-attachment:fixed;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif!important;
     font-size:12px;
@@ -21,21 +21,22 @@ body {
 .toolbar--material__center {
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif!important;
     font-weight: 500;
-    color: #fff!important;
+    color: #F5F5F5!important;
 }
 .back-button--material__icon {
-    fill: #fff!important;
+    fill: #F5F5F5!important;
 }
 .button--material {
     background-color: #333!important;
-    color: #fff!important;
+    color: #F5F5F5!important;
 }
 ons-fab.fab--material{
     background-color: #333!important;
-    color: #fff!important;
+    color: #F5F5F5!important;
+    opacity: 0.6!important;
 }
 .page--material__background {
-    background-color: #fff!important;
+    background-color: #F5F5F5!important;
 }
 .tabbar--material__border {
     background-color: #333!important;
@@ -48,4 +49,27 @@ ons-fab.fab--material{
 }
 .modal__content {
     font-size: 30px!important;
+}
+
+.titulo_menu {
+    font-weight: bold;
+    text-align: center;
+    color: #F5F5F5;
+}
+
+.titulo_menu i{
+    font-size: 25px;
+}
+
+.card--material {
+    background-color: #4682B4;
+    border-radius: 20px;
+}
+.list-item--material__center {
+    padding: 0 10px!important;
+}
+ons-fab.compartilhar {
+    background-color: #4682B4!important;
+    color: #F5F5F5!important;
+    opacity: 1!important;
 }

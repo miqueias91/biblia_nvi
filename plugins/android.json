@@ -31,6 +31,10 @@
       "ADMOB_APP_ID": "ca-app-pub-7091486462236476~4004927104",
       "PLAY_SERVICES_VERSION": "11.0.4",
       "PACKAGE_NAME": "com.phonegap.teindico"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
+      "PACKAGE_NAME": "com.phonegap.teindico"
     }
   },
   "dependent_plugins": {
@@ -45,6 +49,9 @@
     },
     "cordova-admob-sdk": {
       "PLAY_SERVICES_VERSION": "11.0.4",
+      "PACKAGE_NAME": "com.phonegap.teindico"
+    },
+    "es6-promise-plugin": {
       "PACKAGE_NAME": "com.phonegap.teindico"
     }
   }

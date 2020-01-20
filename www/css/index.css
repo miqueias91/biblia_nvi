@@ -68,3 +68,8 @@ ons-fab.fab--material{
 .list-item--material__center {
     padding: 0 10px!important;
 }
+ons-fab.compartilhar {
+    background-color: #4682B4!important;
+    color: #F5F5F5!important;
+    opacity: 1!important;
+}
