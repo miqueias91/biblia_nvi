@@ -353,9 +353,23 @@ var app = {
               ons.notification.toast('Compartilhado no Instagram.', { buttonLabel: 'Ok', timeout: 2000 });
             }, 
             function(errormsg){
-              ons.notification.toast('Não foi possível compartilhar no Instagram.', { buttonLabel: 'Ok', timeout: 2000 });
+              ons.notification.toast('Não foi possível compartilhar.', { buttonLabel: 'Ok', timeout: 2000 });
             }
           )
+        });
+
+        $( ".compartilhar_twitter" ).click(function() {
+          var text = '';
+          $("[marcado=1]").each(function() {
+            var txt_versiculo = $(this).text().substr(2);
+            var livro = $(this).attr('livro');
+            var num_capitulo = $(this).attr('num_capitulo');
+            var num_versiculo = $(this).attr('num_versiculo');
+            text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+          });
+
+          text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
+          window.plugins.socialsharing.shareViaTwitter(text);
         });
       }
     });
