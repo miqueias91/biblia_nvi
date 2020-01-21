@@ -134,7 +134,7 @@ var app = {
       success : function(data){
         $(selector).each(function(){
           var ref = livro+""+capitulo+".1-200";
-          var reg = new RegExp('([0-9]?[a-zA-Z]{2,3})([0-9]+)[\.|:]([0-9]+)-?([0-9]{1,3})?');
+          var reg = new RegExp('([0-9]?[a-zA-Záàâãéèêíïó]{2,3})([0-9]+)[\.|:]([0-9]+)-?([0-9]{1,3})?');
           var regex = reg.exec(ref);                    
           var myBook = null;
           var obj = {
@@ -151,13 +151,6 @@ var app = {
           }
           var start = parseInt(regex[3]);
           var end = parseInt(regex[4]) || parseInt(regex[3]);
-
-
-          /*for(var i = start; i <=  end; i++){
-            if (myBook.chapters[obj.chapter - 1][capitulo][i]) {
-                obj.text += '<ons-list-item><p style="font-size: 15px;"><span style="font-weight:bold;">'+i+'</span>&nbsp;'+myBook.chapters[obj.chapter - 1][capitulo][i] + "</p></ons-list-item>";
-            }
-          }*/
 
           for (var i in myBook.chapters[obj.chapter - 1][parseInt(capitulo)]) {
             if (myBook.chapters[obj.chapter - 1][capitulo][i]) {
