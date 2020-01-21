@@ -275,7 +275,7 @@ var app = {
           }
           else{
             $(".copiar").css("display","none");
-              $(".compartilha").css("display","none");
+            $(".compartilha").css("display","none");
             id = $("[marcado=1]").attr('id');
             $("#"+id).attr('marcado',0);
             $('#'+id).attr('txt_marcado',1);
@@ -306,7 +306,7 @@ var app = {
           text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
           cordova.plugins.clipboard.copy(text);
           cordova.plugins.clipboard.paste(function (text) { 
-            ons.notification.toast('Copiado para a área de transferência.', { buttonLabel: 'Ok', timeout: 2000 });
+            ons.notification.toast('Copiado para a área de transferência.', { buttonLabel: 'Ok', timeout: 1500 });
           });
           //cordova.plugins.clipboard.clear();
         });
