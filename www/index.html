@@ -1530,21 +1530,11 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
         <ons-icon icon="md-copy"></ons-icon>
       </ons-fab>
 
-      <ons-speed-dial position="top right" direction="down" :open.sync="spdOpen" style="display: none;">
+      <ons-speed-dial position="top right" direction="down" :open.sync="spdOpen" style="display: none;" class="compartilha">
         <ons-fab class="compartilhar">
           <ons-icon icon="md-share"></ons-icon>
         </ons-fab>
-        <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaWhatsApp(
-            'Message via WhatsApp', 
-            null, 
-            null, 
-            function() {
-              ons.notification.toast('Compartilhado no WhatsApp.', { buttonLabel: 'Ok', timeout: 1500 });
-            }, 
-            function(errormsg){
-              ons.notification.toast('Não foi possível compartilhar no WhatsApp.', { buttonLabel: 'Ok', timeout: 1500 });
-            }
-          )">
+        <ons-speed-dial-item class="compartilhar_whatsapp">
           <ons-icon icon="md-whatsapp"></ons-icon>
         </ons-speed-dial-item>
 

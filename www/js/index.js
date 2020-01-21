@@ -219,6 +219,7 @@ var app = {
             if(parseInt(usar_cores) === 1){
               $(".cores").css("display","");
               $(".copiar").css("display","");
+              $(".compartilha").css("display","");
             }
             else{
               $(".cores").css("display","none");
@@ -247,6 +248,7 @@ var app = {
               else{
                 $(".botao_controle").css("display","");
                 $(".copiar").css("display","none");
+              $(".compartilha").css("display","none");
               }
             }              
             $('#'+id).css("background","#f5f5f5");
@@ -273,6 +275,7 @@ var app = {
           }
           else{
             $(".copiar").css("display","none");
+              $(".compartilha").css("display","none");
             id = $("[marcado=1]").attr('id');
             $("#"+id).attr('marcado',0);
             $('#'+id).attr('txt_marcado',1);
@@ -306,6 +309,30 @@ var app = {
             ons.notification.toast('Copiado para a área de transferência.', { buttonLabel: 'Ok', timeout: 2000 });
           });
           //cordova.plugins.clipboard.clear();
+        });
+
+        $( ".compartilhar_whatsapp" ).click(function() {
+          var text = '';
+          $("[marcado=1]").each(function() {
+            var txt_versiculo = $(this).text().substr(2);
+            var livro = $(this).attr('livro');
+            var num_capitulo = $(this).attr('num_capitulo');
+            var num_versiculo = $(this).attr('num_versiculo');
+            text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+          });
+
+          text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
+          window.plugins.socialsharing.shareViaWhatsApp(
+            text, 
+            null, 
+            null, 
+            function() {
+              ons.notification.toast('Compartilhado no WhatsApp.', { buttonLabel: 'Ok', timeout: 2000 });
+            }, 
+            function(errormsg){
+              ons.notification.toast('Não foi possível compartilhar.', { buttonLabel: 'Ok', timeout: 2000 });
+            }
+          )
         });
       }
     });
