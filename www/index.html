@@ -1542,16 +1542,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
           <ons-icon icon="md-twitter"></ons-icon>
         </ons-speed-dial-item>
 
-        <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaInstagram(
-            'Message via Instagram', 
-            null, 
-            function() {
-              ons.notification.toast('Compartilhado no Instagram.', { buttonLabel: 'Ok', timeout: 1500 });
-            }, 
-            function(errormsg){
-              ons.notification.toast('Não foi possível compartilhar no Instagram.', { buttonLabel: 'Ok', timeout: 1500 });
-            }
-          )">
+        <ons-speed-dial-item class="compartilhar_instagram">
           <ons-icon icon="md-instagram"></ons-icon>
         </ons-speed-dial-item>
       </ons-speed-dial>
