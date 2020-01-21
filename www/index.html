@@ -1607,6 +1607,85 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
                     timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
                 }      
             });
+
+            $( ".copiar" ).click(function() {
+              console.log(1)
+              var text = '';
+              $("[marcado=1]").each(function() {
+                var txt_versiculo = $(this).text().substr(2);
+                var livro = $(this).attr('livro');
+                var num_capitulo = $(this).attr('num_capitulo');
+                var num_versiculo = $(this).attr('num_versiculo');
+                text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+              });
+              text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
+              cordova.plugins.clipboard.copy(text);
+              cordova.plugins.clipboard.paste(function (text) { 
+                ons.notification.toast('Copiado para a área de transferência.', { buttonLabel: 'Ok', timeout: 2000 });
+              });
+              //cordova.plugins.clipboard.clear();
+            });
+
+            $( ".compartilhar_whatsapp" ).click(function() {
+              var text = '';
+              $("[marcado=1]").each(function() {
+                var txt_versiculo = $(this).text().substr(2);
+                var livro = $(this).attr('livro');
+                var num_capitulo = $(this).attr('num_capitulo');
+                var num_versiculo = $(this).attr('num_versiculo');
+                text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+              });
+
+              text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
+              window.plugins.socialsharing.shareViaWhatsApp(
+                text, 
+                null, 
+                null, 
+                function() {
+                  ons.notification.toast('Compartilhado no WhatsApp.', { buttonLabel: 'Ok', timeout: 2000 });
+                }, 
+                function(errormsg){
+                  ons.notification.toast('Não foi possível compartilhar.', { buttonLabel: 'Ok', timeout: 2000 });
+                }
+              )
+            });
+
+            $( ".compartilhar_instagram" ).click(function() {
+              var text = '';
+              $("[marcado=1]").each(function() {
+                var txt_versiculo = $(this).text().substr(2);
+                var livro = $(this).attr('livro');
+                var num_capitulo = $(this).attr('num_capitulo');
+                var num_versiculo = $(this).attr('num_versiculo');
+                text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+              });
+
+              text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
+              window.plugins.socialsharing.shareViaInstagram(
+                text, 
+                null, 
+                function() {
+                  ons.notification.toast('Compartilhado no Instagram.', { buttonLabel: 'Ok', timeout: 2000 });
+                }, 
+                function(errormsg){
+                  ons.notification.toast('Não foi possível compartilhar.', { buttonLabel: 'Ok', timeout: 2000 });
+                }
+              )
+            });
+
+            $( ".compartilhar_twitter" ).click(function() {
+              var text = '';
+              $("[marcado=1]").each(function() {
+                var txt_versiculo = $(this).text().substr(2);
+                var livro = $(this).attr('livro');
+                var num_capitulo = $(this).attr('num_capitulo');
+                var num_versiculo = $(this).attr('num_versiculo');
+                text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+              });
+
+              text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
+              window.plugins.socialsharing.shareViaTwitter(text);
+            });
           }
         </script>
         <style>
