@@ -15,6 +15,54 @@
     <script src="js/jquery.3.3.1.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
     <script type="text/javascript" src="lib/SocialSharing/SocialSharing.js"></script>
+    <script>
+      var admobid = {}
+      if (/(android)/i.test(navigator.userAgent)) {  // for android & amazon-fireos
+        admobid = {
+          banner: 'ca-app-pub-7091486462236476/7375172387',
+          interstitial: 'ca-app-pub-7091486462236476/6017665160',
+        }
+      }
+
+      document.addEventListener('deviceready', function () {
+        admob.banner.config({ 
+          id: admobid.banner, 
+          isTesting: false, 
+          autoShow: true, 
+        })
+        admob.banner.prepare()
+        
+        admob.interstitial.config({
+          id: admobid.interstitial,
+          isTesting: false,
+          autoShow: false,
+        })
+        admob.interstitial.prepare()
+
+        document.getElementsByClassName('showAd').disabled = true
+        document.getElementsByClassName('showAd').onclick = function() {
+          admob.interstitial.show()
+        }
+      }, false);
+
+      document.addEventListener('admob.banner.events.LOAD_FAIL', function(event) {
+        //alert(JSON.stringify(event))
+      })
+
+      document.addEventListener('admob.interstitial.events.LOAD_FAIL', function(event) {
+        //alert(JSON.stringify(event))
+      })
+
+      document.addEventListener('admob.interstitial.events.LOAD', function(event) {
+        //alert(JSON.stringify(event))
+        document.getElementsByClassName('showAd').disabled = false
+      })
+
+      document.addEventListener('admob.interstitial.events.CLOSE', function(event) {
+        //alert(JSON.stringify(event))
+        admob.interstitial.prepare()
+      })
+    </script>
 
     <title>Bíblia Sagrada NVI</title>
 </head>
@@ -1609,7 +1657,6 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
             });
 
             $( ".copiar" ).click(function() {
-              console.log(1)
               var text = '';
               $("[marcado=1]").each(function() {
                 var txt_versiculo = $(this).text().substr(2);
@@ -1695,55 +1742,6 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
         </style>
     </ons-page>
 </template>
-
-<script>
-    var admobid = {}
-    if (/(android)/i.test(navigator.userAgent)) {  // for android & amazon-fireos
-        admobid = {
-            banner: 'ca-app-pub-7091486462236476/7375172387',
-            interstitial: 'ca-app-pub-7091486462236476/6017665160',
-        }
-    }
-
-    document.addEventListener('deviceready', function () {
-        admob.banner.config({ 
-            id: admobid.banner, 
-            isTesting: false, 
-            autoShow: true, 
-        })
-        admob.banner.prepare()
-        
-        admob.interstitial.config({
-            id: admobid.interstitial,
-            isTesting: false,
-            autoShow: false,
-        })
-        admob.interstitial.prepare()
-
-        document.getElementsByClassName('showAd').disabled = true
-        document.getElementsByClassName('showAd').onclick = function() {
-            admob.interstitial.show()
-        }
-    }, false);
-
-    document.addEventListener('admob.banner.events.LOAD_FAIL', function(event) {
-        //alert(JSON.stringify(event))
-    })
-
-    document.addEventListener('admob.interstitial.events.LOAD_FAIL', function(event) {
-        //alert(JSON.stringify(event))
-    })
-
-    document.addEventListener('admob.interstitial.events.LOAD', function(event) {
-        //alert(JSON.stringify(event))
-        document.getElementsByClassName('showAd').disabled = false
-    })
-
-    document.addEventListener('admob.interstitial.events.CLOSE', function(event) {
-        //alert(JSON.stringify(event))
-        admob.interstitial.prepare()
-    })
-</script>
 <script src="js/index.js"></script>
 
 </body>
