@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.teindico" version="1.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.phonegap.teindico" version="1.0.8" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Bíblia Sagrada NVI</name>
     <description>
         A Nova Versão Internacional (NVI) é uma das mais recentes traduções da Bíblia. Foi publicada pela Sociedade Bíblica Internacional.
     </description>
-    <author email="miqueiasmcaetano@gmail.com" href="https://miqueiasmcaetano.000webhostapp.com/">
+    <author email="miqueiasmcaetano@gmail.com" href="https://www.innovatesoft.com.br/">
         Innovate Soft
     </author>
     <content src="index.html" />

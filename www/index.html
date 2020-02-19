@@ -12,7 +12,7 @@
 
     <!-- JS dependencies (order matters!) -->
     <script type="text/javascript" src="cordova.js"></script>
-    <script src="js/jquery.3.3.1.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
     <script type="text/javascript" src="lib/SocialSharing/SocialSharing.js"></script>
     <script>
@@ -88,7 +88,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.7" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.8" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -112,7 +112,6 @@
         <div class="left">
           <i class="fas fa-book-open"></i>
         </div>
-        <div class="center">
           Bíblia Sagrada
         </div>
         <div class="right">
@@ -132,17 +131,6 @@
         </div>
       </ons-list-item>
 
-      <ons-list-item onclick="fn.pushPage({'id': 'quizBiblia.html', 'title': 'Quiz da Bíblia'})">
-        <div class="left">
-            <i class="fas fa-comments"></i>
-        </div>
-        <div class="center">
-          Quiz da Bíblia
-        </div>
-        <div class="right">
-          <ons-icon icon="fa-link"></ons-icon>
-        </div>
-      </ons-list-item>
 
       <ons-list-item onclick="fn.pushPage({'id': 'versiculosMarcados.html', 'title': 'Versículos Marcados'})">
         <div class="left">
@@ -166,7 +154,31 @@
         <div class="right">
           <ons-icon icon="fa-link"></ons-icon>
         </div>
-      </ons-list-item>    
+      </ons-list-item>  
+
+      <ons-list-item onclick="fn.pushPage({'id': 'configuracao.html', 'title': 'Configuração'})">
+        <div class="left">
+          <i class="fas fa-cogs"></i>
+        </div>
+        <div class="center">
+          Configuração
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+      <ons-list-item onclick="fn.loadLink('https://play.google.com/store/apps/details?id=com.phonegap.calculadorabasic')">
+        <div class="left">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="center">
+          Quiz da Bíblia
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-external-link"></ons-icon>
+        </div>
+      </ons-list-item>
 
       <ons-list-item onclick="fn.loadLink('https://www.instagram.com/oficialumavidacomdeus/')">
         <div class="left">
@@ -179,6 +191,7 @@
           <ons-icon icon="fa-external-link"></ons-icon>
         </div>
       </ons-list-item>
+
 
       <ons-list-item onclick="fn.loadLink('https://play.google.com/store/apps/collection/cluster?clp=igNKChkKEzU4MzY0OTEwMzM3MTQyMDQzODIQCBgDEisKJWNvbS5waG9uZWdhcC5naXJpYXNlc3RhZG9zYnJhc2lsZWlyb3MQARgDGAE%3D:S:ANO1ljIUr74&gsr=Ck2KA0oKGQoTNTgzNjQ5MTAzMzcxNDIwNDM4MhAIGAMSKwolY29tLnBob25lZ2FwLmdpcmlhc2VzdGFkb3NicmFzaWxlaXJvcxABGAMYAQ%3D%3D:S:ANO1ljJSHsA')">
         <div class="left">
@@ -314,6 +327,68 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
   </ons-page>
 </template>
 
+<template id="configuracao.html">
+  <ons-page>
+        <ons-toolbar id="configuracao_">
+            <div class="left">
+                <ons-back-button>Palavra do Dia</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+   
+
+      <ons-list>
+        <ons-list-item onclick="fn.pushPage({'id': 'fonteLeitura.html', 'title': 'Fonte para Leitura'})">
+          <div class="left">
+          </div>
+          <div class="center">
+            Fonte para Leitura
+          </div>
+          <div class="right">
+            <ons-icon icon="fa-angle-right"></ons-icon>
+          </div>
+        </ons-list-item>
+
+        <ons-list-item onclick="fn.pushPage({'id': 'biblia.html', 'title': 'Modo Noturno'})">
+          <div class="left">&nbsp;</div>
+          <div class="center">
+            Modo Noturno
+          </div>
+          <div class="right">
+            <ons-icon icon="fa-angle-right"></ons-icon>
+          </div>
+        </ons-list-item>
+
+        <ons-list-item onclick="fn.pushPage({'id': 'biblia.html', 'title': 'Rolagem automática'})">
+          <div class="left">
+          </div>
+          <div class="center">
+            Rolagem automática
+          </div>
+          <div class="right">
+            <ons-icon icon="fa-angle-right"></ons-icon>
+          </div>
+        </ons-list-item>
+      </ons-list>
+    <script>
+        ons.getScriptPage().onInit = function () {
+            //admob.interstitial.show();
+            $("#textoVersiculo").html('');
+            this.querySelector('#configuracao_ div.center').textContent = 'Configuração';
+        }
+    </script>
+    <style>        
+        .button-margin {
+            margin: 6px 0;
+          }
+          .card__title,
+          .card--material__title {
+            font-size: 20px;
+          }
+    </style>
+  </ons-page>
+</template>
+
 <template id="palavraDia.html">
   <ons-page>
         <ons-toolbar id="palavraDia_">
@@ -333,574 +408,6 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
             this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
             var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13'];
             app.buscaVersiculo('nvi',versiculos[parseInt(Math.random()*50)],"textoVersiculo");
-        }
-    </script>
-    <style>
-        .button-margin {
-            margin: 6px 0;
-        }
-
-      .intro {
-        text-align: center;
-        padding: 0 20px;
-        margin-top: 40px;
-      }
-
-      ons-card {
-        cursor: pointer;
-        color: #333;
-      }
-
-      .card__title,
-      .card--material__title {
-        font-size: 20px;
-      }
-    </style>
-  </ons-page>
-</template>
-
-<template id="quizBiblia.html">
-  <ons-page>
-        <ons-toolbar id="quizBiblia_">
-            <div class="left">
-                <ons-back-button>Quiz da Bíblia</ons-back-button>
-            </div>
-            <div class="center"></div>
-        </ons-toolbar>
-        <ons-list id="textoQuizBiblia">
-            <ons-list-header>1 - Como é o nome do filho do casamento de Abraão com Sara?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz1-quiz" input-id="quiz1-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz1-0" class="center">a) Ismael</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz1-quiz" input-id="quiz1-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz1-1" class="center">b) Jafé</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz1-quiz" input-id="quiz1-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz1-2" class="center">c) Jacó</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz1-quiz" input-id="quiz1-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz1-3" class="center">d) Isaque</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz1-quiz" input-id="quiz1-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz1-4" class="center">e) Esaú</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz1-quiz" input-id="quiz1-5" value=""></ons-radio>
-                </label>
-                <label for="quiz1-5" class="center">nenhum</label>
-            </ons-list-item>
-
-
-
-
-            <ons-list-header>2 - Como era o nome da bisavó de Davi?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz2-quiz" input-id="quiz2-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz2-0" class="center">a) Ester</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz2-quiz" input-id="quiz2-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz2-1" class="center">b) Sarai</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz2-quiz" input-id="quiz2-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz2-2" class="center">c) Rute</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz2-quiz" input-id="quiz2-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz2-3" class="center">d) Noemi</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz2-quiz" input-id="quiz2-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz2-4" class="center">e) Boaz</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz2-quiz" input-id="quiz2-5" value=""></ons-radio>
-                </label>
-                <label for="quiz2-5" class="center">nenhum</label>
-            </ons-list-item>
-  
-
-            <ons-list-header>3 - Quantos Chifres tem um demônio?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz3-quiz" input-id="quiz3-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz3-0" class="center">a) Um</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz3-quiz" input-id="quiz3-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz3-1" class="center">b) Dois</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz3-quiz" input-id="quiz3-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz3-2" class="center">c) Três</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz3-quiz" input-id="quiz3-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz3-3" class="center">d) Quatro</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz3-quiz" input-id="quiz3-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz3-4" class="center">e) Nenhum</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz3-quiz" input-id="quiz3-5" value=""></ons-radio>
-                </label>
-                <label for="quiz3-5" class="center">nenhum</label>
-            </ons-list-item>
-
-            <ons-list-header>4 - Quem escreveu os livros (da bíblia): Gênesis, Êxodo, Levítico, Números e Deuteronômio?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz4-quiz" input-id="quiz4-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz4-0" class="center">a) Paulo, Pedro, Mateus, João e Marcos, respectivamente</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz4-quiz" input-id="quiz4-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz4-1" class="center">b) Davi, Saul, Jônatas, Samuel e Jó, respectivamente</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz4-quiz" input-id="quiz4-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz4-2" class="center">c) Abraão e Ló</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz4-quiz" input-id="quiz4-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz4-3" class="center">d) Moisés</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz4-quiz" input-id="quiz4-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz4-4" class="center">e) Jacó e Esaú</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz4-quiz" input-id="quiz4-5" value=""></ons-radio>
-                </label>
-                <label for="quiz4-5" class="center">nenhum</label>
-            </ons-list-item>
-
-            <ons-list-header>5 - Quantos anos Adão viveu?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz5-quiz" input-id="quiz5-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz5-0" class="center">a) 33</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz5-quiz" input-id="quiz5-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz5-1" class="center">b) 120</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz5-quiz" input-id="quiz5-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz5-2" class="center">c) 57</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz5-quiz" input-id="quiz5-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz5-3" class="center">d) 77</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz5-quiz" input-id="quiz5-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz5-4" class="center">e) 930</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz5-quiz" input-id="quiz5-5" value=""></ons-radio>
-                </label>
-                <label for="quiz5-5" class="center">nenhum</label>
-            </ons-list-item>
-
-
-            <ons-list-header>6 - Quem reconstruiu Jerusalém depois de ela ter sido destruida pelos Babilônios?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz6-quiz" input-id="quiz6-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz6-0" class="center">a) Neemias</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz6-quiz" input-id="quiz6-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz6-1" class="center">b) Esdras</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz6-quiz" input-id="quiz6-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz6-2" class="center">c) Davi</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz6-quiz" input-id="quiz6-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz6-3" class="center">d) Salomão</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz6-quiz" input-id="quiz6-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz6-4" class="center">e) Artaxerxes</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz6-quiz" input-id="quiz6-5" value=""></ons-radio>
-                </label>
-                <label for="quiz6-5" class="center">nenhum</label>
-            </ons-list-item>
-
-            <ons-list-header>7 - Davi disse à igreja: "Quem esta disposto a dar ofertas a Deus por conta própria?". Depois disso quanto o templo arrecadou de ofertas para a reconstrução do templo?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz7-quiz" input-id="quiz7-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz7-0" class="center">a) 160Kg de ouro, 340Kg de Prata</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz7-quiz" input-id="quiz7-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz7-1" class="center">b) 100Kg de ouro, 250Kg de Prata</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz7-quiz" input-id="quiz7-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz7-2" class="center">c) 500Kg de ouro, 1t de prata</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz7-quiz" input-id="quiz7-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz7-3" class="center">d) 1t de ouro, 2.5t de prata</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz7-quiz" input-id="quiz7-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz7-4" class="center">e) 160t de ouro, 340t de prata</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz7-quiz" input-id="quiz7-5" value=""></ons-radio>
-                </label>
-                <label for="quiz7-5" class="center">nenhum</label>
-            </ons-list-item>
-
-            <ons-list-header>8 - Jesus percorreu toda a Judéia pregando:</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz8-quiz" input-id="quiz8-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz8-0" class="center">a) "Mudem de religião"</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz8-quiz" input-id="quiz8-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz8-1" class="center">b) "Dêem-me suas ofertas e dízimos"</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz8-quiz" input-id="quiz8-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz8-2" class="center">c) "Terrenos no céu à venda!"</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz8-quiz" input-id="quiz8-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz8-3" class="center">d) "Não faltem aos cultos"</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz8-quiz" input-id="quiz8-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz8-4" class="center">e) "Chegou a Hora, e o reino de Deus esta perto! Arrependam-se dos seus pecados e creiam no evangelho."</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz8-quiz" input-id="quiz8-5" value=""></ons-radio>
-                </label>
-                <label for="quiz8-5" class="center">nenhum</label>
-            </ons-list-item>
-
-            <section style="margin: 16px">
-                <ons-button modifier="large" class="button-margin resultadoquiz">CONFERIR RESPOSTAS</ons-button>
-            </section>
-
-        </ons-list>
-
-    <script>
-        ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
-            this.querySelector('#quizBiblia_ div.center').textContent = 'Quiz da Bíblia';
-        
-            var currentValue1 = '';
-            var currentId1 = 'quiz1-5';
-            const radios1 = document.querySelectorAll('.quiz1-quiz')
-            for (var i = 0; i < radios1.length; i++) {
-              var radio = radios1[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue1) {
-                    document.getElementById(currentId1).checked = false;
-                    currentValue1 = event.target.value;
-                    currentId1 = event.target.id;
-                }
-              })
-            }
-            var currentId2 = 'quiz2-5';
-            var currentValue2 = '';
-            const radios2 = document.querySelectorAll('.quiz2-quiz')
-            for (var i = 0; i < radios2.length; i++) {
-              var radio = radios2[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue2) {
-                    document.getElementById(currentId2).checked = false;
-                    currentId2 = event.target.id;
-                    currentValue2 = event.target.value;
-                }
-              })
-            }
-            var currentId3 = 'quiz3-5';
-            var currentValue3 = '';
-            const radios3 = document.querySelectorAll('.quiz3-quiz')
-            for (var i = 0; i < radios3.length; i++) {
-              var radio = radios3[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue3) {
-                    document.getElementById(currentId3).checked = false;
-                    currentId3 = event.target.id;
-                    currentValue3 = event.target.value;
-                }
-              })
-            }
-            var currentId4 = 'quiz4-5';
-            var currentValue4 = '';
-            const radios4 = document.querySelectorAll('.quiz4-quiz')
-            for (var i = 0; i < radios4.length; i++) {
-              var radio = radios4[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue4) {
-                    document.getElementById(currentId4).checked = false;
-                    currentId4 = event.target.id;
-                    currentValue4 = event.target.value;
-                }
-              })
-            }
-            var currentId5 = 'quiz5-5';
-            var currentValue5 = '';
-            const radios5 = document.querySelectorAll('.quiz5-quiz')
-            for (var i = 0; i < radios5.length; i++) {
-              var radio = radios5[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue5) {
-                    document.getElementById(currentId5).checked = false;
-                    currentId5 = event.target.id;
-                    currentValue5 = event.target.value;
-                }
-              })
-            }
-            var currentId6 = 'quiz6-5';
-            var currentValue6 = '';
-            const radios6 = document.querySelectorAll('.quiz6-quiz')
-            for (var i = 0; i < radios6.length; i++) {
-              var radio = radios6[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue6) {
-                    document.getElementById(currentId6).checked = false;
-                    currentId6 = event.target.id;
-                    currentValue6 = event.target.value;
-                }
-              })
-            }
-            var currentId7 = 'quiz7-5';
-            var currentValue7 = '';
-            const radios7 = document.querySelectorAll('.quiz7-quiz')
-            for (var i = 0; i < radios7.length; i++) {
-              var radio = radios7[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue7) {
-                    document.getElementById(currentId7).checked = false;
-                    currentId7 = event.target.id;
-                    currentValue7 = event.target.value;
-                }
-              })
-            }
-            var currentId8 = 'quiz8-5';
-            var currentValue8 = '';
-            const radios8 = document.querySelectorAll('.quiz8-quiz')
-            for (var i = 0; i < radios8.length; i++) {
-              var radio = radios8[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue8) {
-                    document.getElementById(currentId8).checked = false;
-                    currentId8 = event.target.id;
-                    currentValue8 = event.target.value;
-                }
-              })
-            }
-            $( ".resultadoquiz" ).click(function() {
-                var minha_resposta = JSON.parse('[]');
-                var resposta_correta = JSON.parse('[]');
-
-                minha_resposta.push(currentValue1, currentValue2, currentValue3, currentValue4, currentValue5, currentValue6, currentValue7, currentValue8);
-                
-                resposta_correta.push('d', 'c', 'e', 'd', 'e', 'a', 'e', 'e');
-                
-                var acertos = 0;
-                var valor_ponto = 100/8;
-                for(var i=0; i<minha_resposta.length; i++) {
-                    if (minha_resposta[i] == resposta_correta[i]) {
-                        acertos++;
-                    }
-                }
-                var resultado_pontos = valor_ponto * acertos;
-                var mensagem = '';
-                if (resultado_pontos == 100) {
-                    mensagem = 'Parabéns! Você acertou todas as perguntas, deseja ver as respostas corretas?'
-                }
-                else if(resultado_pontos >= 90 && resultado_pontos <= 99){
-                    mensagem = 'Excelente! Você acertou '+parseFloat(resultado_pontos)+'% das perguntas, deseja ver as respostas corretas?'
-                }
-                else if(resultado_pontos >= 80 && resultado_pontos <= 89){
-                    mensagem = 'Muito bom! Você acertou '+parseFloat(resultado_pontos)+'% das perguntas, deseja ver as respostas corretas?'
-                }
-                else if(resultado_pontos >= 70 && resultado_pontos <= 79){
-                    mensagem = 'Bom! Você acertou '+parseFloat(resultado_pontos)+'% das perguntas, deseja ver as respostas corretas?'
-                }
-                else if(resultado_pontos < 70){
-                    mensagem = 'Que pena! Você acertou '+parseFloat(resultado_pontos)+'% das perguntas, deseja ver as respostas corretas?'
-                }
-
-
-                ons.notification.confirm({
-                    message: mensagem,
-                    title: 'Mensagem',
-                    buttonLabels: ['Sim', 'Não'],
-                    animation: 'default',
-                    primaryButtonIndex: 1,
-                    cancelable: true,
-                    callback: function (index) {
-                        if (0 == index) {
-                            fn.pushPage({'id': 'quizBibliaResposta.html', 'title': 'Quiz da Bíblia Resposta'});
-                            console.log(1);
-                        }
-                        else{
-                            ons.notification.confirm({
-                                message: 'Gostou desse quiz? Baixe nosso app e tenha acesso a outros.',
-                                title: 'Mensagem',
-                                buttonLabels: ['Sim', 'Não'],
-                                animation: 'default',
-                                primaryButtonIndex: 1,
-                                cancelable: true,
-                                callback: function (index) {
-                                    if (0 == index) {
-                                        fn.loadLink('https://play.google.com/store/apps/collection/cluster?clp=igNKChkKEzU4MzY0OTEwMzM3MTQyMDQzODIQCBgDEisKJWNvbS5waG9uZWdhcC5naXJpYXNlc3RhZG9zYnJhc2lsZWlyb3MQARgDGAE%3D:S:ANO1ljIUr74&gsr=Ck2KA0oKGQoTNTgzNjQ5MTAzMzcxNDIwNDM4MhAIGAMSKwolY29tLnBob25lZ2FwLmdpcmlhc2VzdGFkb3NicmFzaWxlaXJvcxABGAMYAQ%3D%3D:S:ANO1ljJSHsA');
-                                        console.log(1);
-                                    }
-                                    else{
-                                        console.log(2);
-                                    }
-                                }
-                            });
-                        }
-                    }
-                });
-
-            });
         }
     </script>
     <style>

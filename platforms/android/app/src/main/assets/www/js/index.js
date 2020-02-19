@@ -134,7 +134,7 @@ var app = {
       success : function(data){
         $(selector).each(function(){
           var ref = livro+""+capitulo+".1-200";
-          var reg = new RegExp('([0-9]?[a-zA-Z]{2,3})([0-9]+)[\.|:]([0-9]+)-?([0-9]{1,3})?');
+          var reg = new RegExp('([0-9]?[a-zA-Záàâãéèêíïó]{2,3})([0-9]+)[\.|:]([0-9]+)-?([0-9]{1,3})?');
           var regex = reg.exec(ref);                    
           var myBook = null;
           var obj = {
@@ -152,13 +152,6 @@ var app = {
           var start = parseInt(regex[3]);
           var end = parseInt(regex[4]) || parseInt(regex[3]);
 
-
-          /*for(var i = start; i <=  end; i++){
-            if (myBook.chapters[obj.chapter - 1][capitulo][i]) {
-                obj.text += '<ons-list-item><p style="font-size: 15px;"><span style="font-weight:bold;">'+i+'</span>&nbsp;'+myBook.chapters[obj.chapter - 1][capitulo][i] + "</p></ons-list-item>";
-            }
-          }*/
-
           for (var i in myBook.chapters[obj.chapter - 1][parseInt(capitulo)]) {
             if (myBook.chapters[obj.chapter - 1][capitulo][i]) {
               var marcado = 0;
@@ -175,11 +168,11 @@ var app = {
               if (existe_capitulo) {
                 capitulo_marcado = 1;
               }
-
+              var texto = myBook.chapters[obj.chapter - 1][capitulo][i];
               obj.text += '<ons-list-item>'+
-                            '<p style="font-size: 20px;text-align:justify;line-height: 25px;background:'+background+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'" txt_marcado="'+txt_marcado+'">'+
+                            '<p style="font-size: 20px;text-align:justify;line-height: 25px;background:'+background+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'" txt_marcado="'+txt_marcado+'" txt_versiculo="'+texto+'">'+
                               '<span style="font-weight:bold;">'+i+'</span>'+
-                              '&nbsp;&nbsp;'+myBook.chapters[obj.chapter - 1][capitulo][i] + 
+                              '&nbsp;&nbsp;'+texto+ 
                             '</p>'+
                           '</ons-list-item>';
             }
@@ -218,6 +211,8 @@ var app = {
             usar_cores++;
             if(parseInt(usar_cores) === 1){
               $(".cores").css("display","");
+              $(".copiar").css("display","");
+              $(".compartilha").css("display","");
             }
             else{
               $(".cores").css("display","none");
@@ -245,6 +240,8 @@ var app = {
               }
               else{
                 $(".botao_controle").css("display","");
+                $(".copiar").css("display","none");
+              $(".compartilha").css("display","none");
               }
             }              
             $('#'+id).css("background","#f5f5f5");
@@ -270,6 +267,8 @@ var app = {
             app.retirarMarcadorVersiculo(livro, num_capitulo, num_versiculo, lista_versiculos);
           }
           else{
+            $(".copiar").css("display","none");
+            $(".compartilha").css("display","none");
             id = $("[marcado=1]").attr('id');
             $("#"+id).attr('marcado',0);
             $('#'+id).attr('txt_marcado',1);
@@ -299,7 +298,6 @@ var app = {
     var dados1 = dados0[1].split('.');
     var capitulo = dados1[0];
     var versiculo = dados1[1];
-          //console.log(versiculo)
 
 
     $.ajax({
