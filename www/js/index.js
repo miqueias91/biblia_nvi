@@ -1,4 +1,5 @@
 window.fn = {};
+var existeProximoCapitulo = false;
 var ultimo_livro_lido = localStorage.getItem('ultimo_livro_lido');
 var ultimo_livro_lido_abr = localStorage.getItem('ultimo_livro_lido_abr');
 var ultimo_capitulo_lido = localStorage.getItem('ultimo_capitulo_lido');
@@ -152,8 +153,9 @@ var app = {
           var start = parseInt(regex[3]);
           var end = parseInt(regex[4]) || parseInt(regex[3]);
 
-          for (var i in myBook.chapters[obj.chapter - 1][parseInt(capitulo)]) {
-            if (myBook.chapters[obj.chapter - 1][capitulo][i]) {
+          for (var i in myBook.chapters[obj.chapter - 1]) {
+            if (myBook.chapters[obj.chapter - 1]) {
+              existeProximoCapitulo = true;
               var marcado = 0;
               var txt_marcado = 0;
               var capitulo_marcado = 0;
@@ -168,17 +170,27 @@ var app = {
               if (existe_capitulo) {
                 capitulo_marcado = 1;
               }
-              var texto = myBook.chapters[obj.chapter - 1][capitulo][i];
+
+              var texto = myBook.chapters[obj.chapter - 1][i];
               obj.text += '<ons-list-item>'+
                             '<p style="font-size: 20px;text-align:justify;line-height: 25px;background:'+background+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'" txt_marcado="'+txt_marcado+'" txt_versiculo="'+texto+'">'+
-                              '<span style="font-weight:bold;">'+i+'</span>'+
+                              '<span style="font-weight:bold;">'+(parseInt(i)+1)+'</span>'+
                               '&nbsp;&nbsp;'+texto+ 
                             '</p>'+
                           '</ons-list-item>';
             }
           }
-          obj.text += '<br><br><section style="margin: 16px"><ons-button capitulo_marcado="'+capitulo_marcado+'" modifier="large" class="button-margin marcar_capitulo" livro_marcar="'+livro+'" num_capitulo_marcar="'+capitulo+'">MARCAR CAPÍTULO COMO LIDO</ons-button></section>'
-          $("#textoLivro").html(obj.text);
+          if (existeProximoCapitulo) {
+            obj.text += '<br><br><section style="margin: 16px"><ons-button capitulo_marcado="'+capitulo_marcado+'" modifier="large" class="button-margin marcar_capitulo" livro_marcar="'+livro+'" num_capitulo_marcar="'+capitulo+'">MARCAR CAPÍTULO COMO LIDO</ons-button></section>'
+            $("#textoLivro").html(obj.text);
+            $("#proximo").css("display","");
+          }
+          else{
+            app.buscaTexto(version,livro,(capitulo-1), nome)
+            $('#textoLivro_ div.center').html(nome+' '+(capitulo-1));
+            $("#proximo").css("display","none");
+          }
+          existeProximoCapitulo = false;
         });
 
         $( ".marcar_capitulo" ).click(function() {
@@ -307,7 +319,6 @@ var app = {
       success : function(data){
         $(selector).each(function(){
           var ref = livro+""+capitulo+"."+versiculo;
-          //console.log(ref)
           var reg = new RegExp('([0-9]?[a-zA-Z]{2,3})([0-9]+)[\.|:]([0-9]+)-?([0-9]{1,3})?');
           var regex = reg.exec(ref);                    
           var myBook = null;

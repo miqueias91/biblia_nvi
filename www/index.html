@@ -434,103 +434,6 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
   </ons-page>
 </template>
 
-<template id="quizBibliaResposta.html">
-  <ons-page>
-        <ons-toolbar id="quizBibliaResposta_">
-            <div class="left">
-                <ons-back-button>Quiz da Bíblia Resposta</ons-back-button>
-            </div>
-            <div class="center"></div>
-        </ons-toolbar>
-        <ons-list id="textoQuizBibliaResposta">
-            <ons-list-header>1 - Como é o nome do filho do casamento de Abraão com Sara?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz1-quiz" input-id="quiz1-3" value="d" checked></ons-radio>
-                </label>
-                <label for="quiz1-3" class="center">d) Isaque</label>
-            </ons-list-item>
-            <ons-list-header>2 - Como era o nome da bisavó de Davi?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz2-quiz" input-id="quiz2-2" value="c" checked></ons-radio>
-                </label>
-                <label for="quiz2-2" class="center">c) Rute</label>
-            </ons-list-item>
-            <ons-list-header>3 - Quantos Chifres tem um demônio?</ons-list-header>
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz3-quiz" input-id="quiz3-4" value="e" checked></ons-radio>
-                </label>
-                <label for="quiz3-4" class="center">e) Nenhum</label>
-            </ons-list-item>   
-            <ons-list-header>4 - Quem escreveu os livros (da bíblia): Gênesis, Êxodo, Levítico, Números e Deuteronômio?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz4-quiz" input-id="quiz4-3" value="d" checked></ons-radio>
-                </label>
-                <label for="quiz4-3" class="center">d) Moisés</label>
-            </ons-list-item>
-
-            <ons-list-header>5 - Quantos anos Adão viveu?</ons-list-header>
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz5-quiz" input-id="quiz5-4" value="e" checked></ons-radio>
-                </label>
-                <label for="quiz5-4" class="center">e) 930</label>
-            </ons-list-item>
-            <ons-list-header>6 - Quem reconstruiu Jerusalém depois de ela ter sido destruida pelos Babilônios?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz6-quiz" input-id="quiz6-0" value="a" checked></ons-radio>
-                </label>
-                <label for="quiz6-0" class="center">a) Neemias</label>
-            </ons-list-item>
-            <ons-list-header>7 - Davi disse à igreja: "Quem esta disposto a dar ofertas a Deus por conta própria?". Depois disso quanto o templo arrecadou de ofertas para a reconstrução do templo?</ons-list-header>
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz7-quiz" input-id="quiz7-4" value="e" checked></ons-radio>
-                </label>
-                <label for="quiz7-4" class="center">e) 160t de ouro, 340t de prata</label>
-            </ons-list-item>
-            <ons-list-header>8 - Jesus percorreu toda a Judéia pregando:</ons-list-header>
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz8-quiz" input-id="quiz8-4" value="e" checked></ons-radio>
-                </label>
-                <label for="quiz8-4" class="center">e) "Chegou a Hora, e o reino de Deus esta perto! Arrependam-se dos seus pecados e creiam no evangelho."</label>
-            </ons-list-item>
-        </ons-list>
-
-    <script>
-        ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
-            this.querySelector('#quizBibliaResposta_ div.center').textContent = 'Quiz da Bíblia Resposta';
-        }
-    </script>
-    <style>
-        .button-margin {
-            margin: 6px 0;
-        }
-      .intro {
-        text-align: center;
-        padding: 0 20px;
-        margin-top: 40px;
-      }
-
-      ons-card {
-        cursor: pointer;
-        color: #333;
-      }
-
-      .card__title,
-      .card--material__title {
-        font-size: 20px;
-      }
-    </style>
-  </ons-page>
-</template>
-
 <template id="capitulosLidos.html">
   <ons-page>
         <ons-toolbar id="capitulosLidos_">
@@ -990,7 +893,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
             </div>
             <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
         </ons-list-item>                  
-        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '1Jo||1ª João||3'})">
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '1Jo||1ª João||5'})">
             <div class="left"></div>
             <div class="center" style="font-size: 20px;">
             1ª João </div><div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div></ons-list-item>                  
@@ -1046,7 +949,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
         </div>
         <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            //admob.interstitial.show();
             var dados = this.data.title.split('||'); 
             this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
