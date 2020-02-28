@@ -38,6 +38,21 @@ window.fn.showDialog = function (id) {
   elem.show();            
 };
 
+
+
+var showTemplateDialog = function() {
+  var dialog = document.getElementById('my-dialog');
+
+  if (dialog) {
+    dialog.show();
+  } else {
+    ons.createElement('dialog.html', { append: true })
+      .then(function(dialog) {
+        dialog.show();
+      });
+  }
+};
+
 //SCRIPT PARA ESCONDER O MODAL DE AGUARDE
 window.fn.hideDialog = function (id) {
   document.getElementById(id).hide();

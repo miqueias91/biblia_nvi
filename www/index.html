@@ -340,7 +340,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
    
 
       <ons-list>
-        <ons-list-item onclick="fn.pushPage({'id': 'fonteLeitura.html', 'title': 'Fonte para Leitura'})">
+        <ons-list-item onclick="showTemplateDialog()">
           <div class="left">
           </div>
           <div class="center">
@@ -351,13 +351,18 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
           </div>
         </ons-list-item>
 
-        <ons-list-item onclick="fn.pushPage({'id': 'biblia.html', 'title': 'Modo Noturno'})">
+        <ons-list-item>
           <div class="left">&nbsp;</div>
           <div class="center">
             Modo Noturno
           </div>
           <div class="right">
-            <ons-icon icon="fa-angle-right"></ons-icon>
+            <label class="switch">
+              <input type="checkbox" class="switch__input">
+              <div class="switch__toggle">
+                <div class="switch__handle"></div>
+              </div>
+            </label>
           </div>
         </ons-list-item>
 
@@ -368,7 +373,12 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
             Rolagem automática
           </div>
           <div class="right">
-            <ons-icon icon="fa-angle-right"></ons-icon>
+            <label class="switch">
+              <input type="checkbox" class="switch__input">
+              <div class="switch__toggle">
+                <div class="switch__handle"></div>
+              </div>
+            </label>
           </div>
         </ons-list-item>
       </ons-list>
@@ -389,6 +399,28 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
           }
     </style>
   </ons-page>
+</template>
+
+<template id="dialog.html">
+  <ons-dialog id="my-dialog">
+    <div style="text-align: center; padding: 10px;">
+        <p>
+          <ons-row>
+            <ons-col width="40px" style="text-align: center; line-height: 31px;">
+              <ons-icon icon="md-volume-down"></ons-icon>
+            </ons-col>
+            <ons-col>
+              <ons-range id="range-1" style="width: 100%;" value="50"></ons-range>
+            </ons-col>
+            <ons-col width="40px" style="text-align: center; line-height: 31px;">
+              <ons-icon icon="md-volume-up"></ons-icon>
+            </ons-col>
+          </ons-row>
+      <p>
+        <ons-button onclick="hideDialog('my-dialog')">Salvar</ons-button>
+      </p>
+    </div>
+  </ons-dialog>
 </template>
 
 <template id="palavraDia.html">
