@@ -68,6 +68,8 @@
 </head>
 
 <body>
+<input type="hidden" id="existeProximoCapitulo" value="0">
+<input type="hidden" id="atual" value="0">
 <ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
   <ons-page>
     <ons-splitter id="appSplitter">
@@ -1027,7 +1029,6 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
             var dados = this.data.title.split('||'); 
             var ultimoCap = dados[2];
             this.querySelector('#textoLivro_ div.center').textContent = dados[1]+' '+dados[3];
-
             //CHAMA DA FUNÇÃO PARA ABRIR MODAL
             fn.showDialog('modal-aguarde');
             app.buscaTexto('nvi',dados[0],dados[3], dados[1]);
@@ -1035,17 +1036,16 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
             clearTimeout(timeoutID);
             timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
 
-            var atual = dados[3];
-
+            $("#atual").val(dados[3]);
 
             $( "#proximo" ).click(function() {
-                if (parseInt(atual) < parseInt(ultimoCap)) {
-                    atual++;
-                    $('#textoLivro_ div.center').html(dados[1]+' '+atual);
+                if (parseInt($("#atual").val()) < parseInt(ultimoCap)) {
+                    $("#atual").val(parseInt($("#atual").val())+1)
 
                     //CHAMA DA FUNÇÃO PARA ABRIR MODAL
                     fn.showDialog('modal-aguarde');
-                    app.buscaTexto('nvi',dados[0],atual, dados[1]);
+                    app.buscaTexto('nvi',dados[0],parseInt($("#atual").val()), dados[1]);
+                    $('#textoLivro_ div.center').html(dados[1]+' '+parseInt($("#atual").val()));
                     var timeoutID = 0;
                     clearTimeout(timeoutID);
                     timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
@@ -1053,13 +1053,13 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
             });
 
             $( "#anterior" ).click(function() {
-                if (parseInt(atual) > 1) {
-                    atual--;
-                    $('#textoLivro_ div.center').html(dados[1]+' '+atual);
+                if (parseInt($("#atual").val()) > 1) {
+                    $("#atual").val(parseInt($("#atual").val())-1)
 
                     //CHAMA DA FUNÇÃO PARA ABRIR MODAL
                     fn.showDialog('modal-aguarde');
-                    app.buscaTexto('nvi',dados[0],atual, dados[1]);
+                    app.buscaTexto('nvi',dados[0],parseInt($("#atual").val()), dados[1]);
+                    $('#textoLivro_ div.center').html(dados[1]+' '+parseInt($("#atual").val()));
                     var timeoutID = 0;
                     clearTimeout(timeoutID);
                     timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);

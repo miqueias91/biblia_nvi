@@ -1,5 +1,5 @@
 window.fn = {};
-var existeProximoCapitulo = false;
+$("#existeProximoCapitulo").val(0)
 var ultimo_livro_lido = localStorage.getItem('ultimo_livro_lido');
 var ultimo_livro_lido_abr = localStorage.getItem('ultimo_livro_lido_abr');
 var ultimo_capitulo_lido = localStorage.getItem('ultimo_capitulo_lido');
@@ -119,6 +119,7 @@ var app = {
     return false;
   },  
   buscaTexto: function(version,livro,capitulo, nome) {
+          
     localStorage.setItem("ultimo_livro_lido", nome);
     localStorage.setItem("ultimo_livro_lido_abr", livro);
     localStorage.setItem("ultimo_capitulo_lido", capitulo);
@@ -155,7 +156,7 @@ var app = {
 
           for (var i in myBook.chapters[obj.chapter - 1]) {
             if (myBook.chapters[obj.chapter - 1]) {
-              existeProximoCapitulo = true;
+              $("#existeProximoCapitulo").val(1);
               var marcado = 0;
               var txt_marcado = 0;
               var capitulo_marcado = 0;
@@ -180,17 +181,18 @@ var app = {
                           '</ons-list-item>';
             }
           }
-          if (existeProximoCapitulo) {
+
+          if (parseInt($("#existeProximoCapitulo").val()) == 1) {
             obj.text += '<br><br><section style="margin: 16px"><ons-button capitulo_marcado="'+capitulo_marcado+'" modifier="large" class="button-margin marcar_capitulo" livro_marcar="'+livro+'" num_capitulo_marcar="'+capitulo+'">MARCAR CAPÍTULO COMO LIDO</ons-button></section>'
             $("#textoLivro").html(obj.text);
-            $("#proximo").css("display","");
           }
           else{
-            app.buscaTexto(version,livro,(capitulo-1), nome)
-            $('#textoLivro_ div.center').html(nome+' '+(capitulo-1));
-            $("#proximo").css("display","none");
+            $("#atual").val(parseInt($("#atual").val())-1);
+            localStorage.setItem("ultimo_capitulo_lido", parseInt($("#atual").val()));
+            $('#textoLivro_ div.center').html(ultimo_livro_lido+' '+parseInt($("#atual").val()));
+            app.buscaTexto('nvi',ultimo_livro_lido_abr,parseInt($("#atual").val()), ultimo_livro_lido);
           }
-          existeProximoCapitulo = false;
+          $("#existeProximoCapitulo").val(0);
         });
 
         $( ".marcar_capitulo" ).click(function() {
