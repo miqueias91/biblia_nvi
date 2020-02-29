@@ -5,15 +5,17 @@ var ultimo_livro_lido_abr = localStorage.getItem('ultimo_livro_lido_abr');
 var ultimo_capitulo_lido = localStorage.getItem('ultimo_capitulo_lido');
 var id = '';
 var usar_cores = 0;
-
+var fonte_versiculo = JSON.parse(localStorage.getItem('fonte-versiculo') || '20');
+localStorage.setItem("fonte-versiculo", fonte_versiculo);
+var modo_noturno = JSON.parse(localStorage.getItem('modo-noturno') || false);
+localStorage.setItem("modo-noturno", modo_noturno);
+var i = 0;
+var tempo = 100;
+var tamanho = 826;
 
 window.fn.toggleMenu = function () {
   document.getElementById('appSplitter').left.toggle();
 };
-
-/*window.fn.toggleMenu = function () {
-  document.getElementById('appSplitter').right.toggle();
-};*/
 
 window.fn.loadView = function (index) {
   document.getElementById('appTabbar').setActiveTab(index);
@@ -134,10 +136,12 @@ var app = {
     return false;
   },  
   buscaTexto: function(version,livro,capitulo, nome) {
-          
+    //app.rolar();
     localStorage.setItem("ultimo_livro_lido", nome);
     localStorage.setItem("ultimo_livro_lido_abr", livro);
     localStorage.setItem("ultimo_capitulo_lido", capitulo);
+    fonte_versiculo = JSON.parse(localStorage.getItem('fonte-versiculo'));
+    modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
 
     $("#textoLivro").html('');
     var version = version || "nvi";
@@ -176,11 +180,18 @@ var app = {
               var txt_marcado = 0;
               var capitulo_marcado = 0;
               var background = '#f5f5f5';
+              var color = '1f1f21';
               var existe_marcado = app.incluirMarcadorVersiculo(livro, capitulo, i);
               var existe_capitulo = app.incluirCapitulo(livro+' '+capitulo);
+              if (modo_noturno) {
+                background = '#333';
+                color = 'fff';
+              }
+
               if (existe_marcado) {
                 txt_marcado = 1;
                 background = existe_marcado;
+                color = '1f1f21';
               }
 
               if (existe_capitulo) {
@@ -188,8 +199,8 @@ var app = {
               }
 
               var texto = myBook.chapters[obj.chapter - 1][i];
-              obj.text += '<ons-list-item>'+
-                            '<p style="font-size: 20px;text-align:justify;line-height: 25px;background:'+background+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'" txt_marcado="'+txt_marcado+'" txt_versiculo="'+texto+'">'+
+              obj.text += '<ons-list-item style="background:'+background+';color:#'+color+'">'+
+                            '<p style="font-size: '+fonte_versiculo+'px;text-align:justify;line-height: 25px;background:'+background+';color:#'+color+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'" txt_marcado="'+txt_marcado+'" txt_versiculo="'+texto+'">'+
                               '<span style="font-weight:bold;">'+(parseInt(i)+1)+'</span>'+
                               '&nbsp;&nbsp;'+texto+ 
                             '</p>'+
@@ -272,8 +283,16 @@ var app = {
                 $(".copiar").css("display","none");
               $(".compartilha").css("display","none");
               }
-            }              
-            $('#'+id).css("background","#f5f5f5");
+            }
+            background = '#f5f5f5';
+            color = '#1f1f21';
+            modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
+            if (modo_noturno) {
+              background = '#333';
+              color = '#fff';
+            }
+            $('#'+id).css("background",background);
+            $('#'+id).css("color",color);
             lista_versiculos = JSON.parse(localStorage.getItem('lista-versiculos'));
             app.retirarMarcadorVersiculo(livro, num_capitulo, num_versiculo, lista_versiculos);
           }      
@@ -317,6 +336,20 @@ var app = {
       }
     });
   },
+  /*rolar: function() {
+    console.log(i)
+    document.getElementById('onsPageTextoLivro').scrollTop = i;
+    i++;
+    t = setTimeout("app.rolar()", tempo);
+    //t = setTimeout(function() { app.rolar() }, tempo);
+
+    if (i == tamanho) {
+      i = 0;
+    }
+  },
+  parar: function() {
+    clearTimeout(t);
+  },*/
   buscaVersiculo: function(version,livro_capitulo_versiculo, id) {
     $("#textoLivro").html('');
     var version = version || "nvi";

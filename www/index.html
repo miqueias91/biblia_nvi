@@ -358,7 +358,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
           </div>
           <div class="right">
             <label class="switch">
-              <input type="checkbox" class="switch__input">
+              <input type="checkbox" class="switch__input" id="modo_noturno">
               <div class="switch__toggle">
                 <div class="switch__handle"></div>
               </div>
@@ -366,7 +366,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
           </div>
         </ons-list-item>
 
-        <ons-list-item onclick="fn.pushPage({'id': 'biblia.html', 'title': 'Rolagem automática'})">
+        <!--<ons-list-item>
           <div class="left">
           </div>
           <div class="center">
@@ -380,13 +380,20 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
               </div>
             </label>
           </div>
-        </ons-list-item>
+        </ons-list-item>-->
       </ons-list>
     <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
-            $("#textoVersiculo").html('');
-            this.querySelector('#configuracao_ div.center').textContent = 'Configuração';
+          admob.interstitial.show();
+          modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
+          $("#modo_noturno").attr("checked",modo_noturno);
+          
+          $("#textoVersiculo").html('');
+          this.querySelector('#configuracao_ div.center').textContent = 'Configuração';
+
+          $( "#modo_noturno" ).click(function() {
+            localStorage.setItem("modo-noturno",$("#modo_noturno").prop( "checked" ));
+          });
         }
     </script>
     <style>        
@@ -404,22 +411,34 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
 <template id="dialog.html">
   <ons-dialog id="my-dialog">
     <div style="text-align: center; padding: 10px;">
-        <p>
-          <ons-row>
-            <ons-col width="40px" style="text-align: center; line-height: 31px;">
-              <ons-icon icon="md-volume-down"></ons-icon>
-            </ons-col>
-            <ons-col>
-              <ons-range id="range-1" style="width: 100%;" value="50"></ons-range>
-            </ons-col>
-            <ons-col width="40px" style="text-align: center; line-height: 31px;">
-              <ons-icon icon="md-volume-up"></ons-icon>
-            </ons-col>
-          </ons-row>
       <p>
-        <ons-button onclick="hideDialog('my-dialog')">Salvar</ons-button>
+        <ons-row>
+          <ons-col width="40px" style="text-align: center; line-height: 31px;">
+            <ons-icon icon="md-minus"></ons-icon>
+          </ons-col>
+          <ons-col>
+            <ons-range id="range-slider" style="width: 100%;" value="20" min="10" max="20"></ons-range>
+          </ons-col>
+          <ons-col width="40px" style="text-align: center; line-height: 31px;">
+            <ons-icon icon="md-plus"></ons-icon>
+          </ons-col>
+        </ons-row>
+        Tamanho:<span id="font">&nbsp;20</span>
+      </p>
+      <p>
+        <ons-button onclick="fn.hideDialog('my-dialog')">Salvar</ons-button>
       </p>
     </div>
+    <script>
+      var fonte_versiculo = JSON.parse(localStorage.getItem('fonte-versiculo') || '20');
+      document.getElementById('font').innerHTML = `&nbsp;${fonte_versiculo}`;
+      $("#range-slider").val(fonte_versiculo)
+
+      document.getElementById('range-slider').addEventListener('input', function (event) {
+        document.getElementById('font').innerHTML = `&nbsp;${event.target.value}`;
+        localStorage.setItem("fonte-versiculo", event.target.value);
+      })
+    </script>
   </ons-dialog>
 </template>
 
@@ -983,7 +1002,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
         </div>
         <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             var dados = this.data.title.split('||'); 
             this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
@@ -1008,7 +1027,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
 </template>
 
 <template id="textoLivro.html">
-    <ons-page>
+    <ons-page id="onsPageTextoLivro">
       <ons-toolbar id="textoLivro_">
         <div class="left">
           <ons-back-button>Texto do Livro</ons-back-button>
