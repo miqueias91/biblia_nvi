@@ -170,8 +170,6 @@ var app = {
                 myBook = data[i];
             }
           }
-          var start = parseInt(regex[3]);
-          var end = parseInt(regex[4]) || parseInt(regex[3]);
 
           for (var i in myBook.chapters[obj.chapter - 1]) {
             if (myBook.chapters[obj.chapter - 1]) {
@@ -199,8 +197,8 @@ var app = {
               }
 
               var texto = myBook.chapters[obj.chapter - 1][i];
-              obj.text += '<ons-list-item style="background:'+background+';color:#'+color+'">'+
-                            '<p style="font-size: '+fonte_versiculo+'px;text-align:justify;line-height: 25px;background:'+background+';color:#'+color+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'" txt_marcado="'+txt_marcado+'" txt_versiculo="'+texto+'">'+
+              obj.text += '<ons-list-item style="background:'+background+';color:#'+color+'" id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'_">'+
+                            '<p style="font-size: '+fonte_versiculo+'px;text-align:justify;line-height: 35px;background:'+background+';color:#'+color+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'" txt_marcado="'+txt_marcado+'" txt_versiculo="'+texto+'">'+
                               '<span style="font-weight:bold;">'+(parseInt(i)+1)+'</span>'+
                               '&nbsp;&nbsp;'+texto+ 
                             '</p>'+
@@ -260,7 +258,15 @@ var app = {
             $('#'+id).attr('marcado',1);
             $('#'+id).attr('txt_marcado',0);
             $(".botao_controle").css("display","none");
+
+            color = '#fff';
+            modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
+            if (modo_noturno) {
+              color = '#333';
+            }
+            $('#'+id).css("color",color);
             $('#'+id).css("background","#ccc");
+
 
             lista_versiculos = JSON.parse(localStorage.getItem('lista-versiculos'));
             app.retirarMarcadorVersiculo(livro, num_capitulo, num_versiculo, lista_versiculos);
@@ -389,12 +395,12 @@ var app = {
 
 
           for(var i = start; i <=  end; i++){
-            if (myBook.chapters[obj_v.chapter - 1][capitulo][i]) {
+            if (myBook.chapters[obj_v.chapter - 1][i]) {
                 obj_v.text += '<ons-list-item>'+
                   '<p style="font-size: 20px;line-height:30px;text-align:justify">'+
-                    myBook.chapters[obj_v.chapter - 1][capitulo][i] +
+                    myBook.chapters[obj_v.chapter - 1][i] +
                   '</p>'+
-                  '<p style="font-size: 15px;">'+livro.toUpperCase()+' '+capitulo+':'+i+'</p>'+
+                  '<p style="font-size: 15px;">'+livro.toUpperCase()+' '+capitulo+':'+(parseInt(i)+1)+'</p>'+
                 '</ons-list-item>';
             }
           }
