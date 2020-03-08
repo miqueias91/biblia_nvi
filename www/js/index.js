@@ -367,7 +367,6 @@ var app = {
     var capitulo = dados1[0];
     var versiculo = dados1[1];
 
-
     $.ajax({
       type : "GET",
       url : "js/"+version+".json",
