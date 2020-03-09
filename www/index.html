@@ -90,7 +90,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.10" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.11" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -1012,7 +1012,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
         </div>
         <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            //admob.interstitial.show();
             var dados = this.data.title.split('||'); 
             this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
@@ -1045,7 +1045,9 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
         <div class="center"></div>
         <div class="right"></div>
       </ons-toolbar>
-      <div id='textoLivro'></div>
+      <div id='textoLivro'>
+        
+      </div>
 
       <ons-fab class="copiar" position="top left" style="display: none;">
         <ons-icon icon="md-copy"></ons-icon>
@@ -1093,6 +1095,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
             //CHAMA DA FUNÇÃO PARA ABRIR MODAL
             fn.showDialog('modal-aguarde');
             app.buscaTexto('nvi',dados[0],dados[3], dados[1]);
+            app.rolar();
             var timeoutID = 0;
             clearTimeout(timeoutID);
             timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);

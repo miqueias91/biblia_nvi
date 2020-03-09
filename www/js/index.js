@@ -9,8 +9,8 @@ var fonte_versiculo = JSON.parse(localStorage.getItem('fonte-versiculo') || '20'
 localStorage.setItem("fonte-versiculo", fonte_versiculo);
 var modo_noturno = JSON.parse(localStorage.getItem('modo-noturno') || false);
 localStorage.setItem("modo-noturno", modo_noturno);
-var i = 0;
-var tempo = 100;
+var inicioLeitura = 0;
+var tempo = 10;
 var tamanho = 826;
 
 window.fn.toggleMenu = function () {
@@ -136,7 +136,7 @@ var app = {
     return false;
   },  
   buscaTexto: function(version,livro,capitulo, nome) {
-    //app.rolar();
+    inicioLeitura = 0;
     localStorage.setItem("ultimo_livro_lido", nome);
     localStorage.setItem("ultimo_livro_lido_abr", livro);
     localStorage.setItem("ultimo_capitulo_lido", capitulo);
@@ -209,6 +209,7 @@ var app = {
           if (parseInt($("#existeProximoCapitulo").val()) == 1) {
             obj.text += '<br><br><section style="margin: 16px"><ons-button capitulo_marcado="'+capitulo_marcado+'" modifier="large" class="button-margin marcar_capitulo" livro_marcar="'+livro+'" num_capitulo_marcar="'+capitulo+'">MARCAR CAPÍTULO COMO LIDO</ons-button></section>'
             $("#textoLivro").html(obj.text);
+
           }
           else{
             $("#atual").val(parseInt($("#atual").val())-1);
@@ -342,20 +343,21 @@ var app = {
       }
     });
   },
-  /*rolar: function() {
-    console.log(i)
-    document.getElementById('onsPageTextoLivro').scrollTop = i;
-    i++;
-    t = setTimeout("app.rolar()", tempo);
-    //t = setTimeout(function() { app.rolar() }, tempo);
-
-    if (i == tamanho) {
-      i = 0;
+  rolar: function() {
+    tamanho = $("#textoLivro").height();
+    document.getElementById('onsPageTextoLivro').scrollTop = inicioLeitura;
+    inicioLeitura++;
+    if (inicioLeitura != tamanho && tempo != 0) {
+      t = setTimeout(function() { app.rolar() }, tempo);
     }
+
+   /* if (inicioLeitura == tamanho) {
+      inicioLeitura = 0;
+    }*/
   },
   parar: function() {
     clearTimeout(t);
-  },*/
+  },
   buscaVersiculo: function(version,livro_capitulo_versiculo, id) {
     $("#textoLivro").html('');
     var version = version || "nvi";
