@@ -10,8 +10,10 @@ localStorage.setItem("fonte-versiculo", fonte_versiculo);
 var modo_noturno = JSON.parse(localStorage.getItem('modo-noturno') || false);
 localStorage.setItem("modo-noturno", modo_noturno);
 var inicioLeitura = 0;
-var tempo = 10;
+var velocidade = 0;
 var tamanho = 826;
+var pausar = 0;
+var rolagem = 0;
 
 window.fn.toggleMenu = function () {
   document.getElementById('appSplitter').left.toggle();
@@ -347,13 +349,9 @@ var app = {
     tamanho = $("#textoLivro").height();
     document.getElementById('onsPageTextoLivro').scrollTop = inicioLeitura;
     inicioLeitura++;
-    if (inicioLeitura != tamanho && tempo != 0) {
-      t = setTimeout(function() { app.rolar() }, tempo);
+    if (inicioLeitura != tamanho && velocidade != 0) {
+      t = setTimeout(function() { app.rolar() }, velocidade);
     }
-
-   /* if (inicioLeitura == tamanho) {
-      inicioLeitura = 0;
-    }*/
   },
   parar: function() {
     clearTimeout(t);

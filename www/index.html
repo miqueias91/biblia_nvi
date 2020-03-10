@@ -1012,7 +1012,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
         </div>
         <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             var dados = this.data.title.split('||'); 
             this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
@@ -1043,8 +1043,9 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
           <ons-back-button>Texto do Livro</ons-back-button>
         </div>
         <div class="center"></div>
-        <div class="right"></div>
+        <div class="right" id="rolagem" style="color: #f5f5f5;margin-right: 16px;">Rolagem</div>
       </ons-toolbar>
+
       <div id='textoLivro'>
         
       </div>
@@ -1087,6 +1088,27 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
         <ons-icon icon="fa-angle-left"></ons-icon>
       </ons-fab>
 
+      <ons-fab id="controle_rolagem" position="bottom center" style="display:none;bottom:0;background-color:#eceff1!important;opacity:1!important;border-radius:0!important;width:100%!important;left:0;margin-left:0;height: 60px">
+        <p>
+          <ons-row>
+            <ons-col id="pausar_rolagem" width="40px" style="text-align: center; line-height: 31px;color: #333">
+              <ons-icon id="pause" icon="md-pause"></ons-icon>
+              <ons-icon id="play" icon="md-play" style="display: none;"></ons-icon>
+            </ons-col>
+
+            <ons-col>
+              <ons-range id="velocidade" style="width: 100%;" value="30" max="50" min="10"></ons-range>
+            </ons-col>
+
+            <ons-col id="fechar_rolagem" width="40px" style="text-align: center; line-height: 31px;color: #333">
+              <ons-icon icon="md-close"></ons-icon>
+            </ons-col>
+          </ons-row>
+        </p>
+      </ons-fab>
+
+
+
         <script>
           ons.getScriptPage().onInit = function () {
             var dados = this.data.title.split('||'); 
@@ -1095,12 +1117,50 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
             //CHAMA DA FUNÇÃO PARA ABRIR MODAL
             fn.showDialog('modal-aguarde');
             app.buscaTexto('nvi',dados[0],dados[3], dados[1]);
-            app.rolar();
+            
             var timeoutID = 0;
             clearTimeout(timeoutID);
             timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
 
+            document.getElementById('velocidade').addEventListener('input', function (event) {
+              velocidade = 0;
+              velocidade = parseInt(event.target.value);
+            })
+
             $("#atual").val(dados[3]);
+
+            $( "#rolagem" ).click(function() {
+              if (rolagem == 0) {
+                $("#controle_rolagem").css("display","");
+                velocidade = 30;
+                $("#velocidade").val(velocidade);
+                rolagem = 1;
+                app.rolar();
+              }
+            });
+
+            $( "#pausar_rolagem" ).click(function() {
+              if (pausar == 0) {
+                tmp_velocidade = velocidade;
+                velocidade = 0;
+                pausar = 1;
+                $("#pause").css("display","none");
+                $("#play").css("display","");
+              }
+              else{
+                velocidade = tmp_velocidade;
+                pausar = 0;
+                $("#pause").css("display","");
+                $("#play").css("display","none");
+                app.rolar();
+              }
+            });
+
+            $( "#fechar_rolagem" ).click(function() {
+              velocidade = 0;
+              rolagem = 0;
+              $("#controle_rolagem").css("display","none");
+            });
 
             $( "#proximo" ).click(function() {
                 if (parseInt($("#atual").val()) < parseInt(ultimoCap)) {
