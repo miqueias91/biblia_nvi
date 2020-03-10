@@ -1163,31 +1163,44 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
             });
 
             $( "#proximo" ).click(function() {
-                if (parseInt($("#atual").val()) < parseInt(ultimoCap)) {
-                    $("#atual").val(parseInt($("#atual").val())+1)
+              if (parseInt($("#atual").val()) < parseInt(ultimoCap)) {
+                inicioLeitura = 0;
+                velocidade = 0;
+                pausar = 0;
+                rolagem = 0;
 
-                    //CHAMA DA FUNÇÃO PARA ABRIR MODAL
-                    fn.showDialog('modal-aguarde');
-                    app.buscaTexto('nvi',dados[0],parseInt($("#atual").val()), dados[1]);
-                    $('#textoLivro_ div.center').html(dados[1]+' '+parseInt($("#atual").val()));
-                    var timeoutID = 0;
-                    clearTimeout(timeoutID);
-                    timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
-                }      
+                $("#controle_rolagem").css("display","none");
+
+                $("#atual").val(parseInt($("#atual").val())+1)
+
+                //CHAMA DA FUNÇÃO PARA ABRIR MODAL
+                fn.showDialog('modal-aguarde');
+                app.buscaTexto('nvi',dados[0],parseInt($("#atual").val()), dados[1]);
+                $('#textoLivro_ div.center').html(dados[1]+' '+parseInt($("#atual").val()));
+                var timeoutID = 0;
+                clearTimeout(timeoutID);
+                timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
+              }      
             });
 
             $( "#anterior" ).click(function() {
-                if (parseInt($("#atual").val()) > 1) {
-                    $("#atual").val(parseInt($("#atual").val())-1)
+              if (parseInt($("#atual").val()) > 1) {
+                inicioLeitura = 0;
+                velocidade = 0;
+                pausar = 0;
+                rolagem = 0;
 
-                    //CHAMA DA FUNÇÃO PARA ABRIR MODAL
-                    fn.showDialog('modal-aguarde');
-                    app.buscaTexto('nvi',dados[0],parseInt($("#atual").val()), dados[1]);
-                    $('#textoLivro_ div.center').html(dados[1]+' '+parseInt($("#atual").val()));
-                    var timeoutID = 0;
-                    clearTimeout(timeoutID);
-                    timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
-                }      
+                $("#controle_rolagem").css("display","none");
+                $("#atual").val(parseInt($("#atual").val())-1)
+
+                //CHAMA DA FUNÇÃO PARA ABRIR MODAL
+                fn.showDialog('modal-aguarde');
+                app.buscaTexto('nvi',dados[0],parseInt($("#atual").val()), dados[1]);
+                $('#textoLivro_ div.center').html(dados[1]+' '+parseInt($("#atual").val()));
+                var timeoutID = 0;
+                clearTimeout(timeoutID);
+                timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
+              }      
             });
 
             $( ".copiar" ).click(function() {
