@@ -15,11 +15,61 @@
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
     <script type="text/javascript" src="lib/SocialSharing/SocialSharing.js"></script>
+    <script>
+      var admobid = {}
+      if (/(android)/i.test(navigator.userAgent)) {  // for android & amazon-fireos
+        admobid = {
+          banner: 'ca-app-pub-7091486462236476/7375172387',
+          interstitial: 'ca-app-pub-7091486462236476/6017665160',
+        }
+      }
+
+      document.addEventListener('deviceready', function () {
+        admob.banner.config({ 
+          id: admobid.banner, 
+          isTesting: false, 
+          autoShow: true, 
+        })
+        admob.banner.prepare()
+        
+        admob.interstitial.config({
+          id: admobid.interstitial,
+          isTesting: false,
+          autoShow: false,
+        })
+        admob.interstitial.prepare()
+
+        document.getElementsByClassName('showAd').disabled = true
+        document.getElementsByClassName('showAd').onclick = function() {
+          admob.interstitial.show()
+        }
+      }, false);
+
+      document.addEventListener('admob.banner.events.LOAD_FAIL', function(event) {
+        //alert(JSON.stringify(event))
+      })
+
+      document.addEventListener('admob.interstitial.events.LOAD_FAIL', function(event) {
+        //alert(JSON.stringify(event))
+      })
+
+      document.addEventListener('admob.interstitial.events.LOAD', function(event) {
+        //alert(JSON.stringify(event))
+        document.getElementsByClassName('showAd').disabled = false
+      })
+
+      document.addEventListener('admob.interstitial.events.CLOSE', function(event) {
+        //alert(JSON.stringify(event))
+        admob.interstitial.prepare()
+      })
+    </script>
 
     <title>Bíblia Sagrada NVI</title>
 </head>
 
 <body>
+<input type="hidden" id="existeProximoCapitulo" value="0">
+<input type="hidden" id="atual" value="0">
 <ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
   <ons-page>
     <ons-splitter id="appSplitter">
@@ -40,7 +90,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.6" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.12" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -64,7 +114,6 @@
         <div class="left">
           <i class="fas fa-book-open"></i>
         </div>
-        <div class="center">
           Bíblia Sagrada
         </div>
         <div class="right">
@@ -84,17 +133,6 @@
         </div>
       </ons-list-item>
 
-      <ons-list-item onclick="fn.pushPage({'id': 'quizBiblia.html', 'title': 'Quiz da Bíblia'})">
-        <div class="left">
-            <i class="fas fa-comments"></i>
-        </div>
-        <div class="center">
-          Quiz da Bíblia
-        </div>
-        <div class="right">
-          <ons-icon icon="fa-link"></ons-icon>
-        </div>
-      </ons-list-item>
 
       <ons-list-item onclick="fn.pushPage({'id': 'versiculosMarcados.html', 'title': 'Versículos Marcados'})">
         <div class="left">
@@ -118,7 +156,31 @@
         <div class="right">
           <ons-icon icon="fa-link"></ons-icon>
         </div>
-      </ons-list-item>    
+      </ons-list-item>  
+
+      <ons-list-item onclick="fn.pushPage({'id': 'configuracao.html', 'title': 'Configuração'})">
+        <div class="left">
+          <i class="fas fa-cogs"></i>
+        </div>
+        <div class="center">
+          Configuração
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+      <ons-list-item onclick="fn.loadLink('https://play.google.com/store/apps/details?id=com.phonegap.calculadorabasic')">
+        <div class="left">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="center">
+          Quiz da Bíblia
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-external-link"></ons-icon>
+        </div>
+      </ons-list-item>
 
       <ons-list-item onclick="fn.loadLink('https://www.instagram.com/oficialumavidacomdeus/')">
         <div class="left">
@@ -131,6 +193,19 @@
           <ons-icon icon="fa-external-link"></ons-icon>
         </div>
       </ons-list-item>
+
+      <ons-list-item onclick="fn.loadLink('https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=332375636-d8a2e7ce-a38d-4b8c-b080-5b277b3df2a5')">
+        <div class="left">
+          <i class="fas fa-hand-holding-usd"></i>
+        </div>
+        <div class="center">
+          Doe
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-external-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
 
       <ons-list-item onclick="fn.loadLink('https://play.google.com/store/apps/collection/cluster?clp=igNKChkKEzU4MzY0OTEwMzM3MTQyMDQzODIQCBgDEisKJWNvbS5waG9uZWdhcC5naXJpYXNlc3RhZG9zYnJhc2lsZWlyb3MQARgDGAE%3D:S:ANO1ljIUr74&gsr=Ck2KA0oKGQoTNTgzNjQ5MTAzMzcxNDIwNDM4MhAIGAMSKwolY29tLnBob25lZ2FwLmdpcmlhc2VzdGFkb3NicmFzaWxlaXJvcxABGAMYAQ%3D%3D:S:ANO1ljJSHsA')">
         <div class="left">
@@ -229,15 +304,13 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
 
     <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             $("#textoVersiculo").html('');
             this.querySelector('#versiculosMarcados_ div.center').textContent = 'Versículos Marcados';
-            var lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores') || '[]');
-            lista_marcadores = JSON.parse(localStorage.getItem('lista-marcadores'));
+            var lista_marcadores = JSON.parse(localStorage.getItem('lista-versiculos') || '[]');
             if (lista_marcadores) {
               for(var i=0; i<lista_marcadores.length; i++) {
-                app.buscaVersiculo('nvi',lista_marcadores[i],"textoVersiculo");
-               
+                app.buscaVersiculo('nvi',lista_marcadores[i]['livro']+"||"+lista_marcadores[i]['num_capitulo']+"."+(parseInt(lista_marcadores[i]['num_versiculo'])+0),"textoVersiculo"); 
               }   
             }
         }
@@ -266,6 +339,119 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
   </ons-page>
 </template>
 
+<template id="configuracao.html">
+  <ons-page>
+        <ons-toolbar id="configuracao_">
+            <div class="left">
+                <ons-back-button>Palavra do Dia</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+   
+
+      <ons-list>
+        <ons-list-item onclick="showTemplateDialog()">
+          <div class="left">
+          </div>
+          <div class="center">
+            Fonte para Leitura
+          </div>
+          <div class="right">
+            <ons-icon icon="fa-angle-right"></ons-icon>
+          </div>
+        </ons-list-item>
+
+        <ons-list-item>
+          <div class="left">&nbsp;</div>
+          <div class="center">
+            Modo Noturno
+          </div>
+          <div class="right">
+            <label class="switch">
+              <input type="checkbox" class="switch__input" id="modo_noturno">
+              <div class="switch__toggle">
+                <div class="switch__handle"></div>
+              </div>
+            </label>
+          </div>
+        </ons-list-item>
+
+        <!--<ons-list-item>
+          <div class="left">
+          </div>
+          <div class="center">
+            Rolagem automática
+          </div>
+          <div class="right">
+            <label class="switch">
+              <input type="checkbox" class="switch__input">
+              <div class="switch__toggle">
+                <div class="switch__handle"></div>
+              </div>
+            </label>
+          </div>
+        </ons-list-item>-->
+      </ons-list>
+    <script>
+        ons.getScriptPage().onInit = function () {
+          admob.interstitial.show();
+          modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
+          $("#modo_noturno").attr("checked",modo_noturno);
+          
+          $("#textoVersiculo").html('');
+          this.querySelector('#configuracao_ div.center').textContent = 'Configuração';
+
+          $( "#modo_noturno" ).click(function() {
+            localStorage.setItem("modo-noturno",$("#modo_noturno").prop( "checked" ));
+          });
+        }
+    </script>
+    <style>        
+        .button-margin {
+            margin: 6px 0;
+          }
+          .card__title,
+          .card--material__title {
+            font-size: 20px;
+          }
+    </style>
+  </ons-page>
+</template>
+
+<template id="dialog.html">
+  <ons-dialog id="my-dialog">
+    <div style="text-align: center; padding: 10px;">
+      <p>
+        <ons-row>
+          <ons-col width="40px" style="text-align: center; line-height: 31px;">
+            <ons-icon icon="md-minus"></ons-icon>
+          </ons-col>
+          <ons-col>
+            <ons-range id="range-slider" style="width: 100%;" value="20" min="10" max="25"></ons-range>
+          </ons-col>
+          <ons-col width="40px" style="text-align: center; line-height: 31px;">
+            <ons-icon icon="md-plus"></ons-icon>
+          </ons-col>
+        </ons-row>
+        Tamanho:<span id="font">&nbsp;20</span>
+      </p>
+      <p>
+        <ons-button onclick="fn.hideDialog('my-dialog')">Salvar</ons-button>
+      </p>
+    </div>
+    <script>
+      var fonte_versiculo = JSON.parse(localStorage.getItem('fonte-versiculo') || '20');
+      document.getElementById('font').innerHTML = `&nbsp;${fonte_versiculo}`;
+      $("#range-slider").val(fonte_versiculo)
+
+      document.getElementById('range-slider').addEventListener('input', function (event) {
+        document.getElementById('font').innerHTML = `&nbsp;${event.target.value}`;
+        localStorage.setItem("fonte-versiculo", event.target.value);
+      })
+    </script>
+  </ons-dialog>
+</template>
+
 <template id="palavraDia.html">
   <ons-page>
         <ons-toolbar id="palavraDia_">
@@ -280,7 +466,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
 
     <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             $("#textoVersiculo").html('');
             this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
             var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13'];
@@ -292,671 +478,6 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
             margin: 6px 0;
         }
 
-      .intro {
-        text-align: center;
-        padding: 0 20px;
-        margin-top: 40px;
-      }
-
-      ons-card {
-        cursor: pointer;
-        color: #333;
-      }
-
-      .card__title,
-      .card--material__title {
-        font-size: 20px;
-      }
-    </style>
-  </ons-page>
-</template>
-
-<template id="quizBiblia.html">
-  <ons-page>
-        <ons-toolbar id="quizBiblia_">
-            <div class="left">
-                <ons-back-button>Quiz da Bíblia</ons-back-button>
-            </div>
-            <div class="center"></div>
-        </ons-toolbar>
-        <ons-list id="textoQuizBiblia">
-            <ons-list-header>1 - Como é o nome do filho do casamento de Abraão com Sara?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz1-quiz" input-id="quiz1-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz1-0" class="center">a) Ismael</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz1-quiz" input-id="quiz1-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz1-1" class="center">b) Jafé</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz1-quiz" input-id="quiz1-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz1-2" class="center">c) Jacó</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz1-quiz" input-id="quiz1-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz1-3" class="center">d) Isaque</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz1-quiz" input-id="quiz1-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz1-4" class="center">e) Esaú</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz1-quiz" input-id="quiz1-5" value=""></ons-radio>
-                </label>
-                <label for="quiz1-5" class="center">nenhum</label>
-            </ons-list-item>
-
-
-
-
-            <ons-list-header>2 - Como era o nome da bisavó de Davi?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz2-quiz" input-id="quiz2-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz2-0" class="center">a) Ester</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz2-quiz" input-id="quiz2-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz2-1" class="center">b) Sarai</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz2-quiz" input-id="quiz2-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz2-2" class="center">c) Rute</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz2-quiz" input-id="quiz2-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz2-3" class="center">d) Noemi</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz2-quiz" input-id="quiz2-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz2-4" class="center">e) Boaz</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz2-quiz" input-id="quiz2-5" value=""></ons-radio>
-                </label>
-                <label for="quiz2-5" class="center">nenhum</label>
-            </ons-list-item>
-  
-
-            <ons-list-header>3 - Quantos Chifres tem um demônio?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz3-quiz" input-id="quiz3-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz3-0" class="center">a) Um</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz3-quiz" input-id="quiz3-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz3-1" class="center">b) Dois</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz3-quiz" input-id="quiz3-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz3-2" class="center">c) Três</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz3-quiz" input-id="quiz3-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz3-3" class="center">d) Quatro</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz3-quiz" input-id="quiz3-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz3-4" class="center">e) Nenhum</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz3-quiz" input-id="quiz3-5" value=""></ons-radio>
-                </label>
-                <label for="quiz3-5" class="center">nenhum</label>
-            </ons-list-item>
-
-            <ons-list-header>4 - Quem escreveu os livros (da bíblia): Gênesis, Êxodo, Levítico, Números e Deuteronômio?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz4-quiz" input-id="quiz4-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz4-0" class="center">a) Paulo, Pedro, Mateus, João e Marcos, respectivamente</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz4-quiz" input-id="quiz4-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz4-1" class="center">b) Davi, Saul, Jônatas, Samuel e Jó, respectivamente</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz4-quiz" input-id="quiz4-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz4-2" class="center">c) Abraão e Ló</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz4-quiz" input-id="quiz4-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz4-3" class="center">d) Moisés</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz4-quiz" input-id="quiz4-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz4-4" class="center">e) Jacó e Esaú</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz4-quiz" input-id="quiz4-5" value=""></ons-radio>
-                </label>
-                <label for="quiz4-5" class="center">nenhum</label>
-            </ons-list-item>
-
-            <ons-list-header>5 - Quantos anos Adão viveu?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz5-quiz" input-id="quiz5-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz5-0" class="center">a) 33</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz5-quiz" input-id="quiz5-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz5-1" class="center">b) 120</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz5-quiz" input-id="quiz5-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz5-2" class="center">c) 57</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz5-quiz" input-id="quiz5-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz5-3" class="center">d) 77</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz5-quiz" input-id="quiz5-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz5-4" class="center">e) 930</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz5-quiz" input-id="quiz5-5" value=""></ons-radio>
-                </label>
-                <label for="quiz5-5" class="center">nenhum</label>
-            </ons-list-item>
-
-
-            <ons-list-header>6 - Quem reconstruiu Jerusalém depois de ela ter sido destruida pelos Babilônios?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz6-quiz" input-id="quiz6-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz6-0" class="center">a) Neemias</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz6-quiz" input-id="quiz6-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz6-1" class="center">b) Esdras</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz6-quiz" input-id="quiz6-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz6-2" class="center">c) Davi</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz6-quiz" input-id="quiz6-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz6-3" class="center">d) Salomão</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz6-quiz" input-id="quiz6-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz6-4" class="center">e) Artaxerxes</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz6-quiz" input-id="quiz6-5" value=""></ons-radio>
-                </label>
-                <label for="quiz6-5" class="center">nenhum</label>
-            </ons-list-item>
-
-            <ons-list-header>7 - Davi disse à igreja: "Quem esta disposto a dar ofertas a Deus por conta própria?". Depois disso quanto o templo arrecadou de ofertas para a reconstrução do templo?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz7-quiz" input-id="quiz7-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz7-0" class="center">a) 160Kg de ouro, 340Kg de Prata</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz7-quiz" input-id="quiz7-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz7-1" class="center">b) 100Kg de ouro, 250Kg de Prata</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz7-quiz" input-id="quiz7-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz7-2" class="center">c) 500Kg de ouro, 1t de prata</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz7-quiz" input-id="quiz7-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz7-3" class="center">d) 1t de ouro, 2.5t de prata</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz7-quiz" input-id="quiz7-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz7-4" class="center">e) 160t de ouro, 340t de prata</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz7-quiz" input-id="quiz7-5" value=""></ons-radio>
-                </label>
-                <label for="quiz7-5" class="center">nenhum</label>
-            </ons-list-item>
-
-            <ons-list-header>8 - Jesus percorreu toda a Judéia pregando:</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz8-quiz" input-id="quiz8-0" value="a"></ons-radio>
-                </label>
-                <label for="quiz8-0" class="center">a) "Mudem de religião"</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz8-quiz" input-id="quiz8-1" value="b"></ons-radio>
-                </label>
-                <label for="quiz8-1" class="center">b) "Dêem-me suas ofertas e dízimos"</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz8-quiz" input-id="quiz8-2" value="c"></ons-radio>
-                </label>
-                <label for="quiz8-2" class="center">c) "Terrenos no céu à venda!"</label>
-            </ons-list-item>
-
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz8-quiz" input-id="quiz8-3" value="d"></ons-radio>
-                </label>
-                <label for="quiz8-3" class="center">d) "Não faltem aos cultos"</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz8-quiz" input-id="quiz8-4" value="e"></ons-radio>
-                </label>
-                <label for="quiz8-4" class="center">e) "Chegou a Hora, e o reino de Deus esta perto! Arrependam-se dos seus pecados e creiam no evangelho."</label>
-            </ons-list-item>
-
-            <ons-list-item tappable modifier="longdivider" style="display: none;">
-                <label class="left">
-                  <ons-radio class="quiz8-quiz" input-id="quiz8-5" value=""></ons-radio>
-                </label>
-                <label for="quiz8-5" class="center">nenhum</label>
-            </ons-list-item>
-
-            <section style="margin: 16px">
-                <ons-button modifier="large" class="button-margin resultadoquiz">CONFERIR RESPOSTAS</ons-button>
-            </section>
-
-        </ons-list>
-
-    <script>
-        ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
-            this.querySelector('#quizBiblia_ div.center').textContent = 'Quiz da Bíblia';
-        
-            var currentValue1 = '';
-            var currentId1 = 'quiz1-5';
-            const radios1 = document.querySelectorAll('.quiz1-quiz')
-            for (var i = 0; i < radios1.length; i++) {
-              var radio = radios1[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue1) {
-                    document.getElementById(currentId1).checked = false;
-                    currentValue1 = event.target.value;
-                    currentId1 = event.target.id;
-                }
-              })
-            }
-            var currentId2 = 'quiz2-5';
-            var currentValue2 = '';
-            const radios2 = document.querySelectorAll('.quiz2-quiz')
-            for (var i = 0; i < radios2.length; i++) {
-              var radio = radios2[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue2) {
-                    document.getElementById(currentId2).checked = false;
-                    currentId2 = event.target.id;
-                    currentValue2 = event.target.value;
-                }
-              })
-            }
-            var currentId3 = 'quiz3-5';
-            var currentValue3 = '';
-            const radios3 = document.querySelectorAll('.quiz3-quiz')
-            for (var i = 0; i < radios3.length; i++) {
-              var radio = radios3[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue3) {
-                    document.getElementById(currentId3).checked = false;
-                    currentId3 = event.target.id;
-                    currentValue3 = event.target.value;
-                }
-              })
-            }
-            var currentId4 = 'quiz4-5';
-            var currentValue4 = '';
-            const radios4 = document.querySelectorAll('.quiz4-quiz')
-            for (var i = 0; i < radios4.length; i++) {
-              var radio = radios4[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue4) {
-                    document.getElementById(currentId4).checked = false;
-                    currentId4 = event.target.id;
-                    currentValue4 = event.target.value;
-                }
-              })
-            }
-            var currentId5 = 'quiz5-5';
-            var currentValue5 = '';
-            const radios5 = document.querySelectorAll('.quiz5-quiz')
-            for (var i = 0; i < radios5.length; i++) {
-              var radio = radios5[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue5) {
-                    document.getElementById(currentId5).checked = false;
-                    currentId5 = event.target.id;
-                    currentValue5 = event.target.value;
-                }
-              })
-            }
-            var currentId6 = 'quiz6-5';
-            var currentValue6 = '';
-            const radios6 = document.querySelectorAll('.quiz6-quiz')
-            for (var i = 0; i < radios6.length; i++) {
-              var radio = radios6[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue6) {
-                    document.getElementById(currentId6).checked = false;
-                    currentId6 = event.target.id;
-                    currentValue6 = event.target.value;
-                }
-              })
-            }
-            var currentId7 = 'quiz7-5';
-            var currentValue7 = '';
-            const radios7 = document.querySelectorAll('.quiz7-quiz')
-            for (var i = 0; i < radios7.length; i++) {
-              var radio = radios7[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue7) {
-                    document.getElementById(currentId7).checked = false;
-                    currentId7 = event.target.id;
-                    currentValue7 = event.target.value;
-                }
-              })
-            }
-            var currentId8 = 'quiz8-5';
-            var currentValue8 = '';
-            const radios8 = document.querySelectorAll('.quiz8-quiz')
-            for (var i = 0; i < radios8.length; i++) {
-              var radio = radios8[i];
-              radio.addEventListener('change', function (event) {
-                if (event.target.value !== currentValue8) {
-                    document.getElementById(currentId8).checked = false;
-                    currentId8 = event.target.id;
-                    currentValue8 = event.target.value;
-                }
-              })
-            }
-            $( ".resultadoquiz" ).click(function() {
-                var minha_resposta = JSON.parse('[]');
-                var resposta_correta = JSON.parse('[]');
-
-                minha_resposta.push(currentValue1, currentValue2, currentValue3, currentValue4, currentValue5, currentValue6, currentValue7, currentValue8);
-                
-                resposta_correta.push('d', 'c', 'e', 'd', 'e', 'a', 'e', 'e');
-                
-                var acertos = 0;
-                var valor_ponto = 100/8;
-                for(var i=0; i<minha_resposta.length; i++) {
-                    if (minha_resposta[i] == resposta_correta[i]) {
-                        acertos++;
-                    }
-                }
-                var resultado_pontos = valor_ponto * acertos;
-                var mensagem = '';
-                if (resultado_pontos == 100) {
-                    mensagem = 'Parabéns! Você acertou todas as perguntas, deseja ver as respostas corretas?'
-                }
-                else if(resultado_pontos >= 90 && resultado_pontos <= 99){
-                    mensagem = 'Excelente! Você acertou '+parseFloat(resultado_pontos)+'% das perguntas, deseja ver as respostas corretas?'
-                }
-                else if(resultado_pontos >= 80 && resultado_pontos <= 89){
-                    mensagem = 'Muito bom! Você acertou '+parseFloat(resultado_pontos)+'% das perguntas, deseja ver as respostas corretas?'
-                }
-                else if(resultado_pontos >= 70 && resultado_pontos <= 79){
-                    mensagem = 'Bom! Você acertou '+parseFloat(resultado_pontos)+'% das perguntas, deseja ver as respostas corretas?'
-                }
-                else if(resultado_pontos < 70){
-                    mensagem = 'Que pena! Você acertou '+parseFloat(resultado_pontos)+'% das perguntas, deseja ver as respostas corretas?'
-                }
-
-
-                ons.notification.confirm({
-                    message: mensagem,
-                    title: 'Mensagem',
-                    buttonLabels: ['Sim', 'Não'],
-                    animation: 'default',
-                    primaryButtonIndex: 1,
-                    cancelable: true,
-                    callback: function (index) {
-                        if (0 == index) {
-                            fn.pushPage({'id': 'quizBibliaResposta.html', 'title': 'Quiz da Bíblia Resposta'});
-                            console.log(1);
-                        }
-                        else{
-                            ons.notification.confirm({
-                                message: 'Gostou desse quiz? Baixe nosso app e tenha acesso a outros.',
-                                title: 'Mensagem',
-                                buttonLabels: ['Sim', 'Não'],
-                                animation: 'default',
-                                primaryButtonIndex: 1,
-                                cancelable: true,
-                                callback: function (index) {
-                                    if (0 == index) {
-                                        fn.loadLink('https://play.google.com/store/apps/collection/cluster?clp=igNKChkKEzU4MzY0OTEwMzM3MTQyMDQzODIQCBgDEisKJWNvbS5waG9uZWdhcC5naXJpYXNlc3RhZG9zYnJhc2lsZWlyb3MQARgDGAE%3D:S:ANO1ljIUr74&gsr=Ck2KA0oKGQoTNTgzNjQ5MTAzMzcxNDIwNDM4MhAIGAMSKwolY29tLnBob25lZ2FwLmdpcmlhc2VzdGFkb3NicmFzaWxlaXJvcxABGAMYAQ%3D%3D:S:ANO1ljJSHsA');
-                                        console.log(1);
-                                    }
-                                    else{
-                                        console.log(2);
-                                    }
-                                }
-                            });
-                        }
-                    }
-                });
-
-            });
-        }
-    </script>
-    <style>
-        .button-margin {
-            margin: 6px 0;
-        }
-
-      .intro {
-        text-align: center;
-        padding: 0 20px;
-        margin-top: 40px;
-      }
-
-      ons-card {
-        cursor: pointer;
-        color: #333;
-      }
-
-      .card__title,
-      .card--material__title {
-        font-size: 20px;
-      }
-    </style>
-  </ons-page>
-</template>
-
-<template id="quizBibliaResposta.html">
-  <ons-page>
-        <ons-toolbar id="quizBibliaResposta_">
-            <div class="left">
-                <ons-back-button>Quiz da Bíblia Resposta</ons-back-button>
-            </div>
-            <div class="center"></div>
-        </ons-toolbar>
-        <ons-list id="textoQuizBibliaResposta">
-            <ons-list-header>1 - Como é o nome do filho do casamento de Abraão com Sara?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz1-quiz" input-id="quiz1-3" value="d" checked></ons-radio>
-                </label>
-                <label for="quiz1-3" class="center">d) Isaque</label>
-            </ons-list-item>
-            <ons-list-header>2 - Como era o nome da bisavó de Davi?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz2-quiz" input-id="quiz2-2" value="c" checked></ons-radio>
-                </label>
-                <label for="quiz2-2" class="center">c) Rute</label>
-            </ons-list-item>
-            <ons-list-header>3 - Quantos Chifres tem um demônio?</ons-list-header>
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz3-quiz" input-id="quiz3-4" value="e" checked></ons-radio>
-                </label>
-                <label for="quiz3-4" class="center">e) Nenhum</label>
-            </ons-list-item>   
-            <ons-list-header>4 - Quem escreveu os livros (da bíblia): Gênesis, Êxodo, Levítico, Números e Deuteronômio?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz4-quiz" input-id="quiz4-3" value="d" checked></ons-radio>
-                </label>
-                <label for="quiz4-3" class="center">d) Moisés</label>
-            </ons-list-item>
-
-            <ons-list-header>5 - Quantos anos Adão viveu?</ons-list-header>
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz5-quiz" input-id="quiz5-4" value="e" checked></ons-radio>
-                </label>
-                <label for="quiz5-4" class="center">e) 930</label>
-            </ons-list-item>
-            <ons-list-header>6 - Quem reconstruiu Jerusalém depois de ela ter sido destruida pelos Babilônios?</ons-list-header>
-            <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="quiz6-quiz" input-id="quiz6-0" value="a" checked></ons-radio>
-                </label>
-                <label for="quiz6-0" class="center">a) Neemias</label>
-            </ons-list-item>
-            <ons-list-header>7 - Davi disse à igreja: "Quem esta disposto a dar ofertas a Deus por conta própria?". Depois disso quanto o templo arrecadou de ofertas para a reconstrução do templo?</ons-list-header>
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz7-quiz" input-id="quiz7-4" value="e" checked></ons-radio>
-                </label>
-                <label for="quiz7-4" class="center">e) 160t de ouro, 340t de prata</label>
-            </ons-list-item>
-            <ons-list-header>8 - Jesus percorreu toda a Judéia pregando:</ons-list-header>
-            <ons-list-item tappable modifier="longdivider">
-                <label class="left">
-                  <ons-radio class="quiz8-quiz" input-id="quiz8-4" value="e" checked></ons-radio>
-                </label>
-                <label for="quiz8-4" class="center">e) "Chegou a Hora, e o reino de Deus esta perto! Arrependam-se dos seus pecados e creiam no evangelho."</label>
-            </ons-list-item>
-        </ons-list>
-
-    <script>
-        ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
-            this.querySelector('#quizBibliaResposta_ div.center').textContent = 'Quiz da Bíblia Resposta';
-        }
-    </script>
-    <style>
-        .button-margin {
-            margin: 6px 0;
-        }
       .intro {
         text-align: center;
         padding: 0 20px;
@@ -990,7 +511,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
 
     <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             $("#textoCapitulosLidos").html('');
             this.querySelector('#capitulosLidos_ div.center').textContent = 'Capítulos Lidos';
             var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
@@ -1175,7 +696,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
                 <div class="center" style="font-size: 20px;">Ester  </div>
                 <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
             </ons-list-item>
-            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'Jo||Jó ||42'})">
+            <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': 'jó||Jó ||42'})">
                 <div class="left"></div>
                 <div class="center" style="font-size: 20px;">Jó  </div>
                 <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
@@ -1435,7 +956,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
             </div>
             <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>
         </ons-list-item>                  
-        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '1Jo||1ª João||3'})">
+        <ons-list-item class="showAd" onclick="fn.pushPage({'id': 'conteudoLivro.html', 'title': '1Jo||1ª João||5'})">
             <div class="left"></div>
             <div class="center" style="font-size: 20px;">
             1ª João </div><div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div></ons-list-item>                  
@@ -1491,7 +1012,7 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
         </div>
         <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             var dados = this.data.title.split('||'); 
             this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
@@ -1516,48 +1037,36 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
 </template>
 
 <template id="textoLivro.html">
-    <ons-page>
+    <ons-page id="onsPageTextoLivro">
       <ons-toolbar id="textoLivro_">
         <div class="left">
           <ons-back-button>Texto do Livro</ons-back-button>
         </div>
         <div class="center"></div>
-        <div class="right"></div>
+        <div class="right" id="rolagem" style="color: #f5f5f5;margin-right: 16px;">Rolagem</div>
       </ons-toolbar>
-      <div id='textoLivro'></div>
 
-      <ons-speed-dial position="top right" direction="down" :open.sync="spdOpen">
+      <div id='textoLivro'>
+        
+      </div>
+
+      <ons-fab class="copiar" position="top left" style="display: none;">
+        <ons-icon icon="md-copy"></ons-icon>
+      </ons-fab>
+
+      <ons-speed-dial position="top right" direction="down" :open.sync="spdOpen" style="display: none;" class="compartilha">
         <ons-fab class="compartilhar">
           <ons-icon icon="md-share"></ons-icon>
         </ons-fab>
-        <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaWhatsApp(
-            'Message via WhatsApp', 
-            null, 
-            null, 
-            function() {
-              ons.notification.toast('Compartilhado no WhatsApp.', { buttonLabel: 'Ok', timeout: 1500 });
-            }, 
-            function(errormsg){
-              ons.notification.toast('Não foi possível compartilhar no WhatsApp.', { buttonLabel: 'Ok', timeout: 1500 });
-            }
-          )">
+        <ons-speed-dial-item class="compartilhar_whatsapp">
           <ons-icon icon="md-whatsapp"></ons-icon>
         </ons-speed-dial-item>
 
-        <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaTwitter('Message via Twitter')">
+        <ons-speed-dial-item class="compartilhar_twitter">
           <ons-icon icon="md-twitter"></ons-icon>
         </ons-speed-dial-item>
 
-        <ons-speed-dial-item onclick="window.plugins.socialsharing.shareViaInstagram(
-            'Message via Instagram', 
-            null, 
-            function() {
-              ons.notification.toast('Compartilhado no Instagram.', { buttonLabel: 'Ok', timeout: 1500 });
-            }, 
-            function(errormsg){
-              ons.notification.toast('Não foi possível compartilhar no Instagram.', { buttonLabel: 'Ok', timeout: 1500 });
-            }
-          )">
+        <ons-speed-dial-item class="compartilhar_instagram">
           <ons-icon icon="md-instagram"></ons-icon>
         </ons-speed-dial-item>
       </ons-speed-dial>
@@ -1579,48 +1088,197 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
         <ons-icon icon="fa-angle-left"></ons-icon>
       </ons-fab>
 
+      <ons-fab id="controle_rolagem" position="bottom center" style="display:none;bottom:0;background-color:#eceff1!important;opacity:1!important;border-radius:0!important;width:100%!important;left:0;margin-left:0;height: 60px">
+        <p>
+          <ons-row>
+            <ons-col id="pausar_rolagem" width="40px" style="text-align: center; line-height: 31px;color: #333">
+              <ons-icon id="pause" icon="md-pause"></ons-icon>
+              <ons-icon id="play" icon="md-play" style="display: none;"></ons-icon>
+            </ons-col>
+
+            <ons-col>
+              <ons-range id="velocidade" style="width: 100%;" value="30" max="50" min="10"></ons-range>
+            </ons-col>
+
+            <ons-col id="fechar_rolagem" width="40px" style="text-align: center; line-height: 31px;color: #333">
+              <ons-icon icon="md-close"></ons-icon>
+            </ons-col>
+          </ons-row>
+        </p>
+      </ons-fab>
+
+
+
         <script>
           ons.getScriptPage().onInit = function () {
             var dados = this.data.title.split('||'); 
             var ultimoCap = dados[2];
             this.querySelector('#textoLivro_ div.center').textContent = dados[1]+' '+dados[3];
-
             //CHAMA DA FUNÇÃO PARA ABRIR MODAL
             fn.showDialog('modal-aguarde');
             app.buscaTexto('nvi',dados[0],dados[3], dados[1]);
+            
             var timeoutID = 0;
             clearTimeout(timeoutID);
             timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
 
-            var atual = dados[3];
+            document.getElementById('velocidade').addEventListener('input', function (event) {
+              velocidade = 0;
+              velocidade = parseInt(event.target.value);
+            })
 
+            $("#atual").val(dados[3]);
+
+            $( "#rolagem" ).click(function() {
+              if (rolagem == 0) {
+                $("#controle_rolagem").css("display","");
+                velocidade = 30;
+                $("#velocidade").val(velocidade);
+                rolagem = 1;
+                app.rolar();
+              }
+            });
+
+            $( "#pausar_rolagem" ).click(function() {
+              if (pausar == 0) {
+                tmp_velocidade = velocidade;
+                velocidade = 0;
+                pausar = 1;
+                $("#pause").css("display","none");
+                $("#play").css("display","");
+              }
+              else{
+                velocidade = tmp_velocidade;
+                pausar = 0;
+                $("#pause").css("display","");
+                $("#play").css("display","none");
+                app.rolar();
+              }
+            });
+
+            $( "#fechar_rolagem" ).click(function() {
+              velocidade = 0;
+              rolagem = 0;
+              $("#controle_rolagem").css("display","none");
+            });
 
             $( "#proximo" ).click(function() {
-                if (parseInt(atual) < parseInt(ultimoCap)) {
-                    atual++;
-                    $('#textoLivro_ div.center').html(dados[1]+' '+atual);
+              if (parseInt($("#atual").val()) < parseInt(ultimoCap)) {
+                inicioLeitura = 0;
+                velocidade = 0;
+                pausar = 0;
+                rolagem = 0;
 
-                    //CHAMA DA FUNÇÃO PARA ABRIR MODAL
-                    fn.showDialog('modal-aguarde');
-                    app.buscaTexto('nvi',dados[0],atual, dados[1]);
-                    var timeoutID = 0;
-                    clearTimeout(timeoutID);
-                    timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
-                }      
+                $("#controle_rolagem").css("display","none");
+
+                $("#atual").val(parseInt($("#atual").val())+1)
+
+                //CHAMA DA FUNÇÃO PARA ABRIR MODAL
+                fn.showDialog('modal-aguarde');
+                app.buscaTexto('nvi',dados[0],parseInt($("#atual").val()), dados[1]);
+                $('#textoLivro_ div.center').html(dados[1]+' '+parseInt($("#atual").val()));
+                var timeoutID = 0;
+                clearTimeout(timeoutID);
+                timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
+              }      
             });
 
             $( "#anterior" ).click(function() {
-                if (parseInt(atual) > 1) {
-                    atual--;
-                    $('#textoLivro_ div.center').html(dados[1]+' '+atual);
+              if (parseInt($("#atual").val()) > 1) {
+                inicioLeitura = 0;
+                velocidade = 0;
+                pausar = 0;
+                rolagem = 0;
 
-                    //CHAMA DA FUNÇÃO PARA ABRIR MODAL
-                    fn.showDialog('modal-aguarde');
-                    app.buscaTexto('nvi',dados[0],atual, dados[1]);
-                    var timeoutID = 0;
-                    clearTimeout(timeoutID);
-                    timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
-                }      
+                $("#controle_rolagem").css("display","none");
+                $("#atual").val(parseInt($("#atual").val())-1)
+
+                //CHAMA DA FUNÇÃO PARA ABRIR MODAL
+                fn.showDialog('modal-aguarde');
+                app.buscaTexto('nvi',dados[0],parseInt($("#atual").val()), dados[1]);
+                $('#textoLivro_ div.center').html(dados[1]+' '+parseInt($("#atual").val()));
+                var timeoutID = 0;
+                clearTimeout(timeoutID);
+                timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
+              }      
+            });
+
+            $( ".copiar" ).click(function() {
+              var text = '';
+              $("[marcado=1]").each(function() {
+                var txt_versiculo = $(this).text().substr(2);
+                var livro = $(this).attr('livro');
+                var num_capitulo = $(this).attr('num_capitulo');
+                var num_versiculo = parseInt($(this).attr('num_versiculo'))+1;
+                text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+              });
+              text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
+              cordova.plugins.clipboard.copy(text);
+              cordova.plugins.clipboard.paste(function (text) { 
+                ons.notification.toast('Copiado para a área de transferência.', { buttonLabel: 'Ok', timeout: 2000 });
+              });
+              //cordova.plugins.clipboard.clear();
+            });
+
+            $( ".compartilhar_whatsapp" ).click(function() {
+              var text = '';
+              $("[marcado=1]").each(function() {
+                var txt_versiculo = $(this).text().substr(2);
+                var livro = $(this).attr('livro');
+                var num_capitulo = $(this).attr('num_capitulo');
+                var num_versiculo = parseInt($(this).attr('num_versiculo'))+1;
+                text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+              });
+
+              text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
+              window.plugins.socialsharing.shareViaWhatsApp(
+                text, 
+                null, 
+                null, 
+                function() {
+                  ons.notification.toast('Compartilhado no WhatsApp.', { buttonLabel: 'Ok', timeout: 2000 });
+                }, 
+                function(errormsg){
+                  ons.notification.toast('Não foi possível compartilhar.', { buttonLabel: 'Ok', timeout: 2000 });
+                }
+              )
+            });
+
+            $( ".compartilhar_instagram" ).click(function() {
+              var text = '';
+              $("[marcado=1]").each(function() {
+                var txt_versiculo = $(this).text().substr(2);
+                var livro = $(this).attr('livro');
+                var num_capitulo = $(this).attr('num_capitulo');
+                var num_versiculo = parseInt($(this).attr('num_versiculo'))+1;
+                text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+              });
+
+              text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
+              window.plugins.socialsharing.shareViaInstagram(
+                text, 
+                null, 
+                function() {
+                  ons.notification.toast('Compartilhado no Instagram.', { buttonLabel: 'Ok', timeout: 2000 });
+                }, 
+                function(errormsg){
+                  ons.notification.toast('Não foi possível compartilhar.', { buttonLabel: 'Ok', timeout: 2000 });
+                }
+              )
+            });
+
+            $( ".compartilhar_twitter" ).click(function() {
+              var text = '';
+              $("[marcado=1]").each(function() {
+                var txt_versiculo = $(this).text().substr(2);
+                var livro = $(this).attr('livro');
+                var num_capitulo = $(this).attr('num_capitulo');
+                var num_versiculo = parseInt($(this).attr('num_versiculo'))+1;
+                text += txt_versiculo+' '+livro+' '+num_capitulo+':'+num_versiculo+'\n\n';
+              });
+
+              text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
+              window.plugins.socialsharing.shareViaTwitter(text);
             });
           }
         </script>
@@ -1631,55 +1289,6 @@ O projeto de tradução para a língua portuguesa começou em 1990, com a reuni�
         </style>
     </ons-page>
 </template>
-
-<script>
-    var admobid = {}
-    if (/(android)/i.test(navigator.userAgent)) {  // for android & amazon-fireos
-        admobid = {
-            banner: 'ca-app-pub-7091486462236476/7375172387',
-            interstitial: 'ca-app-pub-7091486462236476/6017665160',
-        }
-    }
-
-    document.addEventListener('deviceready', function () {
-        admob.banner.config({ 
-            id: admobid.banner, 
-            isTesting: false, 
-            autoShow: true, 
-        })
-        admob.banner.prepare()
-        
-        admob.interstitial.config({
-            id: admobid.interstitial,
-            isTesting: false,
-            autoShow: false,
-        })
-        admob.interstitial.prepare()
-
-        document.getElementsByClassName('showAd').disabled = true
-        document.getElementsByClassName('showAd').onclick = function() {
-            admob.interstitial.show()
-        }
-    }, false);
-
-    document.addEventListener('admob.banner.events.LOAD_FAIL', function(event) {
-        //alert(JSON.stringify(event))
-    })
-
-    document.addEventListener('admob.interstitial.events.LOAD_FAIL', function(event) {
-        //alert(JSON.stringify(event))
-    })
-
-    document.addEventListener('admob.interstitial.events.LOAD', function(event) {
-        //alert(JSON.stringify(event))
-        document.getElementsByClassName('showAd').disabled = false
-    })
-
-    document.addEventListener('admob.interstitial.events.CLOSE', function(event) {
-        //alert(JSON.stringify(event))
-        admob.interstitial.prepare()
-    })
-</script>
 <script src="js/index.js"></script>
 
 </body>
