@@ -278,6 +278,7 @@ dependencies {
     compile "com.google.firebase:firebase-messaging:11.6.2"
     compile "com.google.android.gms:play-services-base:11.0.4"
     compile "com.google.android.gms:play-services-ads:11.0.4"
+    compile "androidx.legacy:legacy-support-v4:1.0.0"
     // SUB-PROJECT DEPENDENCIES END
 }
 

@@ -37,6 +37,9 @@
     },
     "cordova-plugin-insomnia": {
       "PACKAGE_NAME": "com.phonegap.teindico"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "com.phonegap.teindico"
     }
   },
   "dependent_plugins": {
@@ -51,6 +54,9 @@
     },
     "cordova-admob-sdk": {
       "PLAY_SERVICES_VERSION": "11.0.4",
+      "PACKAGE_NAME": "com.phonegap.teindico"
+    },
+    "es6-promise-plugin": {
       "PACKAGE_NAME": "com.phonegap.teindico"
     }
   }
