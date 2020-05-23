@@ -25,6 +25,7 @@
     <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1" />
     <plugin name="cordova-plugin-splashscreen" source="npm" />
     <plugin name="cordova-clipboard" source="npm" />
+    <plugin name="cordova-plugin-insomnia" version="4.1.0" source="npm" />
     <platform name="android">
         <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="www/res/icon/android/drawable-mdpi-icon.png" />
@@ -64,5 +65,4 @@
         <variable name="ADMOB_APP_ID" value="ca-app-pub-7091486462236476~4004927104" />
     </plugin>
     <gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />
-    <plugin name="cordova-plugin-insomnia" spec="https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git" />
 </widget>
