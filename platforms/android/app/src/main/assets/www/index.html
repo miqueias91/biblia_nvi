@@ -25,6 +25,8 @@
       }
 
       document.addEventListener('deviceready', function () {
+        window.plugins.insomnia.keepAwake();
+
         admob.banner.config({ 
           id: admobid.banner, 
           isTesting: false, 
@@ -90,7 +92,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.12" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.13" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>

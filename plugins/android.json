@@ -38,6 +38,9 @@
     },
     "cordova-clipboard": {
       "PACKAGE_NAME": "com.phonegap.teindico"
+    },
+    "cordova-plugin-insomnia": {
+      "PACKAGE_NAME": "com.phonegap.teindico"
     }
   },
   "dependent_plugins": {

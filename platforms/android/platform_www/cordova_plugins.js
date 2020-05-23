@@ -82,6 +82,14 @@ module.exports = [
     "clobbers": [
       "cordova.plugins.clipboard"
     ]
+  },
+  {
+    "id": "cordova-plugin-insomnia.Insomnia",
+    "file": "plugins/cordova-plugin-insomnia/www/Insomnia.js",
+    "pluginId": "cordova-plugin-insomnia",
+    "clobbers": [
+      "window.plugins.insomnia"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -100,7 +108,8 @@ module.exports.metadata =
   "cordova-plugin-admob-free": "0.27.0",
   "es6-promise-plugin": "4.2.2",
   "cordova-plugin-x-socialsharing": "5.6.3",
-  "cordova-clipboard": "1.3.0"
+  "cordova-clipboard": "1.3.0",
+  "cordova-plugin-insomnia": "4.3.0"
 };
 // BOTTOM OF METADATA
 });
