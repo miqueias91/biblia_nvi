@@ -64,5 +64,5 @@
     <plugin name="cordova-plugin-admob-free" spec="^0.27.0">
         <variable name="ADMOB_APP_ID" value="ca-app-pub-7091486462236476~4004927104" />
     </plugin>
-    <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.16" />
+    <gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />
 </widget>
