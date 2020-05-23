@@ -32,10 +32,6 @@
       "PLAY_SERVICES_VERSION": "11.0.4",
       "PACKAGE_NAME": "com.phonegap.teindico"
     },
-    "cordova-plugin-x-socialsharing": {
-      "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
-      "PACKAGE_NAME": "com.phonegap.teindico"
-    },
     "cordova-clipboard": {
       "PACKAGE_NAME": "com.phonegap.teindico"
     },
@@ -55,9 +51,6 @@
     },
     "cordova-admob-sdk": {
       "PLAY_SERVICES_VERSION": "11.0.4",
-      "PACKAGE_NAME": "com.phonegap.teindico"
-    },
-    "es6-promise-plugin": {
       "PACKAGE_NAME": "com.phonegap.teindico"
     }
   }
