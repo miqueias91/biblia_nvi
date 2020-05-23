@@ -1,18 +1,23 @@
 window.fn = {};
+$("#existeProximoCapitulo").val(0)
 var ultimo_livro_lido = localStorage.getItem('ultimo_livro_lido');
 var ultimo_livro_lido_abr = localStorage.getItem('ultimo_livro_lido_abr');
 var ultimo_capitulo_lido = localStorage.getItem('ultimo_capitulo_lido');
 var id = '';
 var usar_cores = 0;
-
+var fonte_versiculo = JSON.parse(localStorage.getItem('fonte-versiculo') || '20');
+localStorage.setItem("fonte-versiculo", fonte_versiculo);
+var modo_noturno = JSON.parse(localStorage.getItem('modo-noturno') || false);
+localStorage.setItem("modo-noturno", modo_noturno);
+var inicioLeitura = 0;
+var velocidade = 0;
+var tamanho = 826;
+var pausar = 0;
+var rolagem = 0;
 
 window.fn.toggleMenu = function () {
   document.getElementById('appSplitter').left.toggle();
 };
-
-/*window.fn.toggleMenu = function () {
-  document.getElementById('appSplitter').right.toggle();
-};*/
 
 window.fn.loadView = function (index) {
   document.getElementById('appTabbar').setActiveTab(index);
@@ -35,6 +40,21 @@ window.fn.pushPage = function (page, anim) {
 window.fn.showDialog = function (id) {
   var elem = document.getElementById(id);      
   elem.show();            
+};
+
+
+
+var showTemplateDialog = function() {
+  var dialog = document.getElementById('my-dialog');
+
+  if (dialog) {
+    dialog.show();
+  } else {
+    ons.createElement('dialog.html', { append: true })
+      .then(function(dialog) {
+        dialog.show();
+      });
+  }
 };
 
 //SCRIPT PARA ESCONDER O MODAL DE AGUARDE
@@ -118,9 +138,12 @@ var app = {
     return false;
   },  
   buscaTexto: function(version,livro,capitulo, nome) {
+    inicioLeitura = 0;
     localStorage.setItem("ultimo_livro_lido", nome);
     localStorage.setItem("ultimo_livro_lido_abr", livro);
     localStorage.setItem("ultimo_capitulo_lido", capitulo);
+    fonte_versiculo = JSON.parse(localStorage.getItem('fonte-versiculo'));
+    modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
 
     $("#textoLivro").html('');
     var version = version || "nvi";
@@ -149,36 +172,54 @@ var app = {
                 myBook = data[i];
             }
           }
-          var start = parseInt(regex[3]);
-          var end = parseInt(regex[4]) || parseInt(regex[3]);
 
-          for (var i in myBook.chapters[obj.chapter - 1][parseInt(capitulo)]) {
-            if (myBook.chapters[obj.chapter - 1][capitulo][i]) {
+          for (var i in myBook.chapters[obj.chapter - 1]) {
+            if (myBook.chapters[obj.chapter - 1]) {
+              $("#existeProximoCapitulo").val(1);
               var marcado = 0;
               var txt_marcado = 0;
               var capitulo_marcado = 0;
               var background = '#f5f5f5';
+              var color = '1f1f21';
               var existe_marcado = app.incluirMarcadorVersiculo(livro, capitulo, i);
               var existe_capitulo = app.incluirCapitulo(livro+' '+capitulo);
+              if (modo_noturno) {
+                background = '#333';
+                color = 'fff';
+              }
+
               if (existe_marcado) {
                 txt_marcado = 1;
                 background = existe_marcado;
+                color = '1f1f21';
               }
 
               if (existe_capitulo) {
                 capitulo_marcado = 1;
               }
-              var texto = myBook.chapters[obj.chapter - 1][capitulo][i];
-              obj.text += '<ons-list-item>'+
-                            '<p style="font-size: 20px;text-align:justify;line-height: 25px;background:'+background+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'" txt_marcado="'+txt_marcado+'" txt_versiculo="'+texto+'">'+
-                              '<span style="font-weight:bold;">'+i+'</span>'+
+
+              var texto = myBook.chapters[obj.chapter - 1][i];
+              obj.text += '<ons-list-item style="background:'+background+';color:#'+color+'" id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'_">'+
+                            '<p style="font-size: '+fonte_versiculo+'px;text-align:justify;line-height: 35px;background:'+background+';color:#'+color+'"  id="txt_versiculo'+livro+'_'+capitulo+'_'+i+'" class="txt_versiculo" livro="'+livro+'" num_capitulo="'+capitulo+'" num_versiculo="'+i+'" marcado="'+marcado+'" txt_marcado="'+txt_marcado+'" txt_versiculo="'+texto+'">'+
+                              '<span style="font-weight:bold;">'+(parseInt(i)+1)+'</span>'+
                               '&nbsp;&nbsp;'+texto+ 
                             '</p>'+
                           '</ons-list-item>';
             }
           }
-          obj.text += '<br><br><section style="margin: 16px"><ons-button capitulo_marcado="'+capitulo_marcado+'" modifier="large" class="button-margin marcar_capitulo" livro_marcar="'+livro+'" num_capitulo_marcar="'+capitulo+'">MARCAR CAPÍTULO COMO LIDO</ons-button></section>'
-          $("#textoLivro").html(obj.text);
+
+          if (parseInt($("#existeProximoCapitulo").val()) == 1) {
+            obj.text += '<br><br><section style="margin: 16px"><ons-button capitulo_marcado="'+capitulo_marcado+'" modifier="large" class="button-margin marcar_capitulo" livro_marcar="'+livro+'" num_capitulo_marcar="'+capitulo+'">MARCAR CAPÍTULO COMO LIDO</ons-button></section>'
+            $("#textoLivro").html(obj.text);
+
+          }
+          else{
+            $("#atual").val(parseInt($("#atual").val())-1);
+            localStorage.setItem("ultimo_capitulo_lido", parseInt($("#atual").val()));
+            $('#textoLivro_ div.center').html(ultimo_livro_lido+' '+parseInt($("#atual").val()));
+            app.buscaTexto('nvi',ultimo_livro_lido_abr,parseInt($("#atual").val()), ultimo_livro_lido);
+          }
+          $("#existeProximoCapitulo").val(0);
         });
 
         $( ".marcar_capitulo" ).click(function() {
@@ -202,51 +243,69 @@ var app = {
 
 
         $( ".txt_versiculo" ).click(function() {
-          marcado = $(this).attr('marcado');
-          id = $(this).attr('id');          
-          var livro = $('#'+id).attr('livro');
-          var num_capitulo = $('#'+id).attr('num_capitulo');
-          var num_versiculo = $('#'+id).attr('num_versiculo');
-          if (marcado==0) {
-            usar_cores++;
-            if(parseInt(usar_cores) === 1){
-              $(".cores").css("display","");
-              $(".copiar").css("display","");
-              $(".compartilha").css("display","");
-            }
-            else{
-              $(".cores").css("display","none");
-            }
-            $('#'+id).attr('marcado',1);
-            $('#'+id).attr('txt_marcado',0);
-            $(".botao_controle").css("display","none");
-            $('#'+id).css("background","#ccc");
-
-            lista_versiculos = JSON.parse(localStorage.getItem('lista-versiculos'));
-            app.retirarMarcadorVersiculo(livro, num_capitulo, num_versiculo, lista_versiculos);
-          }
-          else{
-            usar_cores--;
-            $(this).attr('marcado',0);
-            $(this).attr('txt_marcado',0);
-            if(parseInt(usar_cores) === 1){
-              $(".cores").css("display","");
+          if (parseInt(rolagem) == 0) {
+            marcado = $(this).attr('marcado');
+            id = $(this).attr('id');          
+            var livro = $('#'+id).attr('livro');
+            var num_capitulo = $('#'+id).attr('num_capitulo');
+            var num_versiculo = $('#'+id).attr('num_versiculo');
+            if (marcado==0) {
+              usar_cores++;
+              if(parseInt(usar_cores) === 1){
+                $(".cores").css("display","");
+                $(".copiar").css("display","");
+                $(".compartilha").css("display","");
+              }
+              else{
+                $(".cores").css("display","none");
+              }
+              $('#'+id).attr('marcado',1);
+              $('#'+id).attr('txt_marcado',0);
               $(".botao_controle").css("display","none");
+
+              color = '#fff';
+              modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
+              if (modo_noturno) {
+                color = '#333';
+              }
+              $('#'+id).css("color",color);
+              $('#'+id).css("background","#ccc");
+
+
+              lista_versiculos = JSON.parse(localStorage.getItem('lista-versiculos'));
+              app.retirarMarcadorVersiculo(livro, num_capitulo, num_versiculo, lista_versiculos);
             }
             else{
-              $(".cores").css("display","none");
-              if(parseInt(usar_cores) > 1){
+              usar_cores--;
+              $(this).attr('marcado',0);
+              $(this).attr('txt_marcado',0);
+              if(parseInt(usar_cores) === 1){
+                $(".cores").css("display","");
                 $(".botao_controle").css("display","none");
               }
               else{
-                $(".botao_controle").css("display","");
-                $(".copiar").css("display","none");
-              $(".compartilha").css("display","none");
+                $(".cores").css("display","none");
+                if(parseInt(usar_cores) > 1){
+                  $(".botao_controle").css("display","none");
+                }
+                else{
+                  $(".botao_controle").css("display","");
+                  $(".copiar").css("display","none");
+                $(".compartilha").css("display","none");
+                }
               }
-            }              
-            $('#'+id).css("background","#f5f5f5");
-            lista_versiculos = JSON.parse(localStorage.getItem('lista-versiculos'));
-            app.retirarMarcadorVersiculo(livro, num_capitulo, num_versiculo, lista_versiculos);
+              background = '#f5f5f5';
+              color = '#1f1f21';
+              modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
+              if (modo_noturno) {
+                background = '#333';
+                color = '#fff';
+              }
+              $('#'+id).css("background",background);
+              $('#'+id).css("color",color);
+              lista_versiculos = JSON.parse(localStorage.getItem('lista-versiculos'));
+              app.retirarMarcadorVersiculo(livro, num_capitulo, num_versiculo, lista_versiculos);
+            }      
           }      
         });
 
@@ -288,6 +347,17 @@ var app = {
       }
     });
   },
+  rolar: function() {
+    tamanho = $("#textoLivro").height();
+    document.getElementById('onsPageTextoLivro').scrollTop = inicioLeitura;
+    inicioLeitura++;
+    if (inicioLeitura != tamanho && velocidade != 0) {
+      t = setTimeout(function() { app.rolar() }, velocidade);
+    }
+  },
+  parar: function() {
+    clearTimeout(t);
+  },
   buscaVersiculo: function(version,livro_capitulo_versiculo, id) {
     $("#textoLivro").html('');
     var version = version || "nvi";
@@ -299,7 +369,6 @@ var app = {
     var capitulo = dados1[0];
     var versiculo = dados1[1];
 
-
     $.ajax({
       type : "GET",
       url : "js/"+version+".json",
@@ -307,7 +376,6 @@ var app = {
       success : function(data){
         $(selector).each(function(){
           var ref = livro+""+capitulo+"."+versiculo;
-          //console.log(ref)
           var reg = new RegExp('([0-9]?[a-zA-Z]{2,3})([0-9]+)[\.|:]([0-9]+)-?([0-9]{1,3})?');
           var regex = reg.exec(ref);                    
           var myBook = null;
@@ -328,12 +396,12 @@ var app = {
 
 
           for(var i = start; i <=  end; i++){
-            if (myBook.chapters[obj_v.chapter - 1][capitulo][i]) {
+            if (myBook.chapters[obj_v.chapter - 1][i]) {
                 obj_v.text += '<ons-list-item>'+
                   '<p style="font-size: 20px;line-height:30px;text-align:justify">'+
-                    myBook.chapters[obj_v.chapter - 1][capitulo][i] +
+                    myBook.chapters[obj_v.chapter - 1][i] +
                   '</p>'+
-                  '<p style="font-size: 15px;">'+livro.toUpperCase()+' '+capitulo+':'+i+'</p>'+
+                  '<p style="font-size: 15px;">'+livro.toUpperCase()+' '+capitulo+':'+(parseInt(i)+1)+'</p>'+
                 '</ons-list-item>';
             }
           }
