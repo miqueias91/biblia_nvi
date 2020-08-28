@@ -1,6 +1,4 @@
-ext {
-    var = 29
-}/* Licensed to the Apache Software Foundation (ASF) under one
+/* Licensed to the Apache Software Foundation (ASF) under one
    or more contributor license agreements.  See the NOTICE file
    distributed with this work for additional information
    regarding copyright ownership.  The ASF licenses this file
@@ -22,34 +20,30 @@ ext {
 
 buildscript {
     repositories {
-        maven {
-            url "https://maven.google.com"
-        }
-        jcenter()
         google()
+        jcenter()
     }
-    dependencies {
 
+    dependencies {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath 'com.google.gms:google-services:4.3.2'
+
+        classpath 'com.android.tools.build:gradle:3.3.0'
     }
 }
 
 allprojects {
     repositories {
-        maven {
-            url "https://maven.google.com"
-        }
+        google()
         jcenter()
-        google()  // Google's Maven repository
     }
+
     //This replaces project.properties w.r.t. build settings
     project.ext {
-      defaultBuildToolsVersion="27.0.1" //String
+      defaultBuildToolsVersion="28.0.3" //String
       defaultMinSdkVersion=19 //Integer - Minimum requirement is Android 4.4
-      defaultTargetSdkVersion=27 //Integer - We ALWAYS target the latest by default
-      defaultCompileSdkVersion=27 //Integer - We ALWAYS compile with the latest by default
+      defaultTargetSdkVersion=28 //Integer - We ALWAYS target the latest by default
+      defaultCompileSdkVersion=28 //Integer - We ALWAYS compile with the latest by default
     }
 }
 

@@ -7,10 +7,20 @@
     "files": {}
   },
   "installed_plugins": {
+    "cordova-clipboard": {
+      "PACKAGE_NAME": "com.phonegap.teindico"
+    },
+    "cordova-plugin-admob-free": {
+      "ADMOB_APP_ID": "ca-app-pub-7091486462236476~4004927104",
+      "PACKAGE_NAME": "com.phonegap.teindico"
+    },
     "cordova-plugin-console": {
       "PACKAGE_NAME": "com.phonegap.teindico"
     },
     "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.phonegap.teindico"
+    },
+    "cordova-plugin-insomnia": {
       "PACKAGE_NAME": "com.phonegap.teindico"
     },
     "cordova-plugin-splashscreen": {
@@ -22,41 +32,30 @@
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.phonegap.teindico"
     },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "com.phonegap.teindico"
+    },
     "phonegap-plugin-push": {
       "ANDROID_SUPPORT_V13_VERSION": "27.+",
       "FCM_VERSION": "11.6.2",
       "PACKAGE_NAME": "com.phonegap.teindico"
-    },
-    "cordova-plugin-admob-free": {
-      "ADMOB_APP_ID": "ca-app-pub-7091486462236476~4004927104",
-      "PLAY_SERVICES_VERSION": "11.0.4",
-      "PACKAGE_NAME": "com.phonegap.teindico"
-    },
-    "cordova-clipboard": {
-      "PACKAGE_NAME": "com.phonegap.teindico"
-    },
-    "cordova-plugin-insomnia": {
-      "PACKAGE_NAME": "com.phonegap.teindico"
-    },
-    "cordova-plugin-x-socialsharing": {
-      "PACKAGE_NAME": "com.phonegap.teindico"
     }
   },
   "dependent_plugins": {
-    "cordova-support-google-services": {
-      "PACKAGE_NAME": "com.phonegap.teindico"
-    },
-    "phonegap-plugin-multidex": {
+    "cordova-admob-sdk": {
+      "PLAY_SERVICES_VERSION": "11.0.4",
       "PACKAGE_NAME": "com.phonegap.teindico"
     },
     "cordova-promise-polyfill": {
       "PACKAGE_NAME": "com.phonegap.teindico"
     },
-    "cordova-admob-sdk": {
-      "PLAY_SERVICES_VERSION": "11.0.4",
+    "es6-promise-plugin": {
       "PACKAGE_NAME": "com.phonegap.teindico"
     },
-    "es6-promise-plugin": {
+    "cordova-support-google-services": {
+      "PACKAGE_NAME": "com.phonegap.teindico"
+    },
+    "phonegap-plugin-multidex": {
       "PACKAGE_NAME": "com.phonegap.teindico"
     }
   }
