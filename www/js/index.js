@@ -410,6 +410,84 @@ var app = {
       }
     });
   },
+  buscaHinario: function(version,id) {
+    var version = version || "harpa";
+    var selector = this;
+    var texto = "";
+
+    $.ajax({
+      type : "GET",
+      url : "js/"+version+".json",
+      dataType : "json",
+      success : function(data){
+        $(selector).each(function(){
+          var myBook = null;
+          var obj = {
+            id : id,
+            text : ""
+          };
+          background = '#f5f5f5';
+          color = '1f1f21';
+          modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
+          if (modo_noturno) {
+            background = '#333';
+            color = 'fff';
+          }
+          if (modo_noturno) {
+            background = '#333';
+            color = 'fff';
+          }
+
+          if (data) {
+            for(i in data){
+              if(data[i].id == obj.id){
+                  myBook = data[i];
+              }
+            } 
+            for (var i = 0; i < myBook['hinario'].length; i++) {
+              texto = myBook['hinario'][i];
+
+              obj.text += 
+              '<ons-list-item style="background:'+background+';color:#'+color+'">'+
+                '<p style="font-size: '+fonte_versiculo+'px;text-align:justify;line-height: 30px;background:'+background+';color:#'+color+'">'+
+                  ''+texto+ 
+                '</p>'+
+              '</ons-list-item>';
+            }
+          }
+          $("#conteudoHarpa").html(obj.text);
+        });
+      }
+    });
+  },
+  listaHinario: function(version) {
+    var version = version || "harpa";
+    var selector = this;
+    var texts = [];
+    $("#listaharpa").html('');
+    $.ajax({
+      type : "GET",
+      url : "js/"+version+".json",
+      dataType : "json",
+      success : function(data){
+        $(selector).each(function(){
+          var myBook = null;  
+          var text = "";
+          if (data) {
+            for(i in data){
+              text +=
+              '<ons-list-item class="showAd" onclick="fn.pushPage({\'id\': \'conteudoHarpa.html\', \'title\': \''+data[i]['id']+'||'+data[i]['titulo']+'\'})">'+
+              '  <div class="left"></div>'+
+              '  <div class="center" style="font-size: 15px;">'+data[i]['id']+' - '+data[i]['titulo']+'</div>'+
+              '  <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>'+
+              '</ons-list-item>';
+            }
+            $("#listaharpa").html(text);
+          }
+        });
+      }
+    });
+  },
   dateTime: function() {
     let now = new Date;
     let ano = now.getFullYear();
@@ -458,7 +536,6 @@ var app = {
 };
 
 app.initialize();
-
 if (!window.localStorage.getItem('userId')) {
   app.getIds();
 }

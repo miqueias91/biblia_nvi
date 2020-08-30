@@ -97,7 +97,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.14" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.15" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -122,6 +122,17 @@
           <i class="fas fa-book-open"></i>
         </div>
           Bíblia Sagrada
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+      <ons-list-item onclick="fn.pushPage({'id': 'harpa.html', 'title': 'Harpa Cristã'})">
+        <div class="left">
+          <i class="fas fa-music"></i>
+        </div>
+          Harpa Cristã
         </div>
         <div class="right">
           <ons-icon icon="fa-link"></ons-icon>
@@ -531,6 +542,52 @@
     <script>
         ons.getScriptPage().onInit = function () {
             this.querySelector('#biblia_ div.center').textContent = 'Bíblia Sagrada';
+        }
+    </script>
+    <style>
+        .button-margin {
+            margin: 6px 0;
+        }
+
+      .intro {
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
+<template id="harpa.html">
+  <ons-page>
+    <ons-toolbar id="biblia_">
+        <div class="left">
+            <ons-back-button>Harpa Cristã</ons-back-button>
+        </div>
+        <div class="center"></div>
+    </ons-toolbar>
+
+    <ons-list id="listaharpa"></ons-list>
+
+    <script>
+        ons.getScriptPage().onInit = function () {
+          admob.interstitial.show();
+          fn.showDialog('modal-aguarde');
+          app.listaHinario('harpa');
+          var timeoutID = 0;
+          clearTimeout(timeoutID);
+          timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
+          this.querySelector('#biblia_ div.center').textContent = 'Harpa Cristã';
         }
     </script>
     <style>
@@ -1241,6 +1298,31 @@
               window.plugins.socialsharing.shareViaTwitter(text);
             });
           }
+        </script>
+        <style>
+          .button-margin {
+            margin: 6px 0;
+          }
+        </style>
+    </ons-page>
+</template>
+<template id="conteudoHarpa.html">
+    <ons-page>
+        <ons-toolbar id="conteudoHarpa_">
+            <div class="left">
+                <ons-back-button>Conteúdo da Harpa</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+        <div id='conteudoHarpa'></div>
+        <script>
+        ons.getScriptPage().onInit = function () {
+          admob.interstitial.show();
+          var dados = this.data.title.split('||'); 
+          this.querySelector('#conteudoHarpa_ div.center').textContent = dados[0]+' - '+dados[1];
+          $("#conteudoHarpa").html('');
+          app.buscaHinario('harpa',dados[0]);
+        }
         </script>
         <style>
           .button-margin {
