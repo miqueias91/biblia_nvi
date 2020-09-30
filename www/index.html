@@ -97,7 +97,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.15" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.16" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -291,7 +291,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            //admob.interstitial.show();
             $("#textoVersiculo").html('');
             this.querySelector('#versiculosMarcados_ div.center').textContent = 'Versículos Marcados';
             var lista_marcadores = JSON.parse(localStorage.getItem('lista-versiculos') || '[]');
@@ -365,7 +365,7 @@
       </ons-list>
     <script>
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          //admob.interstitial.show();
           modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
           $("#modo_noturno").attr("checked",modo_noturno);
           
@@ -437,7 +437,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            //admob.interstitial.show();
             $("#textoVersiculo").html('');
             this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
             var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13'];
@@ -482,7 +482,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            //admob.interstitial.show();
             $("#textoCapitulosLidos").html('');
             this.querySelector('#capitulosLidos_ div.center').textContent = 'Capítulos Lidos';
             var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
@@ -575,19 +575,250 @@
             <ons-back-button>Harpa Cristã</ons-back-button>
         </div>
         <div class="center"></div>
-    </ons-toolbar>
+        <div class="right" id="botao_pesquisa_harpa" style="color: #f5f5f5;margin-right: 16px;"><ons-icon icon="fa-search"></ons-icon></div>
 
-    <ons-list id="listaharpa"></ons-list>
+    </ons-toolbar>
+    <p style="text-align: center; margin: 0;display: none;" id="pesquisa_harpa">
+        <ons-search-input style="width: 100%;"
+          placeholder="Pesquisar..."
+          onchange="app.pesquisaHarpa(this.value)"
+        ></ons-search-input>
+      </p>
+
+    <ons-list id="listaharpa">
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '1||CHUVAS DE GRAÇA'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">1 - CHUVAS DE GRAÇA</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '2||SAUDOSA LEMBRANÇA'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">2 - SAUDOSA LEMBRANÇA</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '3||PLENA PAZ'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">3 - PLENA PAZ</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '4||DEUS VELARÁ POR TI'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">4 - DEUS VELARÁ POR TI</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '5||Ó DESCE, FOGO SANTO'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">5 - Ó DESCE, FOGO SANTO</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '6||NA MALDIÇÃO DA CRUZ'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">6 - NA MALDIÇÃO DA CRUZ</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '7||CRISTO CURA, SIM'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">7 - CRISTO CURA, SIM</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '8||CRISTO, O FIEL AMIGO'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">8 - CRISTO, O FIEL AMIGO</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '9||MARCHAI, SOLDADOS DE CRISTO'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">9 - MARCHAI, SOLDADOS DE CRISTO</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '10||EU TE LOUVO'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">10 - EU TE LOUVO</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '11||Ó CRISTÃO, EIA AVANTE'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">11 - Ó CRISTÃO, EIA AVANTE</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '12||VEM JÁ, PECADOR'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">12 - VEM JÁ, PECADOR</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '13||JESUS COMPROU'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">13 - JESUS COMPROU</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '14||GOZO EM JESUS'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">14 - GOZO EM JESUS</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '15||CONVERSÃO'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">15 - CONVERSÃO</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '16||DESPERTAR PARA O TRABALHO'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">16 - DESPERTAR PARA O TRABALHO</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '17||PENSANDO EM JESUS'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">17 - PENSANDO EM JESUS</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '18||GRATA NOVA'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">18 - GRATA NOVA</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '19||O CONVITE DE CRISTO'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">19 - O CONVITE DE CRISTO</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '20||OLHAI PARA O CORDEIRO DE DEUS'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">20 - OLHAI PARA O CORDEIRO DE DEUS</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '21||GLORIOSA AURORA'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">21 - GLORIOSA AURORA</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '22||CEIA DO SENHOR'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">22 - CEIA DO SENHOR</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '23||GLÓRIA A JESUS'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">23 - GLÓRIA A JESUS</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '24||PODER PENTECOSTAL'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">24 - PODER PENTECOSTAL</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '25||JESUS, TU ÉS BOM'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">25 - JESUS, TU ÉS BOM</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '26||A FORMOSA JERUSALÉM'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">26 - A FORMOSA JERUSALÉM</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '27||AMOR QUE VENCE'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">27 - AMOR QUE VENCE</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '28||DEUS VAI TE GUIAR'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">28 - DEUS VAI TE GUIAR</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '29||O PRECIOSO SANGUE'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">29 - O PRECIOSO SANGUE</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+     <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoHarpa.html', 'title': '30||NÃO SOU MEU'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">30 - NÃO SOU MEU</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+           <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+        </div>
+     </ons-list-item>
+    </ons-list>
 
     <script>
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          //admob.interstitial.show();
           fn.showDialog('modal-aguarde');
           app.listaHinario('harpa');
           var timeoutID = 0;
           clearTimeout(timeoutID);
-          timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 100);
+          timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 5);
           this.querySelector('#biblia_ div.center').textContent = 'Harpa Cristã';
+
+          var abriu_pesquisa = false
+          $( "#botao_pesquisa_harpa" ).click(function() {
+            if (!abriu_pesquisa) {
+              $("#pesquisa_harpa").css("display","");
+              abriu_pesquisa = true;
+            }
+            else{
+              $("#pesquisa_harpa").css("display","none");
+              abriu_pesquisa = false;
+            }
+          });
         }
     </script>
     <style>
@@ -1029,7 +1260,7 @@
         </div>
         <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            //admob.interstitial.show();
             var dados = this.data.title.split('||'); 
             this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
@@ -1317,7 +1548,7 @@
         <div id='conteudoHarpa'></div>
         <script>
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          //admob.interstitial.show();
           var dados = this.data.title.split('||'); 
           this.querySelector('#conteudoHarpa_ div.center').textContent = dados[0]+' - '+dados[1];
           $("#conteudoHarpa").html('');
