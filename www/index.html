@@ -291,7 +291,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             $("#textoVersiculo").html('');
             this.querySelector('#versiculosMarcados_ div.center').textContent = 'Versículos Marcados';
             var lista_marcadores = JSON.parse(localStorage.getItem('lista-versiculos') || '[]');
@@ -365,7 +365,7 @@
       </ons-list>
     <script>
         ons.getScriptPage().onInit = function () {
-          //admob.interstitial.show();
+          admob.interstitial.show();
           modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
           $("#modo_noturno").attr("checked",modo_noturno);
           
@@ -437,7 +437,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             $("#textoVersiculo").html('');
             this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
             var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13'];
@@ -482,7 +482,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             $("#textoCapitulosLidos").html('');
             this.querySelector('#capitulosLidos_ div.center').textContent = 'Capítulos Lidos';
             var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
@@ -527,21 +527,48 @@
 
 <template id="biblia.html">
   <ons-page>
-        <ons-toolbar id="biblia_">
-            <div class="left">
-                <ons-back-button>Bíblia Sagrada</ons-back-button>
-            </div>
-            <div class="center"></div>
-        </ons-toolbar>
-    <ons-card onclick="fn.pushPage({'id': 'antigoTestamento.html', 'title': 'Antigo Testamento'})">
-        <div class="title" style="color: #F5F5F5;">Antigo Testamento</div>
-    </ons-card>
-    <ons-card onclick="fn.pushPage({'id': 'novoTestamento.html', 'title': 'Novo Testamento'})">
-        <div class="title" style="color: #F5F5F5;">Novo Testamento</div>
-    </ons-card>
+    <ons-toolbar id="biblia_">
+      <div class="left">
+          <ons-back-button>Bíblia Sagrada</ons-back-button>
+      </div>
+      <div class="right" id="botao_pesquisa_biblia" style="color: #f5f5f5;margin-right: 16px;"><ons-icon icon="fa-search"></ons-icon></div>
+    </ons-toolbar>
+      <p style="text-align: center; margin: 0 0 10px 0;display: none;" id="pesquisa_biblia">
+      <ons-search-input style="width: 100%;"
+        placeholder="Pesquisar..."
+        class="pesquisa"
+        onchange="app.pesquisaBiblia(this.value)"
+      ></ons-search-input>
+    </p>
+    <div style="display: ;" id="opcao_biblia">
+      <ons-card onclick="fn.pushPage({'id': 'antigoTestamento.html', 'title': 'Antigo Testamento'})">
+          <div class="title" style="color: #F5F5F5;">Antigo Testamento</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'novoTestamento.html', 'title': 'Novo Testamento'})">
+          <div class="title" style="color: #F5F5F5;">Novo Testamento</div>
+      </ons-card>
+    </div>
+
+    <div style="display: none;" id="resultado_pesquisa_biblia">
+    </div>
     <script>
         ons.getScriptPage().onInit = function () {
-            this.querySelector('#biblia_ div.center').textContent = 'Bíblia Sagrada';
+          this.querySelector('#biblia_ div.center').textContent = 'Bíblia Sagrada';
+          var abriu_pesquisa_biblia = false
+          $( "#botao_pesquisa_biblia" ).click(function() {
+            $(".pesquisa").val('');
+            $("#resultado_pesquisa_biblia").html('');
+            if (!abriu_pesquisa_biblia) {
+              $("#pesquisa_biblia").css("display","");
+              $("#opcao_biblia").css("display","none");
+              abriu_pesquisa_biblia = true;
+            }
+            else{
+              $("#pesquisa_biblia").css("display","none");
+              $("#opcao_biblia").css("display","");
+              abriu_pesquisa_biblia = false;
+            }
+          });
         }
     </script>
     <style>
@@ -576,11 +603,11 @@
         </div>
         <div class="center"></div>
         <div class="right" id="botao_pesquisa_harpa" style="color: #f5f5f5;margin-right: 16px;"><ons-icon icon="fa-search"></ons-icon></div>
-
     </ons-toolbar>
-    <p style="text-align: center; margin: 0;display: none;" id="pesquisa_harpa">
+    <p style="text-align: center; margin: 0 0 10px 0;display: none;" id="pesquisa_harpa">
         <ons-search-input style="width: 100%;"
           placeholder="Pesquisar..."
+          class="pesquisa"
           onchange="app.pesquisaHarpa(this.value)"
         ></ons-search-input>
       </p>
@@ -798,9 +825,12 @@
      </ons-list-item>
     </ons-list>
 
+    <ons-list style="display: none;" id="resultado_pesquisa_harpa">
+    </ons-list>
+
     <script>
         ons.getScriptPage().onInit = function () {
-          //admob.interstitial.show();
+          admob.interstitial.show();
           fn.showDialog('modal-aguarde');
           app.listaHinario('harpa');
           var timeoutID = 0;
@@ -808,15 +838,19 @@
           timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 5);
           this.querySelector('#biblia_ div.center').textContent = 'Harpa Cristã';
 
-          var abriu_pesquisa = false
+          var abriu_pesquisa_harpa = false
           $( "#botao_pesquisa_harpa" ).click(function() {
-            if (!abriu_pesquisa) {
+            $(".pesquisa").val('');
+            $("#resultado_pesquisa_harpa").html('');
+            if (!abriu_pesquisa_harpa) {
               $("#pesquisa_harpa").css("display","");
-              abriu_pesquisa = true;
+              $("#listaharpa").css("display","none");
+              abriu_pesquisa_harpa = true;
             }
             else{
               $("#pesquisa_harpa").css("display","none");
-              abriu_pesquisa = false;
+              $("#listaharpa").css("display","");
+              abriu_pesquisa_harpa = false;
             }
           });
         }
@@ -1260,7 +1294,7 @@
         </div>
         <script>
         ons.getScriptPage().onInit = function () {
-            //admob.interstitial.show();
+            admob.interstitial.show();
             var dados = this.data.title.split('||'); 
             this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
@@ -1548,7 +1582,7 @@
         <div id='conteudoHarpa'></div>
         <script>
         ons.getScriptPage().onInit = function () {
-          //admob.interstitial.show();
+          admob.interstitial.show();
           var dados = this.data.title.split('||'); 
           this.querySelector('#conteudoHarpa_ div.center').textContent = dados[0]+' - '+dados[1];
           $("#conteudoHarpa").html('');

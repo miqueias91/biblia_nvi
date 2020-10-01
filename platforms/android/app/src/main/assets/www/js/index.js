@@ -462,31 +462,104 @@ var app = {
   },
   listaHinario: function(version) {
     var version = version || "harpa";
-    var selector = this;
-    var texts = [];
-    $("#listaharpa").html('');
-    $.ajax({
-      type : "GET",
-      url : "js/"+version+".json",
-      dataType : "json",
-      success : function(data){
-        $(selector).each(function(){
-          var myBook = null;  
-          var text = "";
-          if (data) {
-            for(i in data){
-              text +=
-              '<ons-list-item class="showAd" onclick="fn.pushPage({\'id\': \'conteudoHarpa.html\', \'title\': \''+data[i]['id']+'||'+data[i]['titulo']+'\'})">'+
-              '  <div class="left"></div>'+
-              '  <div class="center" style="font-size: 15px;">'+data[i]['id']+' - '+data[i]['titulo']+'</div>'+
-              '  <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>'+
-              '</ons-list-item>';
-            }
-            $("#listaharpa").html(text);
-          }
+    var text = "";
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        $("#listaharpa").html('');
+        var data = JSON.parse(this.responseText);
+        data.forEach(function (hinos) {
+          text +=
+          '<ons-list-item class="showAd" onclick="fn.pushPage({\'id\': \'conteudoHarpa.html\', \'title\': \''+hinos['id']+'||'+hinos['titulo']+'\'})">'+
+          '  <div class="left"></div>'+
+          '  <div class="center" style="font-size: 15px;">'+hinos['id']+' - '+hinos['titulo']+'</div>'+
+          '  <div class="right"><ons-icon icon="fa-angle-right"></ons-icon></div>'+
+          '</ons-list-item>';
         });
+        $("#listaharpa").html(text);
       }
-    });
+    };
+    xmlhttp.open("GET", "js/"+version+".json", true);
+    xmlhttp.send();
+  },
+  pesquisaHarpa: function(term){
+    if (term != '') {
+      term = term.toLowerCase();
+      text = '';
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          $("#resultado_pesquisa_harpa").html('');
+          var data = JSON.parse(this.responseText);
+          data.forEach(function (hinos) {
+            var achou = false;
+            hinos['hinario'].forEach(function (hino) {
+              if (!achou) {
+                str = hino.toLowerCase();
+                if(str.match(term)){
+                  achou = true;
+                  text +=
+                  '<ons-list-item class="showAd" onclick="fn.pushPage({\'id\': \'conteudoHarpa.html\', \'title\': \''+hinos['id']+'||'+hinos['titulo']+'\'})">'+             
+                  '  <div class="center" style="font-size: 15px;display:block;"><span>'+hinos['id']+' - '+hinos['titulo']+'</span>'+
+                  '   <div><i style="font-size: 11px;">'+str+'</i></div>'+
+                  '  </div>'+
+                  '</ons-list-item>';
+                }
+              }
+            });
+          });
+          if (text === '') {
+            text = '<p style="text-align: center; margin: 0 0 10px 0;">Nenhum resultado encontrado</p>';
+          }
+          $("#resultado_pesquisa_harpa").html(text);
+          $("#resultado_pesquisa_harpa").css("display","");
+        }
+      };
+      xmlhttp.open("GET", "js/harpa.json", true);
+      xmlhttp.send();
+    }
+  },
+  pesquisaBiblia: function(term){
+    if (term != '') {
+      term = term.toLowerCase();
+      text = '';
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          $("#resultado_pesquisa_biblia").html('');
+          var data = JSON.parse(this.responseText);
+          data.forEach(function (biblia) {
+            var achou = false;
+            var num_cap_busca = 0;
+            biblia['chapters'].forEach(function (versiculos) {
+              for (var i = 0; i < versiculos.length; i++) {
+                if (!achou) {
+                  str = versiculos[i].toLowerCase();
+                  if(str.match(term)){
+                    achou = true;
+                    text +=
+                    '<ons-list-item onclick="fn.pushPage({\'id\': \'textoLivro.html\', \'title\': \''+biblia['abbrev']+'||'+biblia['name']+'||'+biblia['chapters'].length+'||'+(parseInt(num_cap_busca)+1)+'\'});">'+
+                      '<p style="font-size: 20px;line-height:30px;text-align:justify">'+
+                        versiculos[i] +
+                      '</p>'+
+                      '<p style="font-size: 15px;">'+biblia['abbrev'].toUpperCase()+' '+(parseInt(num_cap_busca)+1)+':'+(parseInt(i)+1)+'</p>'+
+                    '</ons-list-item>';
+                  }
+                }
+              }
+              num_cap_busca = num_cap_busca + 1;
+            });
+          });
+          if (text === '') {
+            text = '<p style="text-align: center; margin: 0 0 10px 0;">Nenhum resultado encontrado</p>';
+          }
+          $("#resultado_pesquisa_biblia").html(text);
+          $("#resultado_pesquisa_biblia").css("display","");
+        }
+      };
+      xmlhttp.open("GET", "js/nvi.json", true);
+      xmlhttp.send();
+    }
   },
   dateTime: function() {
     let now = new Date;
@@ -528,10 +601,10 @@ var app = {
   },
   cadastraUser: function(uid) {
     console.log(uid)
-    firebase.database().ref('biblia-sagrada-nvi-users').child(uid).set({
-      userId: uid,
-      datacadastro: app.dateTime()
-    });
+    // firebase.database().ref('biblia-sagrada-nvi-users').child(uid).set({
+    //   userId: uid,
+    //   datacadastro: app.dateTime()
+    // });
   }
 };
 
