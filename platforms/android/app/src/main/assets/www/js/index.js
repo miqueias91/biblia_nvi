@@ -554,7 +554,7 @@ var app = {
             text = '<p style="text-align: center; margin: 0 0 10px 0;">Nenhum resultado encontrado</p>';
           }
           $("#resultado_pesquisa_biblia").html(text);
-          $("#resultado_pesquisa_biblia").css("display","");
+          // $("#resultado_pesquisa_biblia").css("display","");
         }
       };
       xmlhttp.open("GET", "js/nvi.json", true);

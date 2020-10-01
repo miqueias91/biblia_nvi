@@ -97,7 +97,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.16" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.17" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -291,7 +291,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            // admob.interstitial.show();
             $("#textoVersiculo").html('');
             this.querySelector('#versiculosMarcados_ div.center').textContent = 'Versículos Marcados';
             var lista_marcadores = JSON.parse(localStorage.getItem('lista-versiculos') || '[]');
@@ -365,7 +365,7 @@
       </ons-list>
     <script>
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          // admob.interstitial.show();
           modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
           $("#modo_noturno").attr("checked",modo_noturno);
           
@@ -437,7 +437,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            // admob.interstitial.show();
             $("#textoVersiculo").html('');
             this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
             var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13'];
@@ -482,7 +482,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            // admob.interstitial.show();
             $("#textoCapitulosLidos").html('');
             this.querySelector('#capitulosLidos_ div.center').textContent = 'Capítulos Lidos';
             var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
@@ -537,14 +537,15 @@
       <ons-search-input style="width: 100%;"
         placeholder="Pesquisar..."
         class="pesquisa"
+        id="term_biblia"
         onchange="app.pesquisaBiblia(this.value)"
       ></ons-search-input>
     </p>
     <div style="display: ;" id="opcao_biblia">
-      <ons-card onclick="fn.pushPage({'id': 'antigoTestamento.html', 'title': 'Antigo Testamento'})">
+      <ons-card style="background-color: #333;" onclick="fn.pushPage({'id': 'antigoTestamento.html', 'title': 'Antigo Testamento'})">
           <div class="title" style="color: #F5F5F5;">Antigo Testamento</div>
       </ons-card>
-      <ons-card onclick="fn.pushPage({'id': 'novoTestamento.html', 'title': 'Novo Testamento'})">
+      <ons-card style="background-color: #333;" onclick="fn.pushPage({'id': 'novoTestamento.html', 'title': 'Novo Testamento'})">
           <div class="title" style="color: #F5F5F5;">Novo Testamento</div>
       </ons-card>
     </div>
@@ -559,13 +560,18 @@
             $(".pesquisa").val('');
             $("#resultado_pesquisa_biblia").html('');
             if (!abriu_pesquisa_biblia) {
+              $("#resultado_pesquisa_biblia").css("display","");
               $("#pesquisa_biblia").css("display","");
               $("#opcao_biblia").css("display","none");
+              $("#term_biblia").focus();
+              $("#botao_pesquisa_biblia").html('<ons-icon icon="fa-times"></ons-icon>');
               abriu_pesquisa_biblia = true;
             }
             else{
+              $("#resultado_pesquisa_biblia").css("display","none");
               $("#pesquisa_biblia").css("display","none");
               $("#opcao_biblia").css("display","");
+              $("#botao_pesquisa_biblia").html('<ons-icon icon="fa-search"></ons-icon>');
               abriu_pesquisa_biblia = false;
             }
           });
@@ -830,7 +836,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          // admob.interstitial.show();
           fn.showDialog('modal-aguarde');
           app.listaHinario('harpa');
           var timeoutID = 0;
@@ -845,11 +851,14 @@
             if (!abriu_pesquisa_harpa) {
               $("#pesquisa_harpa").css("display","");
               $("#listaharpa").css("display","none");
+              $("#botao_pesquisa_harpa").html('<ons-icon icon="fa-times"></ons-icon>');
               abriu_pesquisa_harpa = true;
             }
             else{
+              $("#resultado_pesquisa_harpa").css("display","none");
               $("#pesquisa_harpa").css("display","none");
               $("#listaharpa").css("display","");
+              $("#botao_pesquisa_harpa").html('<ons-icon icon="fa-search"></ons-icon>');
               abriu_pesquisa_harpa = false;
             }
           });
@@ -1294,7 +1303,7 @@
         </div>
         <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            // admob.interstitial.show();
             var dados = this.data.title.split('||'); 
             this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
@@ -1582,7 +1591,7 @@
         <div id='conteudoHarpa'></div>
         <script>
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          // admob.interstitial.show();
           var dados = this.data.title.split('||'); 
           this.querySelector('#conteudoHarpa_ div.center').textContent = dados[0]+' - '+dados[1];
           $("#conteudoHarpa").html('');
