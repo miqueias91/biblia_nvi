@@ -97,7 +97,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.18" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.19" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -291,7 +291,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            // admob.interstitial.show();
             $("#textoVersiculo").html('');
             this.querySelector('#versiculosMarcados_ div.center').textContent = 'Versículos Marcados';
             var lista_marcadores = JSON.parse(localStorage.getItem('lista-versiculos') || '[]');
@@ -365,7 +365,7 @@
       </ons-list>
     <script>
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          // admob.interstitial.show();
           modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
           $("#modo_noturno").attr("checked",modo_noturno);
           
@@ -437,11 +437,12 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            // admob.interstitial.show();
             $("#textoVersiculo").html('');
             this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
-            var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13'];
-            app.buscaVersiculo('nvi',versiculos[parseInt(Math.random()*50)],"textoVersiculo");
+            var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13','Nm||23.19','Js||21.45','Js||23.14','1Jo||2.25','Ez||36.26','1Jo||1.9','1Rs||8.56','Dt||28.9','Jl||2.32','Sl||145.13','2||Pe||1.4','Tg||1.12','Sl||138.4','2Co||7.1','Sl||119.50','2Pe||3.9','Gl||3.16','Jo||16.33','Mt||6.26','Sl||34.10','Mt||6.11','Sl||23.1','Sl||4.8','Is||40.31','Jo||14.27','Lc||12.15','Dt||31.6','Hb||13.6','Rm||8.28','Tg||1.5','Sl||37.4','Mt||17.20','Is||41.10'];
+
+            app.buscaVersiculoDia('nvi',versiculos[parseInt(Math.random()*(versiculos.length))],"textoVersiculo");
         }
     </script>
     <style>
@@ -482,7 +483,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            // admob.interstitial.show();
             $("#textoCapitulosLidos").html('');
             this.querySelector('#capitulosLidos_ div.center').textContent = 'Capítulos Lidos';
             var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
@@ -836,7 +837,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          // admob.interstitial.show();
           fn.showDialog('modal-aguarde');
           app.listaHinario('harpa');
           var timeoutID = 0;
@@ -1303,7 +1304,7 @@
         </div>
         <script>
         ons.getScriptPage().onInit = function () {
-            admob.interstitial.show();
+            // admob.interstitial.show();
             var dados = this.data.title.split('||'); 
             this.querySelector('#conteudoLivro_ div.center').textContent = dados[1];
             $("#conteudoLivro").html('');
@@ -1591,7 +1592,7 @@
         <div id='conteudoHarpa'></div>
         <script>
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          // admob.interstitial.show();
           var dados = this.data.title.split('||'); 
           this.querySelector('#conteudoHarpa_ div.center').textContent = dados[0]+' - '+dados[1];
           $("#conteudoHarpa").html('');
