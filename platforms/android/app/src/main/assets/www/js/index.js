@@ -368,7 +368,6 @@ var app = {
     var dados1 = dados0[1].split('.');
     var capitulo = dados1[0];
     var versiculo = dados1[1];
-
     $.ajax({
       type : "GET",
       url : "js/"+version+".json",
@@ -398,6 +397,60 @@ var app = {
           for(var i = start; i <=  end; i++){
             if (myBook.chapters[obj_v.chapter - 1][i]) {
                 obj_v.text += '<ons-list-item>'+
+                  '<p style="font-size: 20px;line-height:30px;text-align:justify">'+
+                    myBook.chapters[obj_v.chapter - 1][i] +
+                  '</p>'+
+                  '<p style="font-size: 15px;">'+livro.toUpperCase()+' '+capitulo+':'+(parseInt(i)+1)+'</p>'+
+                '</ons-list-item>';
+            }
+          }
+          $("#"+id).append(obj_v.text);
+        });
+      }
+    });
+  },
+  buscaVersiculoDia: function(version,livro_capitulo_versiculo, id) {
+    $("#textoLivro").html('');
+    var version = version || "nvi";
+    var selector = this;
+    var texts = [];
+    var dados0 = livro_capitulo_versiculo.split('||');
+    var livro = dados0[0];
+    var dados1 = dados0[1].split('.');
+    var capitulo = dados1[0];
+    var versiculo = (dados1[1]-1);
+    $.ajax({
+      type : "GET",
+      url : "js/"+version+".json",
+      dataType : "json",
+      success : function(data){
+        $(selector).each(function(){
+          var ref = livro+""+capitulo+"."+versiculo;
+          var reg = new RegExp('([0-9]?[a-zA-Z]{2,3})([0-9]+)[\.|:]([0-9]+)-?([0-9]{1,3})?');
+          var regex = reg.exec(ref);                    
+          var myBook = null;
+          var obj_v = {
+            ref : ref,
+            book : regex[1].toLowerCase(),
+            chapter : parseInt(regex[2]),
+            text : ""
+          };
+
+          for(i in data){
+            if(data[i].abbrev == obj_v.book){
+                myBook = data[i];
+            }
+          }
+          var start = parseInt(regex[3]);
+          var end = parseInt(regex[4]) || parseInt(regex[3]);
+
+
+          for(var i = start; i <=  end; i++){
+            console.log(myBook)
+            console.log(myBook.name)
+            if (myBook.chapters[obj_v.chapter - 1][i]) {
+                obj_v.text += '<ons-list-item onclick="fn.pushPage({\'id\': \'textoLivro.html\', \'title\': \''+myBook.abbrev+'||'+myBook.name+'||'+myBook.chapters.length+'||'+(parseInt(capitulo))+'\'});">'+
+
                   '<p style="font-size: 20px;line-height:30px;text-align:justify">'+
                     myBook.chapters[obj_v.chapter - 1][i] +
                   '</p>'+

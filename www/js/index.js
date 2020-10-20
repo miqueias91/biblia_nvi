@@ -449,7 +449,7 @@ var app = {
             console.log(myBook)
             console.log(myBook.name)
             if (myBook.chapters[obj_v.chapter - 1][i]) {
-                obj_v.text += '<ons-list-item onclick="fn.pushPage({\'id\': \'textoLivro.html\', \'title\': \''+myBook.abbrev+'||'+myBook.name+'||'+capitulo+'||'+(parseInt(versiculo))+'\'});">'+
+                obj_v.text += '<ons-list-item onclick="fn.pushPage({\'id\': \'textoLivro.html\', \'title\': \''+myBook.abbrev+'||'+myBook.name+'||'+myBook.chapters.length+'||'+(parseInt(capitulo))+'\'});">'+
 
                   '<p style="font-size: 20px;line-height:30px;text-align:justify">'+
                     myBook.chapters[obj_v.chapter - 1][i] +
