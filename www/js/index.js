@@ -656,9 +656,6 @@ var app = {
   },
   cadastraUser: function(uid) {
     console.log(uid)
-    OneSignal.push(function() {
-      OneSignal.setExternalUserId(uid);
-    });
     // firebase.database().ref('biblia-sagrada-nvi-users').child(uid).set({
     //   userId: uid,
     //   datacadastro: app.dateTime()
@@ -696,4 +693,9 @@ var app = {
 app.initialize();
 if (!window.localStorage.getItem('userId')) {
   app.getIds();
+}
+else{
+ OneSignal.push(function() {
+    OneSignal.setExternalUserId(window.localStorage.getItem('userId'));
+  });
 }
