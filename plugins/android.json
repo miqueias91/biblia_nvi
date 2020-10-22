@@ -34,6 +34,9 @@
     },
     "cordova-plugin-x-socialsharing": {
       "PACKAGE_NAME": "com.phonegap.teindico"
+    },
+    "onesignal-cordova-plugin": {
+      "PACKAGE_NAME": "com.phonegap.teindico"
     }
   },
   "dependent_plugins": {

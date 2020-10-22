@@ -14,6 +14,7 @@ var velocidade = 0;
 var tamanho = 826;
 var pausar = 0;
 var rolagem = 0;
+var OneSignal = 'aa08ceb7-09b5-42e6-8d98-b492ce2e5d40';
 
 window.fn.toggleMenu = function () {
   document.getElementById('appSplitter').left.toggle();
@@ -82,6 +83,7 @@ var app = {
   // Update DOM on a Received Event
   receivedEvent: function(id) {
     console.log('receivedEvent');
+    this.oneSignal();
   },
   //FUNÇÃO DE BUSCA
   onSearchKeyDown: function(id) {
@@ -654,6 +656,9 @@ var app = {
   },
   cadastraUser: function(uid) {
     console.log(uid)
+    OneSignal.push(function() {
+      OneSignal.setExternalUserId(uid);
+    });
     // firebase.database().ref('biblia-sagrada-nvi-users').child(uid).set({
     //   userId: uid,
     //   datacadastro: app.dateTime()
@@ -661,16 +666,30 @@ var app = {
   },
   registraAcesso: function(pagina) {
     if (window.localStorage.getItem('userId')) {
-      $.ajax({
-        url: "https://www.innovatesoft.com.br/webservice/app/registraAcesso.php",
-        dataType: 'json',
-        type: 'POST',
-        data: {
-          'pagina': pagina,
-          'origem': window.localStorage.getItem('userId')
-        },
-      });
+      // $.ajax({
+      //   url: "https://www.innovatesoft.com.br/webservice/app/registraAcesso.php",
+      //   dataType: 'json',
+      //   type: 'POST',
+      //   data: {
+      //     'pagina': pagina,
+      //     'origem': window.localStorage.getItem('userId')
+      //   },
+      // });
     }
+  },
+  oneSignal: function() {
+    window.plugins.OneSignal
+      .startInit(appIDOneSignal)
+      .handleNotificationOpened(function(jsonData) {
+        var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['body']));
+
+        ons.notification.alert(
+          mensagem,
+          {title: 'Ola!'}
+        );
+      })
+      .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
+      .endInit();
   }
 };
 

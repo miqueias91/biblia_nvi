@@ -93,6 +93,7 @@ ext {
 // PLUGIN GRADLE EXTENSIONS START
 apply from: "../cordova-support-google-services/teindico-build.gradle"
 apply from: "../phonegap-plugin-multidex/teindico-multidex.gradle"
+apply from: "../onesignal-cordova-plugin/teindico-build-extras-onesignal.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras = file('build-extras.gradle').exists()
@@ -264,6 +265,7 @@ dependencies {
     compile "com.google.android.gms:play-services-base:11.0.4"
     compile "com.google.android.gms:play-services-ads:11.0.4"
     compile "androidx.legacy:legacy-support-v4:1.0.0"
+    compile "com.onesignal:OneSignal:3.15.3"
     // SUB-PROJECT DEPENDENCIES END
 }
 
