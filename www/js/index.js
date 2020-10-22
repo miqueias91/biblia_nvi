@@ -658,6 +658,19 @@ var app = {
     //   userId: uid,
     //   datacadastro: app.dateTime()
     // });
+  },
+  registraAcesso: function(pagina) {
+    if (window.localStorage.getItem('userId')) {
+      $.ajax({
+        url: "https://www.innovatesoft.com.br/webservice/app/registraAcesso.php",
+        dataType: 'json',
+        type: 'POST',
+        data: {
+          'pagina': pagina,
+          'origem': window.localStorage.getItem('userId')
+        },
+      });
+    }
   }
 };
 
