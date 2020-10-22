@@ -695,7 +695,19 @@ if (!window.localStorage.getItem('userId')) {
   app.getIds();
 }
 else{
- OneSignal.push(function() {
-    OneSignal.setExternalUserId(window.localStorage.getItem('userId'));
+
+  let externalUserId = window.localStorage.getItem('userId'); // You will supply the external user id to the OneSignal SDK
+
+  // Setting External User Id with Callback Available in SDK Version 2.9.0+
+  OneSignal.setExternalUserId(externalUserId, (results) => {
+
+    // Push can be expected in almost every situation with a success status, but
+    // as a pre-caution its good to verify it exists
+    if (results.push && results.push.success) {
+      alert(results.push.success);
+    }
   });
+
+//Available in SDK Version 2.8.4-
+//OneSignal.setExternalUserId(myCustomUniqueUserId);
 }
