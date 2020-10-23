@@ -82,8 +82,9 @@ var app = {
   },
   // Update DOM on a Received Event
   receivedEvent: function(id) {
-    console.log('receivedEvent');
+    var userCadastrado = window.localStorage.getItem('userCadastrado');
     this.oneSignal();
+    this.getIds();
   },
   //FUNÇÃO DE BUSCA
   onSearchKeyDown: function(id) {
@@ -649,27 +650,77 @@ var app = {
         var isAnonymous = user.isAnonymous;
         var uid = user.uid;
         window.localStorage.setItem('userId',uid);
-        $("#OneSignalUserId").val(uid);
+        $("#FireBaseUserId").val(uid);
         app.cadastraUser(uid);
       }
     });   
   },
-  cadastraUser: function(uid) {
-    console.log(uid)
-    // firebase.database().ref('biblia-sagrada-nvi-users').child(uid).set({
-    //   userId: uid,
-    //   datacadastro: app.dateTime()
-    // });
+  getIds: function() {
+    var userCadastrado = window.localStorage.getItem('userCadastrado');
+    if (!userCadastrado) {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          var isAnonymous = user.isAnonymous;
+          var uid = user.uid;
+          window.localStorage.setItem('uid',uid);
+          $("#FireBaseUserId").val(uid);
+        }
+      }); 
+
+      window.plugins.OneSignal.getIds(function(ids) {
+        window.localStorage.setItem('userId', ids.userId);
+        window.localStorage.setItem('pushToken', ids.pushToken);
+      });       
+      this.cadastraUser();
+    }
+  },
+  cadastraUser: function() {
+    var userId = window.localStorage.getItem('userId');
+    var pushToken = window.localStorage.getItem('pushToken');
+    var uid = window.localStorage.getItem('uid');
+    if (userId) {
+      $.ajax({
+        url: "https://www.innovatesoft.com.br/webservice/giriasdecrente/cadastraUser.php",
+        dataType: 'html',
+        type: 'POST',
+        data: {
+          'userId': userId,
+          'pushToken': pushToken,
+          'datacadastro': this.dateTime(),
+        },
+        error: function(a) {
+          //alert(a);
+        },
+        success: function(valorRetornado) {
+          window.localStorage.setItem('userCadastrado', true);
+          ons.notification.alert({
+            message: 'Conheça as expressões usados pelos evangélicos.\nE caso vc conheça alguma expressão, compartilhe conosco.',
+            title: 'Configuração concluida!'
+          });          
+        },
+      });
+    }
+    else{
+      ons.notification.alert({
+        message: 'Obrigado por baixar nosso dicionário, abra o aplicativo novamente para podermos concluir as configurações.',
+        title: 'Mensagem',
+        callback: function (index) {
+          if (0 == index) {
+            navigator.app.exitApp();
+          }
+        }
+      });
+    }
   },
   registraAcesso: function(pagina) {
-    if (window.localStorage.getItem('userId')) {
+    if (window.localStorage.getItem('uid')) {
       $.ajax({
         url: "https://www.innovatesoft.com.br/webservice/app/registraAcesso.php",
         dataType: 'json',
         type: 'POST',
         data: {
           'pagina': pagina,
-          'origem': window.localStorage.getItem('userId')
+          'origem': window.localStorage.getItem('uid')
         },
       });
     }
@@ -691,23 +742,3 @@ var app = {
 };
 
 app.initialize();
-if (!window.localStorage.getItem('userId')) {
-  app.getIds();
-}
-else{
-
-  let externalUserId = window.localStorage.getItem('userId'); // You will supply the external user id to the OneSignal SDK
-
-  // Setting External User Id with Callback Available in SDK Version 2.9.0+
-  OneSignal.setExternalUserId(externalUserId, (results) => {
-
-    // Push can be expected in almost every situation with a success status, but
-    // as a pre-caution its good to verify it exists
-    if (results.push && results.push.success) {
-      alert(results.push.success);
-    }
-  });
-
-//Available in SDK Version 2.8.4-
-//OneSignal.setExternalUserId(myCustomUniqueUserId);
-}
