@@ -81,7 +81,23 @@ var app = {
   },
   // Update DOM on a Received Event
   receivedEvent: function(id) {
-    console.log('receivedEvent');
+    var userCadastrado = window.localStorage.getItem('userCadastrado');
+    this.oneSignal();
+    this.getIds();
+  },
+  oneSignal: function() {
+    window.plugins.OneSignal
+      .startInit('aa08ceb7-09b5-42e6-8d98-b492ce2e5d40')
+      .handleNotificationOpened(function(jsonData) {
+        var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['body']));
+
+        ons.notification.alert(
+          mensagem,
+          {title: 'Ola!'}
+        );
+      })
+      .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
+      .endInit();
   },
   //FUNÇÃO DE BUSCA
   onSearchKeyDown: function(id) {
@@ -642,26 +658,61 @@ var app = {
     return ano+'-'+mes+'-'+dia+' '+hora+':'+min+':'+seg;
   },
   getIds: function() {
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        window.localStorage.setItem('userId',uid);
-        $("#OneSignalUserId").val(uid);
-        app.cadastraUser(uid);
-      }
-    });   
+    var userCadastrado = window.localStorage.getItem('userCadastrado');
+    if (!userCadastrado) {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          var isAnonymous = user.isAnonymous;
+          var uid = user.uid;
+          window.localStorage.setItem('uid',uid);
+        }
+      }); 
+
+      window.plugins.OneSignal.getIds(function(ids) {
+        window.localStorage.setItem('userId', ids.userId);
+        window.localStorage.setItem('pushToken', ids.pushToken);
+      });
+
+      this.cadastraUser();
+    }
   },
-  cadastraUser: function(uid) {
-    console.log(uid)
-    // firebase.database().ref('biblia-sagrada-nvi-users').child(uid).set({
-    //   userId: uid,
-    //   datacadastro: app.dateTime()
-    // });
+  cadastraUser: function() {
+    var userId = window.localStorage.getItem('userId');
+    var pushToken = window.localStorage.getItem('pushToken');
+    var uid = window.localStorage.getItem('uid');
+
+    if (userId && uid) {
+      $.ajax({
+        url: "https://www.innovatesoft.com.br/webservice/app/cadastraUser.php",
+        dataType: 'html',
+        type: 'POST',
+        data: {
+          'userId': userId,
+          'pushToken': pushToken,
+          'uid': uid,
+          'datacadastro': this.dateTime(),
+        },
+        error: function(e) {
+        },
+        success: function(a) {
+          window.localStorage.setItem('userCadastrado', true);          
+        },
+      });
+    }
+  },
+  registraAcesso: function(pagina) {
+    if (window.localStorage.getItem('uid')) {
+      $.ajax({
+        url: "https://www.innovatesoft.com.br/webservice/app/registraAcesso.php",
+        dataType: 'json',
+        type: 'POST',
+        data: {
+          'pagina': pagina,
+          'origem': window.localStorage.getItem('uid')
+        },
+      });
+    }
   }
 };
 
 app.initialize();
-if (!window.localStorage.getItem('userId')) {
-  app.getIds();
-}

@@ -92,8 +92,8 @@ ext {
 
 // PLUGIN GRADLE EXTENSIONS START
 apply from: "../cordova-support-google-services/teindico-build.gradle"
-apply from: "../phonegap-plugin-multidex/teindico-multidex.gradle"
 apply from: "../onesignal-cordova-plugin/teindico-build-extras-onesignal.gradle"
+apply from: "../phonegap-plugin-multidex/teindico-multidex.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras = file('build-extras.gradle').exists()
