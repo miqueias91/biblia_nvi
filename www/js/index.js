@@ -665,7 +665,6 @@ var app = {
           var isAnonymous = user.isAnonymous;
           var uid = user.uid;
           window.localStorage.setItem('uid',uid);
-          $("#FireBaseUserId").val(uid);
         }
       }); 
 
@@ -673,6 +672,7 @@ var app = {
         window.localStorage.setItem('userId', ids.userId);
         window.localStorage.setItem('pushToken', ids.pushToken);
       });
+
       this.cadastraUser();
     }
   },
@@ -680,8 +680,8 @@ var app = {
     var userId = window.localStorage.getItem('userId');
     var pushToken = window.localStorage.getItem('pushToken');
     var uid = window.localStorage.getItem('uid');
-    var userCadastrado = window.localStorage.getItem('userCadastrado');
-    if (!userCadastrado) {
+
+    if (userId && uid) {
         alert(uid)
         alert(userId)
         alert(pushToken)
