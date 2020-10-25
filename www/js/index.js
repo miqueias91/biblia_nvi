@@ -680,7 +680,8 @@ var app = {
     var userId = window.localStorage.getItem('userId');
     var pushToken = window.localStorage.getItem('pushToken');
     var uid = window.localStorage.getItem('uid');
-    if (userId) {
+    var userCadastrado = window.localStorage.getItem('userCadastrado');
+    if (!userCadastrado) {
         alert(uid)
         alert(userId)
         alert(pushToken)
@@ -695,8 +696,12 @@ var app = {
           'datacadastro': this.dateTime(),
         },
         error: function(e) {
+          alert('e')
+          alert(e)
         },
         success: function(a) {
+          alert('a')
+          alert(a)
           window.localStorage.setItem('userCadastrado', true);          
         },
       });
