@@ -682,9 +682,6 @@ var app = {
     var uid = window.localStorage.getItem('uid');
 
     if (userId && uid) {
-        alert(uid)
-        alert(userId)
-        alert(pushToken)
       $.ajax({
         url: "https://www.innovatesoft.com.br/webservice/app/cadastraUser.php",
         dataType: 'html',
@@ -696,12 +693,8 @@ var app = {
           'datacadastro': this.dateTime(),
         },
         error: function(e) {
-          alert('e')
-          alert(e)
         },
         success: function(a) {
-          alert('a')
-          alert(a)
           window.localStorage.setItem('userCadastrado', true);          
         },
       });
