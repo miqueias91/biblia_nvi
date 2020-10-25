@@ -645,17 +645,6 @@ var app = {
     return ano+'-'+mes+'-'+dia+' '+hora+':'+min+':'+seg;
   },
   getIds: function() {
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        window.localStorage.setItem('userId',uid);
-        $("#FireBaseUserId").val(uid);
-        app.cadastraUser(uid);
-      }
-    });   
-  },
-  getIds: function() {
     var userCadastrado = window.localStorage.getItem('userCadastrado');
     if (!userCadastrado) {
       firebase.auth().onAuthStateChanged(function(user) {
@@ -680,35 +669,22 @@ var app = {
     var uid = window.localStorage.getItem('uid');
     if (userId) {
       $.ajax({
-        url: "https://www.innovatesoft.com.br/webservice/giriasdecrente/cadastraUser.php",
+        url: "https://www.innovatesoft.com.br/webservice/app/cadastraUser.php",
         dataType: 'html',
         type: 'POST',
         data: {
           'userId': userId,
           'pushToken': pushToken,
+          'uid': uid,
           'datacadastro': this.dateTime(),
         },
-        error: function(a) {
-          //alert(a);
+        error: function(e) {
+          alert(e)
         },
-        success: function(valorRetornado) {
-          window.localStorage.setItem('userCadastrado', true);
-          ons.notification.alert({
-            message: 'Conheça as expressões usados pelos evangélicos.\nE caso vc conheça alguma expressão, compartilhe conosco.',
-            title: 'Configuração concluida!'
-          });          
+        success: function(a) {
+          alert(a)
+          window.localStorage.setItem('userCadastrado', true);          
         },
-      });
-    }
-    else{
-      ons.notification.alert({
-        message: 'Obrigado por baixar nosso dicionário, abra o aplicativo novamente para podermos concluir as configurações.',
-        title: 'Mensagem',
-        callback: function (index) {
-          if (0 == index) {
-            navigator.app.exitApp();
-          }
-        }
       });
     }
   },
