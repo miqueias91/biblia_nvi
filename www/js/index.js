@@ -14,7 +14,6 @@ var velocidade = 0;
 var tamanho = 826;
 var pausar = 0;
 var rolagem = 0;
-var OneSignal = 'aa08ceb7-09b5-42e6-8d98-b492ce2e5d40';
 
 window.fn.toggleMenu = function () {
   document.getElementById('appSplitter').left.toggle();
@@ -85,6 +84,20 @@ var app = {
     var userCadastrado = window.localStorage.getItem('userCadastrado');
     this.oneSignal();
     this.getIds();
+  },
+  oneSignal: function() {
+    window.plugins.OneSignal
+      .startInit('aa08ceb7-09b5-42e6-8d98-b492ce2e5d40')
+      .handleNotificationOpened(function(jsonData) {
+        var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['body']));
+
+        ons.notification.alert(
+          mensagem,
+          {title: 'Ola!'}
+        );
+      })
+      .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
+      .endInit();
   },
   //FUNÇÃO DE BUSCA
   onSearchKeyDown: function(id) {
@@ -651,6 +664,7 @@ var app = {
         if (user) {
           var isAnonymous = user.isAnonymous;
           var uid = user.uid;
+          alert(uid)
           window.localStorage.setItem('uid',uid);
           $("#FireBaseUserId").val(uid);
         }
@@ -659,7 +673,9 @@ var app = {
       window.plugins.OneSignal.getIds(function(ids) {
         window.localStorage.setItem('userId', ids.userId);
         window.localStorage.setItem('pushToken', ids.pushToken);
-      });       
+        alert(ids.userId)
+        alert(ids.pushToken)
+      });
       this.cadastraUser();
     }
   },
@@ -700,20 +716,6 @@ var app = {
         },
       });
     }
-  },
-  oneSignal: function() {
-    window.plugins.OneSignal
-      .startInit(appIDOneSignal)
-      .handleNotificationOpened(function(jsonData) {
-        var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['body']));
-
-        ons.notification.alert(
-          mensagem,
-          {title: 'Ola!'}
-        );
-      })
-      .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
-      .endInit();
   }
 };
 
