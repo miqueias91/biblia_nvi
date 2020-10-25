@@ -664,7 +664,6 @@ var app = {
         if (user) {
           var isAnonymous = user.isAnonymous;
           var uid = user.uid;
-          alert(uid)
           window.localStorage.setItem('uid',uid);
           $("#FireBaseUserId").val(uid);
         }
@@ -673,8 +672,6 @@ var app = {
       window.plugins.OneSignal.getIds(function(ids) {
         window.localStorage.setItem('userId', ids.userId);
         window.localStorage.setItem('pushToken', ids.pushToken);
-        alert(ids.userId)
-        alert(ids.pushToken)
       });
       this.cadastraUser();
     }
@@ -684,6 +681,9 @@ var app = {
     var pushToken = window.localStorage.getItem('pushToken');
     var uid = window.localStorage.getItem('uid');
     if (userId) {
+        alert(uid)
+        alert(userId)
+        alert(pushToken)
       $.ajax({
         url: "https://www.innovatesoft.com.br/webservice/app/cadastraUser.php",
         dataType: 'html',
@@ -695,10 +695,8 @@ var app = {
           'datacadastro': this.dateTime(),
         },
         error: function(e) {
-          alert(e)
         },
         success: function(a) {
-          alert(a)
           window.localStorage.setItem('userCadastrado', true);          
         },
       });
