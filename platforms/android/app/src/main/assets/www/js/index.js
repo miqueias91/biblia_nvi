@@ -659,19 +659,27 @@ var app = {
   },
   getIds: function() {
     var userCadastrado = window.localStorage.getItem('userCadastrado');
+    userCadastrado = false;
     if (!userCadastrado) {
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          var isAnonymous = user.isAnonymous;
-          var uid = user.uid;
-          window.localStorage.setItem('uid',uid);
-        }
-      }); 
+      var userId = window.localStorage.getItem('userId');
+      var uid = window.localStorage.getItem('uid');
 
-      window.plugins.OneSignal.getIds(function(ids) {
-        window.localStorage.setItem('userId', ids.userId);
-        window.localStorage.setItem('pushToken', ids.pushToken);
-      });
+      if (!uid) {
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            var isAnonymous = user.isAnonymous;
+            var uid = user.uid;
+            window.localStorage.setItem('uid',uid);
+          }
+        }); 
+      }
+
+      if (!userId) {
+        window.plugins.OneSignal.getIds(function(ids) {
+          window.localStorage.setItem('userId', ids.userId);
+          window.localStorage.setItem('pushToken', ids.pushToken);
+        });
+      }
 
       this.cadastraUser();
     }
@@ -691,6 +699,7 @@ var app = {
           'pushToken': pushToken,
           'uid': uid,
           'datacadastro': this.dateTime(),
+          'ultimoacesso': this.dateTime(),
         },
         error: function(e) {
         },
