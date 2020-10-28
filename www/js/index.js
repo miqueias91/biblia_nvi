@@ -100,7 +100,9 @@ var app = {
       // alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
       lista_notificacao.push({titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao});
       localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
-      fn.pushPage({'id': 'notificacao.html', 'title': 'Notificações'});
+      notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
+      var nova_notificacao = (notificacoes.length) - 1;
+      fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+nova_notificacao});
       // ons.notification.alert(
       //   mensagem,
       //   {title: titulo}

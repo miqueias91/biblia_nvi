@@ -187,7 +187,7 @@
         </div>
       </ons-list-item>
 
-      <ons-list-item onclick="fn.pushPage({'id': 'notificacao.html', 'title': 'Notificações'})">
+      <ons-list-item onclick="fn.pushPage({'id': 'notificacoes.html', 'title': 'Notificações'})">
         <div class="left">
           <i class="fas fa-bell"></i>
         </div>
@@ -1653,6 +1653,72 @@
     </ons-page>
 </template>
 
+<template id="notificacoes.html">
+  <ons-page>
+        <ons-toolbar id="notificacoes_">
+            <div class="left">
+                <ons-back-button>Notificações</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+        <div id="textoNotificacoes">
+        </div>
+    <script>
+      ons.getScriptPage().onInit = function () {
+        // admob.interstitial.show();
+        // app.registraAcesso('nvi/palavraDia.html');
+        this.querySelector('#notificacoes_ div.center').textContent = 'Notificações';
+        notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
+        if (notificacoes) {
+          var texto_notificacao = '';
+          for(var k=0; k < notificacoes.length; k++) {
+            var titulo = notificacoes[k]['titulo'];
+            var mensagem = notificacoes[k]['mensagem'];
+            var data_notificacao = notificacoes[k]['data_notificacao'];
+            texto_notificacao += 
+              '<ons-list-item onclick="fn.pushPage({\'id\': \'notificacao.html\', \'title\': \'Notificação||'+k+'\'})">'+
+              '    <p class="intro">'+
+              '      <b>'+titulo+'</b></br></br>'+
+              '      '+mensagem+'</br></br>'+
+              '      <i style="float: right!important;">'+data_notificacao+'</i>'+
+              '    </p>'+
+              '  </ons-list-item>';
+          }   
+          $("#textoNotificacoes").html(texto_notificacao);
+        }
+        else{
+          $("#textoNotificacoes").html(
+          '<ons-list-item>'+
+          '    <p class="intro" style="text-align:center!important">Nenhuma notificação encontrada.</p>'+
+          '</ons-list-item>'
+          );
+        }
+      }
+    </script>
+    <style>
+        .button-margin {
+            margin: 6px 0;
+        }
+
+      .intro {
+        text-align: left;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
 <template id="notificacao.html">
   <ons-page>
         <ons-toolbar id="notificacao_">
@@ -1667,24 +1733,22 @@
       ons.getScriptPage().onInit = function () {
         // admob.interstitial.show();
         // app.registraAcesso('nvi/palavraDia.html');
-        $("#textoVersiculo").html('');
-        this.querySelector('#notificacao_ div.center').textContent = 'Notificações';
+        var dados = this.data.title.split('||'); 
+        this.querySelector('#notificacao_ div.center').textContent = dados[0];
         notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
         if (notificacoes) {
           var texto_notificacao = '';
-          for(var k=0; k < notificacoes.length; k++) {
-            var titulo = notificacoes[k]['titulo'];
-            var mensagem = notificacoes[k]['mensagem'];
-            var data_notificacao = notificacoes[k]['data_notificacao'];
-            texto_notificacao += 
-              '<ons-list-item>'+
-              '    <p class="intro">'+
-              '      <b>'+titulo+'</b></br></br>'+
-              '      '+mensagem+'</br></br>'+
-              '      <i style="float: right!important;">'+data_notificacao+'</i>'+
-              '    </p>'+
-              '  </ons-list-item>';
-          }   
+          var titulo = notificacoes[dados[1]]['titulo'];
+          var mensagem = notificacoes[dados[1]]['mensagem'];
+          var data_notificacao = notificacoes[dados[1]]['data_notificacao'];
+          texto_notificacao += 
+            '<ons-list-item>'+
+            '    <p class="intro">'+
+            '      <b>'+titulo+'</b></br></br>'+
+            '      '+mensagem+'</br></br>'+
+            '      <i style="float: right!important;">'+data_notificacao+'</i>'+
+            '    </p>'+
+            '  </ons-list-item>';
           $("#textoNotificacao").html(texto_notificacao);
         }
         else{
