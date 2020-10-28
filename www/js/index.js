@@ -15,7 +15,9 @@ var tamanho = 826;
 var pausar = 0;
 var rolagem = 0;
 var lista_notificacao = JSON.parse(localStorage.getItem('lista-notificacoes') || '[]');
-var existe_notificacao = false;
+
+var existe_notificacao = JSON.parse(localStorage.getItem('existe-notificacao') || false);
+localStorage.setItem("existe-notificacao", existe_notificacao);
 
 window.fn.toggleMenu = function () {
   document.getElementById('appSplitter').left.toggle();
@@ -80,7 +82,8 @@ var app = {
     var userCadastrado = window.localStorage.getItem('userCadastrado');
     this.oneSignal();
     this.getIds();
-
+    
+    var existe_notificacao = JSON.parse(localStorage.getItem('existe-notificacao'));
     if (!existe_notificacao) {
       if (JSON.parse(ultimo_capitulo_lido)) {
         fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
@@ -97,6 +100,8 @@ var app = {
     window.plugins.OneSignal.setLogLevel({logLevel: 6, visualLevel: 0});
 
     var notificationOpenedCallback = function(jsonData) {
+      localStorage.setItem("existe-notificacao", true);
+
       var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['mensagem']));
       var titulo = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['titulo']));
       var data_notificacao = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['data_notificacao']));
@@ -124,22 +129,7 @@ var app = {
     .iOSSettings(iosSettings)
     .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
     .endInit();
-  
-
     //END ONESIGNAL CODE
-
-    // window.plugins.OneSignal
-    //   .startInit('aa08ceb7-09b5-42e6-8d98-b492ce2e5d40')
-    //   .handleNotificationOpened(function(jsonData) {
-    //     var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['body']));
-
-    //     ons.notification.alert(
-    //       mensagem,
-    //       {title: 'Ola!'}
-    //     );
-    //   })
-    //   .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
-    //   .endInit();
   },
   //FUNÇÃO DE BUSCA
   onSearchKeyDown: function(id) {
