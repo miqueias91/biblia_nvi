@@ -92,14 +92,16 @@ var app = {
     window.plugins.OneSignal.setLogLevel({logLevel: 6, visualLevel: 0});
 
     var notificationOpenedCallback = function(jsonData) {
-      var dadosNotificacao = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']));
+      var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['mensagem']));
+      var titulo = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['titulo']));
 
       alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-      alert(JSON.parse(JSON.stringify(jsonData['notification']['payload'])));
+      alert(mensagem);
+      alert(titulo);
 
       ons.notification.alert(
-        dadosNotificacao,
-        {title: 'Ola!'}
+        mensagem,
+        {title: titulo}
       );
     };
 
