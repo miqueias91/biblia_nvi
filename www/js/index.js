@@ -16,9 +16,6 @@ var pausar = 0;
 var rolagem = 0;
 var lista_notificacao = JSON.parse(localStorage.getItem('lista-notificacoes') || '[]');
 
-var existe_notificacao = JSON.parse(localStorage.getItem('existe-notificacao') || false);
-localStorage.setItem("existe-notificacao", existe_notificacao);
-
 window.fn.toggleMenu = function () {
   document.getElementById('appSplitter').left.toggle();
 };
@@ -83,14 +80,11 @@ var app = {
     this.oneSignal();
     this.getIds();
     
-    var existe_notificacao = JSON.parse(localStorage.getItem('existe-notificacao'));
-    if (!existe_notificacao) {
-      if (JSON.parse(ultimo_capitulo_lido)) {
-        fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
-      }
-      else{
-        fn.pushPage({'id': 'textoLivro.html', 'title': 'Gn||Gênesis||50||1'});
-      }
+    if (JSON.parse(ultimo_capitulo_lido)) {
+      fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
+    }
+    else{
+      fn.pushPage({'id': 'textoLivro.html', 'title': 'Gn||Gênesis||50||1'});
     }
   },
   oneSignal: function() {
@@ -111,11 +105,16 @@ var app = {
       localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
       notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
       var nova_notificacao = (notificacoes.length) - 1;
-      fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+nova_notificacao});
-      // ons.notification.alert(
-      //   mensagem,
-      //   {title: titulo}
-      // );
+    
+      ons.notification.alert({
+        message: 'Você recebeu uma notificação, clique em [OK] para abrir!',
+        title: 'Mensagem',
+        callback: function (index) {
+          if (0 == index) {
+            fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+nova_notificacao});
+          }
+        }
+      });
     };
 
     // Set your iOS Settings
