@@ -15,6 +15,7 @@ var tamanho = 826;
 var pausar = 0;
 var rolagem = 0;
 var lista_notificacao = JSON.parse(localStorage.getItem('lista-notificacoes') || '[]');
+var existe_notificacao = false;
 
 window.fn.toggleMenu = function () {
   document.getElementById('appSplitter').left.toggle();
@@ -66,12 +67,6 @@ window.fn.hideDialog = function (id) {
 var app = {
   // Application Constructor
   initialize: function() {
-    if (JSON.parse(ultimo_capitulo_lido)) {
-      fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
-    }
-    else{
-      fn.pushPage({'id': 'textoLivro.html', 'title': 'Gn||Gênesis||50||1'});
-    }
     document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
   },
   // deviceready Event Handler    
@@ -85,6 +80,15 @@ var app = {
     var userCadastrado = window.localStorage.getItem('userCadastrado');
     this.oneSignal();
     this.getIds();
+
+    if (!existe_notificacao) {
+      if (JSON.parse(ultimo_capitulo_lido)) {
+        fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
+      }
+      else{
+        fn.pushPage({'id': 'textoLivro.html', 'title': 'Gn||Gênesis||50||1'});
+      }
+    }
   },
   oneSignal: function() {
 
