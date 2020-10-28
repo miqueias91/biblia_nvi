@@ -151,7 +151,6 @@
         </div>
       </ons-list-item>
 
-
       <ons-list-item onclick="fn.pushPage({'id': 'versiculosMarcados.html', 'title': 'Versículos Marcados'})">
         <div class="left">
             <i class="fas fa-edit"></i>
@@ -182,6 +181,18 @@
         </div>
         <div class="center">
           Configuração
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+      <ons-list-item onclick="fn.pushPage({'id': 'notificacao.html', 'title': 'Notificações'})">
+        <div class="left">
+          <i class="fas fa-bell"></i>
+        </div>
+        <div class="center">
+          Notificações
         </div>
         <div class="right">
           <ons-icon icon="fa-link"></ons-icon>
@@ -1641,6 +1652,74 @@
         </style>
     </ons-page>
 </template>
+
+<template id="notificacao.html">
+  <ons-page>
+        <ons-toolbar id="notificacao_">
+            <div class="left">
+                <ons-back-button>Notificações</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+        <div id="textoNotificacao">
+        </div>
+    <script>
+      ons.getScriptPage().onInit = function () {
+        // admob.interstitial.show();
+        // app.registraAcesso('nvi/palavraDia.html');
+        $("#textoVersiculo").html('');
+        this.querySelector('#notificacao_ div.center').textContent = 'Notificações';
+        notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
+        if (notificacoes) {
+          var texto_notificacao = '';
+          for(var k=0; k < notificacoes.length; k++) {
+            var titulo = notificacoes[k]['titulo'];
+            var mensagem = notificacoes[k]['mensagem'];
+            var data_notificacao = notificacoes[k]['data_notificacao'];
+            texto_notificacao += 
+              '<ons-list-item>'+
+              '    <p class="intro">'+
+              '      <b>'+titulo+'</b></br></br>'+
+              '      '+mensagem+'</br></br>'+
+              '      <i style="float: right!important;">'+data_notificacao+'</i>'+
+              '    </p>'+
+              '  </ons-list-item>';
+          }   
+          $("#textoNotificacao").html(texto_notificacao);
+        }
+        else{
+          $("#textoNotificacao").html(
+          '<ons-list-item>'+
+          '    <p class="intro" style="text-align:center!important">Nenhuma notificação encontrada.</p>'+
+          '</ons-list-item>'
+          );
+        }
+      }
+    </script>
+    <style>
+        .button-margin {
+            margin: 6px 0;
+        }
+
+      .intro {
+        text-align: left;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
 <script src="js/index.js"></script>
 
 </body>

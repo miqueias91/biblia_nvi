@@ -14,6 +14,7 @@ var velocidade = 0;
 var tamanho = 826;
 var pausar = 0;
 var rolagem = 0;
+var lista_notificacao = JSON.parse(localStorage.getItem('lista-notificacoes') || '[]');
 
 window.fn.toggleMenu = function () {
   document.getElementById('appSplitter').left.toggle();
@@ -56,11 +57,11 @@ var showTemplateDialog = function() {
       });
   }
 };
-
 //SCRIPT PARA ESCONDER O MODAL DE AGUARDE
 window.fn.hideDialog = function (id) {
   document.getElementById(id).hide();
 };
+
 
 var app = {
   // Application Constructor
@@ -94,15 +95,16 @@ var app = {
     var notificationOpenedCallback = function(jsonData) {
       var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['mensagem']));
       var titulo = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['titulo']));
+      var data_notificacao = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['data_notificacao']));
 
-      alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-      alert(mensagem);
-      alert(titulo);
-
-      ons.notification.alert(
-        mensagem,
-        {title: titulo}
-      );
+      // alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+      lista_notificacao.push({titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao});
+      localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
+      fn.pushPage({'id': 'notificacao.html', 'title': 'Notificações'});
+      // ons.notification.alert(
+      //   mensagem,
+      //   {title: titulo}
+      // );
     };
 
     // Set your iOS Settings
@@ -117,10 +119,7 @@ var app = {
     .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
     .endInit();
   
-    // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 6)
-    window.plugins.OneSignal.promptForPushNotificationsWithUserResponse(function(accepted) {
-      alert("Notificações aceitas pelo usuário: " + accepted);
-    });
+
     //END ONESIGNAL CODE
 
     // window.plugins.OneSignal
