@@ -699,7 +699,7 @@ var app = {
       var userId = window.localStorage.getItem('userId');
       var uid = window.localStorage.getItem('uid');
 
-      if (!uid) {
+      if (1) {
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
             var isAnonymous = user.isAnonymous;
@@ -709,7 +709,7 @@ var app = {
         }); 
       }
 
-      if (!userId) {
+      if (1) {
         window.plugins.OneSignal.getIds(function(ids) {
           window.localStorage.setItem('userId', ids.userId);
           window.localStorage.setItem('pushToken', ids.pushToken);
