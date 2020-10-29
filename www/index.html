@@ -1670,21 +1670,21 @@
         this.querySelector('#notificacoes_ div.center').textContent = 'Notificações';
         notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
         if (notificacoes) {
-          var texto_notificacao = '';
+          var texto_notificacoes = '';
           for(var k=0; k < notificacoes.length; k++) {
             var titulo = notificacoes[k]['titulo'];
             var mensagem = notificacoes[k]['mensagem'];
             var data_notificacao = notificacoes[k]['data_notificacao'];
-            texto_notificacao += 
+            texto_notificacoes += 
               '<ons-list-item onclick="fn.pushPage({\'id\': \'notificacao.html\', \'title\': \'Notificação||'+k+'\'})">'+
-              '    <p class="intro">'+
+              '    <p class="intro texto_notificacoes">'+
               '      <b>'+titulo+'</b></br></br>'+
               '      '+mensagem+'</br></br>'+
               '      <i style="float: right!important;">'+data_notificacao+'</i>'+
               '    </p>'+
               '  </ons-list-item>';
           }   
-          $("#textoNotificacoes").html(texto_notificacao);
+          $("#textoNotificacoes").html(texto_notificacoes);
         }
         else{
           $("#textoNotificacoes").html(
@@ -1696,6 +1696,12 @@
       }
     </script>
     <style>
+      .texto_notificacoes {
+        max-width: 35ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
         .button-margin {
             margin: 6px 0;
         }
