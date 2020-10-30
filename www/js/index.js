@@ -130,7 +130,7 @@ var app = {
 
     window.plugins.OneSignal
     .startInit("aa08ceb7-09b5-42e6-8d98-b492ce2e5d40")
-    .handleNotificationReceived(function(jsonData) {
+    .handleNotificationReceived(function(notificationData) {
       alert(JSON.stringify(notificationData))
 
       /*var mensagem = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['mensagem']));
