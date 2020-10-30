@@ -130,10 +130,10 @@ var app = {
 
     window.plugins.OneSignal
     .startInit("aa08ceb7-09b5-42e6-8d98-b492ce2e5d40")
-    .handleNotificationReceived(function(notificationData) {
-            alert(notificationData)
+    .handleNotificationReceived(function(jsonData) {
+      alert(JSON.stringify(notificationData))
 
-      var mensagem = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['mensagem']));
+      /*var mensagem = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['mensagem']));
       var titulo = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['titulo']));
       var data_notificacao = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['data_notificacao']));
 
@@ -143,7 +143,7 @@ var app = {
       }
       else{
         id_not = 0;
-      }
+      }*/
 
       /*
       lista_notificacao.push({id: id_not, titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao});
