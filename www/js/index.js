@@ -132,7 +132,9 @@ var app = {
 
     window.plugins.OneSignal
     .startInit("aa08ceb7-09b5-42e6-8d98-b492ce2e5d40")
-    .handleNotificationReceived(notificationOpenedCallback)
+    .handleNotificationReceived(function(notificationData) {
+      alert("Notification Data Received:\n" + JSON.stringify(notificationData));
+    })    
     .handleNotificationOpened(notificationOpenedCallback)
     .iOSSettings(iosSettings)
     .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
