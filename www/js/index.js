@@ -95,8 +95,6 @@ var app = {
     window.plugins.OneSignal.setLogLevel({logLevel: 6, visualLevel: 0});
 
     var notificationOpenedCallback = function(jsonData) {
-      localStorage.setItem("existe-notificacao", true);
-
       var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['mensagem']));
       var titulo = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['titulo']));
       var data_notificacao = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['data_notificacao']));
@@ -133,8 +131,9 @@ var app = {
     window.plugins.OneSignal
     .startInit("aa08ceb7-09b5-42e6-8d98-b492ce2e5d40")
     .handleNotificationReceived(function(notificationData) {
-      localStorage.setItem("existe-notificacao", true);
-      var mensagem = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['mensagem']));
+      alert(notificationData)
+      
+      /*var mensagem = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['mensagem']));
       var titulo = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['titulo']));
       var data_notificacao = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['data_notificacao']));
       notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
@@ -155,7 +154,8 @@ var app = {
             fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+id_not});
           }
         }
-      });
+      });*/
+
     })    
     .handleNotificationOpened(notificationOpenedCallback)
     .iOSSettings(iosSettings)
