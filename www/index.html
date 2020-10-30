@@ -1674,13 +1674,13 @@
           var texto_notificacoes = '';
 
           $.each(notificacoes, function (key, item) {
-            console.log(key);
             
             var titulo = item['titulo'];
             var mensagem = item['mensagem'];
             var data_notificacao = item['data_notificacao'];
+            var id_not = item['id'];
             texto_notificacoes += 
-              '<ons-list-item onclick="fn.pushPage({\'id\': \'notificacao.html\', \'title\': \'Notificação||'+key+'\'})">'+
+              '<ons-list-item onclick="fn.pushPage({\'id\': \'notificacao.html\', \'title\': \'Notificação||'+id_not+'\'})">'+
               '    <p class="intro texto_notificacoes">'+
               '      <b>'+titulo+'</b></br></br>'+
               '      '+mensagem+'</br></br>'+

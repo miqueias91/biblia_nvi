@@ -16,15 +16,6 @@ var pausar = 0;
 var rolagem = 0;
 var lista_notificacao = JSON.parse(localStorage.getItem('lista-notificacoes') || '[]');
 
-notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
-var nova_notificacao = (notificacoes.length);
-console.log(nova_notificacao)
-/*var mensagem1 ='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna molestie at elementum eu facilisis sed odio morbi. Morbi tempus iaculis urna id volutpat lacus. Sit amet nulla facilisi morbi tempus iaculis. Sed viverra ipsum nunc aliquet bibendum. Cras ornare arcu dui vivamus. Donec enim diam vulputate ut. Fringilla urna porttitor rhoncus dolor purus non enim praesent. Mauris a diam maecenas sed enim ut sem viverra. Gravida rutrum quisque non tellus orci ac auctor augue mauris. Sed euismod nisi porta lorem mollis aliquam ut porttitor. Ipsum a arcu cursus vitae congue mauris rhoncus aenean. Aliquam id diam maecenas ultricies mi eget mauris pharetra et. Risus nullam eget felis eget nunc lobortis mattis aliquam faucibus. Egestas sed sed risus pretium. Mauris ultrices eros in cursus turpis massa tincidunt dui.<br><br>Nulla pellentesque dignissim enim sit amet venenatis urna cursus. Luctus accumsan tortor posuere ac ut. Donec ac odio tempor orci dapibus ultrices. Quam elementum pulvinar etiam non quam lacus suspendisse. Potenti nullam ac tortor vitae purus faucibus. Fermentum odio eu feugiat pretium nibh ipsum consequat. Venenatis a condimentum vitae sapien pellentesque habitant morbi tristique senectus. Vitae tempus quam pellentesque nec nam aliquam sem et. Faucibus ornare suspendisse sed nisi lacus sed viverra tellus. Aliquet enim tortor at auctor. Nunc pulvinar sapien et ligula ullamcorper malesuada proin. Malesuada bibendum arcu vitae elementum. Sapien faucibus et molestie ac feugiat sed. Sem fringilla ut morbi tincidunt augue interdum velit. Id eu nisl nunc mi.'
-lista_notificacao.push({titulo: '1', mensagem: mensagem1, data_notificacao: '01/01/2001 00:00:00'});
-localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
-var mensagem2 ='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna molestie at elementum eu facilisis sed odio morbi. Morbi tempus iaculis urna id volutpat lacus. Sit amet nulla facilisi morbi tempus iaculis. Sed viverra ipsum nunc aliquet bibendum. Cras ornare arcu dui vivamus. Donec enim diam vulputate ut. Fringilla urna porttitor rhoncus dolor purus non enim praesent. Mauris a diam maecenas sed enim ut sem viverra. Gravida rutrum quisque non tellus orci ac auctor augue mauris. Sed euismod nisi porta lorem mollis aliquam ut porttitor. Ipsum a arcu cursus vitae congue mauris rhoncus aenean. Aliquam id diam maecenas ultricies mi eget mauris pharetra et. Risus nullam eget felis eget nunc lobortis mattis aliquam faucibus. Egestas sed sed risus pretium. Mauris ultrices eros in cursus turpis massa tincidunt dui.<br><br>Nulla pellentesque dignissim enim sit amet venenatis urna cursus. Luctus accumsan tortor posuere ac ut. Donec ac odio tempor orci dapibus ultrices. Quam elementum pulvinar etiam non quam lacus suspendisse. Potenti nullam ac tortor vitae purus faucibus. Fermentum odio eu feugiat pretium nibh ipsum consequat. Venenatis a condimentum vitae sapien pellentesque habitant morbi tristique senectus. Vitae tempus quam pellentesque nec nam aliquam sem et. Faucibus ornare suspendisse sed nisi lacus sed viverra tellus. Aliquet enim tortor at auctor. Nunc pulvinar sapien et ligula ullamcorper malesuada proin. Malesuada bibendum arcu vitae elementum. Sapien faucibus et molestie ac feugiat sed. Sem fringilla ut morbi tincidunt augue interdum velit. Id eu nisl nunc mi.'
-lista_notificacao.push({titulo: '2', mensagem: mensagem2, data_notificacao: '01/01/2002 00:00:00'});
-localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));*/
 
 window.fn.toggleMenu = function () {
   document.getElementById('appSplitter').left.toggle();
@@ -110,18 +101,25 @@ var app = {
       var titulo = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['titulo']));
       var data_notificacao = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['data_notificacao']));
 
-      // alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-      lista_notificacao.push({titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao});
+      notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
+      if (notificacoes) {
+        var id_not = notificacoes.length;
+
+      }
+      else{
+        id_not = 0;
+      }
+
+      lista_notificacao.push({id: id_not, titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao});
       localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
       notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
-      var nova_notificacao = (notificacoes.length) - 1;
     
       ons.notification.alert({
         message: 'Você recebeu uma notificação, clique em [OK] para abrir!',
         title: 'Mensagem',
         callback: function (index) {
           if (0 == index) {
-            fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+nova_notificacao});
+            fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+id_not});
           }
         }
       });
