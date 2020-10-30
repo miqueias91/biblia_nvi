@@ -133,9 +133,11 @@ var app = {
     .handleNotificationReceived(function(notificationData) {
       alert(notificationData)
       
-      /*var mensagem = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['mensagem']));
+      /*
+      var mensagem = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['mensagem']));
       var titulo = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['titulo']));
       var data_notificacao = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['data_notificacao']));
+      */
       notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
       if (notificacoes) {
         var id_not = notificacoes.length;
@@ -143,9 +145,11 @@ var app = {
       else{
         id_not = 0;
       }
+      /*
       lista_notificacao.push({id: id_not, titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao});
       localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
       notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
+      */
       ons.notification.alert({
         message: 'Você recebeu uma notificação, clique em [OK] para abrir!',
         title: 'Mensagem',
@@ -154,7 +158,7 @@ var app = {
             fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+id_not});
           }
         }
-      });*/
+      });
 
     })    
     .handleNotificationOpened(notificationOpenedCallback)
