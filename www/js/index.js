@@ -144,7 +144,6 @@ var app = {
       lista_notificacao.push({id: id_not, titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao});
       localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
       notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
-      OneSignal.clearOneSignalNotifications();
       ons.notification.alert({
         message: 'Você recebeu uma notificação, clique em [OK] para abrir!',
         title: 'Mensagem',
