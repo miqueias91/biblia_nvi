@@ -131,13 +131,11 @@ var app = {
     window.plugins.OneSignal
     .startInit("aa08ceb7-09b5-42e6-8d98-b492ce2e5d40")
     .handleNotificationReceived(function(notificationData) {
-      alert(notificationData)
       
-      /*
       var mensagem = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['mensagem']));
       var titulo = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['titulo']));
       var data_notificacao = JSON.parse(JSON.stringify(notificationData['notification']['payload']['additionalData']['data_notificacao']));
-      */
+
       notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
       if (notificacoes) {
         var id_not = notificacoes.length;
@@ -145,6 +143,8 @@ var app = {
       else{
         id_not = 0;
       }
+
+      alert(mensagem)
       /*
       lista_notificacao.push({id: id_not, titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao});
       localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
