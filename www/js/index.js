@@ -136,6 +136,7 @@ var app = {
         title: 'Mensagem',
         callback: function (index) {
           if (0 == index) {
+            //OneSignal.clearOneSignalNotifications();
             fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+hash});
           }
         }

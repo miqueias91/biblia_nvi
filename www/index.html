@@ -1674,7 +1674,6 @@
           var texto_notificacoes = '';
 
           $.each(notificacoes, function (key, item) {
-            
             var titulo = item['titulo'];
             var mensagem = item['mensagem'];
             var data_notificacao = item['data_notificacao'];
@@ -1748,17 +1747,25 @@
         notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
         if (notificacoes) {
           var texto_notificacao = '';
-          var titulo = notificacoes[dados[1]]['titulo'];
-          var mensagem = notificacoes[dados[1]]['mensagem'];
-          var data_notificacao = notificacoes[dados[1]]['data_notificacao'];
-          texto_notificacao += 
-            '<ons-list-item>'+
-            '    <p class="intro">'+
-            '      <b>'+titulo+'</b></br></br>'+
-            '      '+mensagem+'</br></br>'+
-            '      <i style="float: right!important;">'+data_notificacao+'</i>'+
-            '    </p>'+
-            '  </ons-list-item>';
+          var titulo = '';
+          var mensagem = '';
+          var data_notificacao = '';
+          $.each(notificacoes, function (key, item) {
+            if (item['id'] == dados[1]) {
+              titulo = item['titulo'];
+              mensagem = item['mensagem'];
+              data_notificacao = item['data_notificacao'];
+              texto_notificacao += 
+                '<ons-list-item>'+
+                '    <p class="intro">'+
+                '      <b>'+titulo+'</b></br></br>'+
+                '      '+mensagem+'</br></br>'+
+                '      <i style="float: right!important;">'+data_notificacao+'</i>'+
+                '    </p>'+
+                '  </ons-list-item>';
+            }
+          });
+
           $("#textoNotificacao").html(texto_notificacao);
         }
         else{
