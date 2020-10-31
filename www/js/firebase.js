@@ -18,3 +18,17 @@ firebase.auth().signInAnonymously().catch(function(error) {
   var errorMessage = error.message;
   console.log(errorMessage)
 });
+
+var uid = window.localStorage.getItem('uid');
+if (uid) {
+  alert(uid)
+  firebase.database().ref('notificacoes').child(uid).on('value', (snapshot) => {
+    var dados = snapshot.val();
+    alert(dados);
+  });
+
+  firebase.database().ref('notificacoes').child(uid).once('value').then(function(snapshot) {
+    var dados = (snapshot.val());
+      alert(dados);
+  });
+}
