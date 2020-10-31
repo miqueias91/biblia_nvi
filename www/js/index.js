@@ -80,6 +80,7 @@ var app = {
     var userCadastrado = window.localStorage.getItem('userCadastrado');
     this.oneSignal();
     this.getIds();
+    this.buscaNotificacoes();
     
     if (JSON.parse(ultimo_capitulo_lido)) {
       fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
@@ -99,10 +100,11 @@ var app = {
       var titulo = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['titulo']));
       var data_notificacao = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['data_notificacao']));
       var hash = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['hash']));
+      var name = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['name']));
 
-      lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao});
-      localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
-      notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
+      //lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao, name: name});
+      //localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
+      //notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
     
       ons.notification.alert({
         message: 'Você recebeu uma notificação, clique em [OK] para abrir!',
@@ -121,27 +123,7 @@ var app = {
     iosSettings["kOSSettingsKeyInAppLaunchURL"] = false;
 
     window.plugins.OneSignal
-    .startInit("aa08ceb7-09b5-42e6-8d98-b492ce2e5d40")
-    .handleNotificationReceived(function(notificationData) {
-      var mensagem = JSON.parse(JSON.stringify(notificationData['payload']['additionalData']['mensagem']));
-      var titulo = JSON.parse(JSON.stringify(notificationData['payload']['additionalData']['titulo']));
-      var data_notificacao = JSON.parse(JSON.stringify(notificationData['payload']['additionalData']['data_notificacao']));
-      var hash = JSON.parse(JSON.stringify(notificationData['payload']['additionalData']['hash']));
-
-      lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao});
-      localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
-      notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
-      ons.notification.alert({
-        message: 'Você recebeu uma notificação, clique em [OK] para abrir!',
-        title: 'Mensagem',
-        callback: function (index) {
-          if (0 == index) {
-            fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+hash});
-          }
-        }
-      });
-
-    })    
+    .startInit("aa08ceb7-09b5-42e6-8d98-b492ce2e5d40")   
     .handleNotificationOpened(notificationOpenedCallback)
     .clearOneSignalNotifications()
     .iOSSettings(iosSettings)
@@ -771,6 +753,22 @@ var app = {
         },
       });
     }
+  },
+  buscaNotificacoes: function(){
+    var uid = window.localStorage.getItem('uid');
+    if (uid) {
+      firebase.database().ref('notificacoes').child(uid).on('value', (snapshot) => {
+        var dados = snapshot.val();
+        alert(dados)
+      });
+    }
+
+    /*firebase.database().ref('giriasdecrente_users').child(1).child('id_user').once('value').then(function(snapshot) {
+      var id_user = (snapshot.val());
+      console.log(id_user);
+    });*/
+
+    // firebase.database().ref('giriasdecrente_users').child(1).remove();
   }
 };
 
