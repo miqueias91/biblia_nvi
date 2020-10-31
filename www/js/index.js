@@ -708,6 +708,20 @@ var app = {
     var pushToken = window.localStorage.getItem('pushToken');
     var uid = window.localStorage.getItem('uid');
 
+    alert(uid)
+    alert(userId)
+    //if (uid) {
+      firebase.database().ref('notificacoes').child(uid).on('value', (snapshot) => {
+        var dados = snapshot.val();
+        alert(dados);
+      });
+
+      firebase.database().ref('notificacoes').child(uid).once('value').then(function(snapshot) {
+        var dados = (snapshot.val());
+          alert(dados);
+      });
+    //}
+    
     if (userId && uid) {
       $.ajax({
         url: "https://www.innovatesoft.com.br/webservice/app/cadastraUser.php",
