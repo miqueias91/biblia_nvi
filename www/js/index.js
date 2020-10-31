@@ -155,7 +155,6 @@ var app = {
       });
 
     })    
-    .handleNotificationOpened(notificationOpenedCallback)
     .iOSSettings(iosSettings)
     .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
     .endInit();
