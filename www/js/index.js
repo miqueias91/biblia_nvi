@@ -98,17 +98,9 @@ var app = {
       var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['mensagem']));
       var titulo = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['titulo']));
       var data_notificacao = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['data_notificacao']));
+      var hash = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['hash']));
 
-      notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
-      if (notificacoes) {
-        var id_not = notificacoes.length;
-
-      }
-      else{
-        id_not = 0;
-      }
-
-      lista_notificacao.push({id: id_not, titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao});
+      lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao});
       localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
       notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
     
@@ -117,7 +109,7 @@ var app = {
         title: 'Mensagem',
         callback: function (index) {
           if (0 == index) {
-            fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+id_not});
+            fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+hash});
           }
         }
       });
@@ -134,14 +126,9 @@ var app = {
       var mensagem = JSON.parse(JSON.stringify(notificationData['payload']['additionalData']['mensagem']));
       var titulo = JSON.parse(JSON.stringify(notificationData['payload']['additionalData']['titulo']));
       var data_notificacao = JSON.parse(JSON.stringify(notificationData['payload']['additionalData']['data_notificacao']));
-      notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
-      if (notificacoes) {
-        var id_not = notificacoes.length;
-      }
-      else{
-        id_not = 0;
-      }
-      lista_notificacao.push({id: id_not, titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao});
+      var hash = JSON.parse(JSON.stringify(notificationData['payload']['additionalData']['hash']));
+
+      lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao});
       localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
       notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
       ons.notification.alert({
@@ -149,7 +136,7 @@ var app = {
         title: 'Mensagem',
         callback: function (index) {
           if (0 == index) {
-            fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+id_not});
+            fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+hash});
           }
         }
       });
