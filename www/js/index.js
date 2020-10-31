@@ -136,7 +136,6 @@ var app = {
         title: 'Mensagem',
         callback: function (index) {
           if (0 == index) {
-            OneSignal.clearOneSignalNotifications();
             fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+hash});
           }
         }
@@ -144,6 +143,7 @@ var app = {
 
     })    
     .handleNotificationOpened(notificationOpenedCallback)
+    .clearOneSignalNotifications()
     .iOSSettings(iosSettings)
     .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
     .endInit();
