@@ -77,7 +77,6 @@ var app = {
   },
   // Update DOM on a Received Event
   receivedEvent: function(id) {
-    var userCadastrado = window.localStorage.getItem('userCadastrado');
     this.oneSignal();
     this.getIds();
     //this.buscaNotificacoes();
@@ -690,31 +689,19 @@ var app = {
     return ano+'-'+mes+'-'+dia+' '+hora+':'+min+':'+seg;
   },
   getIds: function() {
-    var userCadastrado = window.localStorage.getItem('userCadastrado');
-    userCadastrado = false;
-    if (!userCadastrado) {
-      var userId = window.localStorage.getItem('userId');
-      var uid = window.localStorage.getItem('uid');
-
-      if (1) {
-        firebase.auth().onAuthStateChanged(function(user) {
-          if (user) {
-            var isAnonymous = user.isAnonymous;
-            var uid = user.uid;
-            window.localStorage.setItem('uid',uid);
-          }
-        }); 
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        window.localStorage.setItem('uid',uid);
       }
+    }); 
 
-      if (1) {
-        window.plugins.OneSignal.getIds(function(ids) {
-          window.localStorage.setItem('userId', ids.userId);
-          window.localStorage.setItem('pushToken', ids.pushToken);
-        });
-      }
-
-      this.cadastraUser();
-    }
+    window.plugins.OneSignal.getIds(function(ids) {
+      window.localStorage.setItem('userId', ids.userId);
+      window.localStorage.setItem('pushToken', ids.pushToken);
+    });
+    this.cadastraUser();
   },
   cadastraUser: function() {
     var userId = window.localStorage.getItem('userId');
