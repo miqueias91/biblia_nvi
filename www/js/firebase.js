@@ -20,8 +20,8 @@ firebase.auth().signInAnonymously().catch(function(error) {
 });
 
 var uid = window.localStorage.getItem('uid');
-if (uid) {
-  alert(uid)
+alert(uid)
+//if (uid) {
   firebase.database().ref('notificacoes').child(uid).on('value', (snapshot) => {
     var dados = snapshot.val();
     alert(dados);
@@ -31,4 +31,4 @@ if (uid) {
     var dados = (snapshot.val());
       alert(dados);
   });
-}
+//}
