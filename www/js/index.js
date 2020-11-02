@@ -692,12 +692,14 @@ var app = {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         var isAnonymous = user.isAnonymous;
+        alert(user.uid)
         var uid = user.uid;
         window.localStorage.setItem('uid',uid);
       }
     }); 
 
     window.plugins.OneSignal.getIds(function(ids) {
+      alert(ids.userId)
       window.localStorage.setItem('userId', ids.userId);
       window.localStorage.setItem('pushToken', ids.pushToken);
     });
@@ -708,10 +710,8 @@ var app = {
     var pushToken = window.localStorage.getItem('pushToken');
     var uid = window.localStorage.getItem('uid');
 
-    alert(uid)
-    alert(userId)
     //if (uid) {
-      firebase.database().ref('notificacoes').child(uid).on('value', (snapshot) => {
+      /*firebase.database().ref('notificacoes').child(uid).on('value', (snapshot) => {
         var dados = snapshot.val();
         alert(dados);
       });
@@ -719,7 +719,7 @@ var app = {
       firebase.database().ref('notificacoes').child(uid).once('value').then(function(snapshot) {
         var dados = (snapshot.val());
           alert(dados);
-      });
+      });*/
     //}
     
     if (userId && uid) {
