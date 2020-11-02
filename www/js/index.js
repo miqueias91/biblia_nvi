@@ -89,40 +89,40 @@ var app = {
     }
   },
   oneSignal: function() {
-
-    //START ONESIGNAL CODE
-    //Remove this method to stop OneSignal Debugging 
-    //window.plugins.OneSignal.setLogLevel({logLevel: 6, visualLevel: 0});
-
-    var notificationOpenedCallback = function(jsonData) {
-      var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['mensagem']));
+    window.plugins.OneSignal
+    .startInit("aa08ceb7-09b5-42e6-8d98-b492ce2e5d40")   
+    .handleNotificationOpened(function(jsonData) {
+      /*var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['mensagem']));
       var titulo = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['titulo']));
       var data_notificacao = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['data_notificacao']));
       var hash = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['hash']));
-      var name = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['name']));
+      var name = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['name']));*/
 
-      //lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, data_notificacao: data_notificacao, name: name});
-      //localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
-      //notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
-    
-      ons.notification.alert({
-        message: 'Você recebeu uma notificação, clique em [OK] para abrir!',
-        title: 'Mensagem',
-        callback: function (index) {
-          if (0 == index) {
-            fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+hash});
-          }
-        }
-      });
-    };
-
-    window.plugins.OneSignal
-    .startInit("aa08ceb7-09b5-42e6-8d98-b492ce2e5d40")   
-    .handleNotificationOpened(notificationOpenedCallback)
-    .clearOneSignalNotifications()
+      ons.notification.alert(
+        mensagem,
+        {title: 'Ola!'}
+      );
+    })
     .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
     .endInit();
-    //END ONESIGNAL CODE
+
+
+    /*ons.notification.alert({
+      message: 'Você recebeu uma notificação, clique em [OK] para abrir!',
+      title: 'Mensagem',
+      callback: function (index) {
+        if (0 == index) {
+          fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+hash});
+        }
+      }
+    });*/
+    window.plugins.OneSignal.getIds(function(ids) {
+      alert(ids)
+      alert(ids.userId)
+      window.localStorage.setItem('userId', ids.userId);
+      window.localStorage.setItem('pushToken', ids.pushToken);
+    });
+
   },
   //FUNÇÃO DE BUSCA
   onSearchKeyDown: function(id) {

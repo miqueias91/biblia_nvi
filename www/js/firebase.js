@@ -27,10 +27,3 @@ firebase.auth().onAuthStateChanged(function(user) {
     window.localStorage.setItem('uid',uid);
   }
 });
-
-window.plugins.OneSignal.getIds(function(ids) {
-  alert(ids)
-  alert(ids.userId)
-  window.localStorage.setItem('userId', ids.userId);
-  window.localStorage.setItem('pushToken', ids.pushToken);
-});
