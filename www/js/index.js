@@ -92,7 +92,7 @@ var app = {
 
     //START ONESIGNAL CODE
     //Remove this method to stop OneSignal Debugging 
-    window.plugins.OneSignal.setLogLevel({logLevel: 6, visualLevel: 0});
+    //window.plugins.OneSignal.setLogLevel({logLevel: 6, visualLevel: 0});
 
     var notificationOpenedCallback = function(jsonData) {
       var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['mensagem']));
@@ -105,7 +105,7 @@ var app = {
       //localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
       //notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
     
-      ons.notification.alert({
+      /*ons.notification.alert({
         message: 'Você recebeu uma notificação, clique em [OK] para abrir!',
         title: 'Mensagem',
         callback: function (index) {
@@ -113,19 +113,13 @@ var app = {
             fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+hash});
           }
         }
-      });
+      });*/
     };
-
-    // Set your iOS Settings
-    var iosSettings = {};
-    iosSettings["kOSSettingsKeyAutoPrompt"] = false;
-    iosSettings["kOSSettingsKeyInAppLaunchURL"] = false;
 
     window.plugins.OneSignal
     .startInit("aa08ceb7-09b5-42e6-8d98-b492ce2e5d40")   
     .handleNotificationOpened(notificationOpenedCallback)
     .clearOneSignalNotifications()
-    .iOSSettings(iosSettings)
     .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
     .endInit();
     //END ONESIGNAL CODE
@@ -694,7 +688,7 @@ var app = {
       window.localStorage.setItem('userId', ids.userId);
       window.localStorage.setItem('pushToken', ids.pushToken);
     });
-    
+
     firebase.auth().onAuthStateChanged(function(user) {
       alert(user)
       if (user) {
