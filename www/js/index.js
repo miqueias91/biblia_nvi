@@ -685,6 +685,15 @@ var app = {
       window.localStorage.setItem('pushToken', ids.pushToken);
     });
 
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        alert(uid)
+        window.localStorage.setItem('uid',uid);
+      }
+    });
+
     this.cadastraUser();
   },
   cadastraUser: function() {
@@ -693,7 +702,7 @@ var app = {
     var uid = window.localStorage.getItem('uid');
 
     //if (uid) {
-      /*firebase.database().ref('notificacoes').child(uid).on('value', (snapshot) => {
+      firebase.database().ref('notificacoes').child(uid).on('value', (snapshot) => {
         var dados = snapshot.val();
         alert(dados);
       });
@@ -701,7 +710,7 @@ var app = {
       firebase.database().ref('notificacoes').child(uid).once('value').then(function(snapshot) {
         var dados = (snapshot.val());
           alert(dados);
-      });*/
+      });
     //}
     
     if (userId && uid) {
