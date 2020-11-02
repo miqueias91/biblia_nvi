@@ -117,7 +117,7 @@ var app = {
       }
     });*/
     window.plugins.OneSignal.getIds(function(ids) {
-      alert(ids)
+      alert(ids.userId)
       alert(ids.userId)
       window.localStorage.setItem('userId', ids.userId);
       window.localStorage.setItem('pushToken', ids.pushToken);
