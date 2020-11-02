@@ -105,7 +105,7 @@ var app = {
       //localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
       //notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
     
-      /*ons.notification.alert({
+      ons.notification.alert({
         message: 'Você recebeu uma notificação, clique em [OK] para abrir!',
         title: 'Mensagem',
         callback: function (index) {
@@ -113,7 +113,7 @@ var app = {
             fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+hash});
           }
         }
-      });*/
+      });
     };
 
     window.plugins.OneSignal

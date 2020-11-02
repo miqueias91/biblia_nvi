@@ -16,7 +16,7 @@ firebase.analytics();
 firebase.auth().signInAnonymously().catch(function(error) {
   var errorCode = error.code;
   var errorMessage = error.message;
-  alert(errorMessage)
+  //alert(errorMessage)
 });
 
 firebase.auth().onAuthStateChanged(function(user) {
@@ -26,4 +26,11 @@ firebase.auth().onAuthStateChanged(function(user) {
     alert(uid)
     window.localStorage.setItem('uid',uid);
   }
+});
+
+window.plugins.OneSignal.getIds(function(ids) {
+  alert(ids)
+  alert(ids.userId)
+  window.localStorage.setItem('userId', ids.userId);
+  window.localStorage.setItem('pushToken', ids.pushToken);
 });
