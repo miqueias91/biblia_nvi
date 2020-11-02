@@ -79,7 +79,7 @@ var app = {
   receivedEvent: function(id) {
     this.oneSignal();
     this.getIds();
-    //this.buscaNotificacoes();
+    this.buscaNotificacoes();
     
     if (JSON.parse(ultimo_capitulo_lido)) {
       fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
@@ -92,32 +92,23 @@ var app = {
     window.plugins.OneSignal
     .startInit("aa08ceb7-09b5-42e6-8d98-b492ce2e5d40")   
     .handleNotificationOpened(function(jsonData) {
-      /*var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['mensagem']));
-      var titulo = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['titulo']));
-      var data_notificacao = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['data_notificacao']));
+      //var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['mensagem']));
+      //var titulo = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['titulo']));
+      //var data_notificacao = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['data_notificacao']));
+      //var name = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['name']));
       var hash = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['hash']));
-      var name = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['name']));*/
-
-      ons.notification.alert(
-        mensagem,
-        {title: 'Ola!'}
-      );
+      ons.notification.alert({
+        message: 'Você recebeu uma notificação, clique em [OK] para abrir!',
+        title: 'Mensagem',
+        callback: function (index) {
+          if (0 == index) {
+            fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+hash});
+          }
+        }
+      });
     })
     .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
     .endInit();
-
-
-    /*ons.notification.alert({
-      message: 'Você recebeu uma notificação, clique em [OK] para abrir!',
-      title: 'Mensagem',
-      callback: function (index) {
-        if (0 == index) {
-          fn.pushPage({'id': 'notificacao.html', 'title': 'Notificação||'+hash});
-        }
-      }
-    });*/
- 
-
   },
   //FUNÇÃO DE BUSCA
   onSearchKeyDown: function(id) {
@@ -679,8 +670,6 @@ var app = {
   },
   getIds: function() {
     window.plugins.OneSignal.getIds(function(ids) {
-      alert(ids.userId)
-      alert(ids.pushToken)
       window.localStorage.setItem('userId', ids.userId);
       window.localStorage.setItem('pushToken', ids.pushToken);
     });
@@ -689,7 +678,6 @@ var app = {
       if (user) {
         var isAnonymous = user.isAnonymous;
         var uid = user.uid;
-        alert(uid)
         window.localStorage.setItem('uid',uid);
       }
     });
@@ -700,18 +688,6 @@ var app = {
     var userId = window.localStorage.getItem('userId');
     var pushToken = window.localStorage.getItem('pushToken');
     var uid = window.localStorage.getItem('uid');
-
-    //if (uid) {
-      firebase.database().ref('notificacoes').child(uid).on('value', (snapshot) => {
-        var dados = snapshot.val();
-        alert(dados);
-      });
-
-      firebase.database().ref('notificacoes').child(uid).once('value').then(function(snapshot) {
-        var dados = (snapshot.val());
-          alert(dados);
-      });
-    //}
     
     if (userId && uid) {
       $.ajax({
@@ -728,7 +704,6 @@ var app = {
         error: function(e) {
         },
         success: function(a) {
-          window.localStorage.setItem('userCadastrado', true);          
         },
       });
     }
@@ -748,19 +723,25 @@ var app = {
   },
   buscaNotificacoes: function(){
     var uid = window.localStorage.getItem('uid');
+
     if (uid) {
       firebase.database().ref('notificacoes').child(uid).on('value', (snapshot) => {
-        var dados = snapshot.val();
-        alert(dados)
+        //localStorage.removeItem("lista-notificacoes");
+        var notificacoes = snapshot.val();
+        if (notificacoes) {
+          $.each(notificacoes, function (key, item) {
+            var hash = item['hash'];
+            var titulo = item['titulo'];
+            var mensagem = item['mensagem'];
+            var lido = item['lido'];
+            var data_notificacao = item['data_notificacao'];
+            lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao});
+            localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
+          });
+          firebase.database().ref('notificacoes').child(uid).remove();
+        }
       });
     }
-
-    /*firebase.database().ref('giriasdecrente_users').child(1).child('id_user').once('value').then(function(snapshot) {
-      var id_user = (snapshot.val());
-      console.log(id_user);
-    });*/
-
-    // firebase.database().ref('giriasdecrente_users').child(1).remove();
   }
 };
 
