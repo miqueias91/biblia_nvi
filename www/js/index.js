@@ -116,12 +116,7 @@ var app = {
         }
       }
     });*/
-    window.plugins.OneSignal.getIds(function(ids) {
-      alert(ids.userId)
-      alert(ids.userId)
-      window.localStorage.setItem('userId', ids.userId);
-      window.localStorage.setItem('pushToken', ids.pushToken);
-    });
+ 
 
   },
   //FUNÇÃO DE BUSCA
@@ -684,7 +679,8 @@ var app = {
   },
   getIds: function() {
     window.plugins.OneSignal.getIds(function(ids) {
-      alert(ids)
+      alert(ids.userId)
+      alert(ids.pushToken)
       window.localStorage.setItem('userId', ids.userId);
       window.localStorage.setItem('pushToken', ids.pushToken);
     });
