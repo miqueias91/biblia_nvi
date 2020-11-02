@@ -689,15 +689,6 @@ var app = {
       window.localStorage.setItem('pushToken', ids.pushToken);
     });
 
-    firebase.auth().onAuthStateChanged(function(user) {
-      alert(user)
-      if (user) {
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        window.localStorage.setItem('uid',uid);
-      }
-    }); 
-
     this.cadastraUser();
   },
   cadastraUser: function() {

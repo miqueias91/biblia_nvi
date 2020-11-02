@@ -18,3 +18,12 @@ firebase.auth().signInAnonymously().catch(function(error) {
   var errorMessage = error.message;
   alert(errorMessage)
 });
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    var isAnonymous = user.isAnonymous;
+    var uid = user.uid;
+    alert(uid)
+    window.localStorage.setItem('uid',uid);
+  }
+});
