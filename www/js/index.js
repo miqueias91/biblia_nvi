@@ -689,20 +689,21 @@ var app = {
     return ano+'-'+mes+'-'+dia+' '+hora+':'+min+':'+seg;
   },
   getIds: function() {
+    window.plugins.OneSignal.getIds(function(ids) {
+      alert(ids)
+      window.localStorage.setItem('userId', ids.userId);
+      window.localStorage.setItem('pushToken', ids.pushToken);
+    });
+    
     firebase.auth().onAuthStateChanged(function(user) {
+      alert(user)
       if (user) {
         var isAnonymous = user.isAnonymous;
-        alert(user.uid)
         var uid = user.uid;
         window.localStorage.setItem('uid',uid);
       }
     }); 
 
-    window.plugins.OneSignal.getIds(function(ids) {
-      alert(ids.userId)
-      window.localStorage.setItem('userId', ids.userId);
-      window.localStorage.setItem('pushToken', ids.pushToken);
-    });
     this.cadastraUser();
   },
   cadastraUser: function() {
