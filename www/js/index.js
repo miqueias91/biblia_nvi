@@ -714,15 +714,12 @@ var app = {
   },
   buscaNotificacoes: function(){
     var uid = window.localStorage.getItem('uid');
-    alert(uid)
     if (uid) {
       firebase.database().ref('notificacoes').child(uid).on('value', (snapshot) => {
         //localStorage.removeItem("lista-notificacoes");
         var notificacoes = snapshot.val();
         if (notificacoes) {
           $.each(notificacoes, function (key, item) {
-            alert(item['hash'])
-
             var hash = item['hash'];
             var titulo = item['titulo'];
             var mensagem = item['mensagem'];
