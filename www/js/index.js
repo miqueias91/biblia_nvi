@@ -716,7 +716,7 @@ var app = {
   buscaNotificacoes: function(){
     var uid = window.localStorage.getItem('uid');
     if (uid) {
-      firebase.database().ref('notificacoes').child(uid).on('value', (snapshot) => {
+      firebase.database().ref('notificacoes').child(uid).child('nvi').on('value', (snapshot) => {
         //localStorage.removeItem("lista-notificacoes");
         var notificacoes = snapshot.val();
         if (notificacoes) {
@@ -731,7 +731,7 @@ var app = {
             lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao, link: link});
             localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
           });
-          firebase.database().ref('notificacoes').child(uid).child(app).remove();
+          firebase.database().ref('notificacoes').child(uid).child('nvi').remove();
         }
       });
     }
