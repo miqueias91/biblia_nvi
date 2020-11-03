@@ -727,10 +727,11 @@ var app = {
             var lido = item['lido'];
             var data_notificacao = item['data_notificacao'];
             var link = item['link'];
+            var app = item['app'];
             lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao, link: link});
             localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
           });
-          firebase.database().ref('notificacoes').child(uid).remove();
+          firebase.database().ref('notificacoes').child(uid).child(app).remove();
         }
       });
     }
