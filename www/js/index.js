@@ -67,7 +67,6 @@ window.fn.hideDialog = function (id) {
 var app = {
   // Application Constructor
   initialize: function() {
-    this.buscaNotificacoes();
     document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
   },
   // deviceready Event Handler    
@@ -94,11 +93,6 @@ var app = {
     .startInit("aa08ceb7-09b5-42e6-8d98-b492ce2e5d40")   
     .handleNotificationOpened(function(jsonData) {
       var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['mensagem']));
-      /*var titulo = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['titulo']));
-      var data_notificacao = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['data_notificacao']));
-      var hash = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['hash']));
-      var name = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['name']));*/
-
       ons.notification.alert(
         mensagem,
         {title: 'Mensagem'}

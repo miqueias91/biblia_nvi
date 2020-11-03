@@ -1678,11 +1678,20 @@
             var mensagem = item['mensagem'];
             var data_notificacao = item['data_notificacao'];
             var id_not = item['id'];
+            var lido = item['lido'];
             texto_notificacoes += 
               '<ons-list-item onclick="fn.pushPage({\'id\': \'notificacao.html\', \'title\': \'Notificação||'+id_not+'\'})">'+
               '    <p class="intro texto_notificacoes">'+
-              '      <b>'+titulo+'</b></br></br>'+
-              '      '+mensagem+'</br></br>'+
+              '      <b>'+titulo+'</b></br></br>';
+              
+              if (lido == 'nao') {
+                texto_notificacoes += '<b>'+mensagem+'</b></br></br>';
+              }
+              else{
+                texto_notificacoes += mensagem+'</br></br>';
+              }
+
+            texto_notificacoes +=
               '      <i style="float: right!important;">'+data_notificacao+'</i>'+
               '    </p>'+
               '  </ons-list-item>';
@@ -1746,15 +1755,22 @@
         this.querySelector('#notificacao_ div.center').textContent = dados[0];
         notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
         if (notificacoes) {
+          localStorage.removeItem('lista-notificacoes');
+          var lista_notificacao = JSON.parse(localStorage.getItem('lista-notificacoes') || '[]');
           var texto_notificacao = '';
-          var titulo = '';
-          var mensagem = '';
-          var data_notificacao = '';
           $.each(notificacoes, function (key, item) {
+            var titulo = '';
+            var mensagem = '';
+            var hash = '';
+            var lido = '';
+            var data_notificacao = '';
             if (item['id'] == dados[1]) {
               titulo = item['titulo'];
               mensagem = item['mensagem'];
               data_notificacao = item['data_notificacao'];
+              hash = item['id'];
+              lido = 'sim';
+
               texto_notificacao += 
                 '<ons-list-item>'+
                 '    <p class="intro">'+
@@ -1763,6 +1779,20 @@
                 '      <i style="float: right!important;">'+data_notificacao+'</i>'+
                 '    </p>'+
                 '  </ons-list-item>';
+
+              lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao});
+              localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
+            }
+            else{
+              titulo = item['titulo'];
+              mensagem = item['mensagem'];
+              data_notificacao = item['data_notificacao'];
+              hash = item['id'];
+              lido = item['lido'];
+              if (item['id']) {
+                lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao});
+                localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
+              }
             }
           });
 
