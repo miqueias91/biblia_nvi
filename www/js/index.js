@@ -691,6 +691,7 @@ var app = {
           'uid': uid,
           'datacadastro': this.dateTime(),
           'ultimoacesso': this.dateTime(),
+          'app': 'nvi',
         },
         error: function(e) {
         },

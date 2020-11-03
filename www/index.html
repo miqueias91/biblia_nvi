@@ -1667,8 +1667,8 @@
         </div>
     <script>
       ons.getScriptPage().onInit = function () {
-        // admob.interstitial.show();
-        // app.registraAcesso('nvi/palavraDia.html');
+        admob.interstitial.show();
+        // app.registraAcesso('nvi/notificacoes.html');
         this.querySelector('#notificacoes_ div.center').textContent = 'Notificações';
 
 
@@ -1768,8 +1768,8 @@
         </div>
     <script>
       ons.getScriptPage().onInit = function () {
-        // admob.interstitial.show();
-        // app.registraAcesso('nvi/palavraDia.html');
+        admob.interstitial.show();
+        // app.registraAcesso('nvi/notificacao.html');
         var dados = this.data.title.split('||'); 
         this.querySelector('#notificacao_ div.center').textContent = dados[0];
         notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
