@@ -1660,6 +1660,8 @@
                 <ons-back-button>Notificações</ons-back-button>
             </div>
             <div class="center"></div>
+            <div class="right" id="limpar_notificacoes" style="color: #f5f5f5;margin-right: 16px;">Limpar</div>
+
         </ons-toolbar>
         <div id="textoNotificacoes">
         </div>
@@ -1668,6 +1670,22 @@
         // admob.interstitial.show();
         // app.registraAcesso('nvi/palavraDia.html');
         this.querySelector('#notificacoes_ div.center').textContent = 'Notificações';
+
+
+      $( "#limpar_notificacoes" ).click(function() {
+          localStorage.removeItem("lista-notificacoes");
+          $("#textoNotificacoes").html(
+          '<ons-list-item>'+
+          '    <p class="intro" style="text-align:center!important">Nenhuma notificação encontrada.</p>'+
+          '</ons-list-item>'
+          );
+        });
+
+
+
+
+
+
         notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
         if (notificacoes) {
           notificacoes = notificacoes.reverse();
