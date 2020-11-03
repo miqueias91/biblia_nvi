@@ -1679,6 +1679,7 @@
             var data_notificacao = item['data_notificacao'];
             var id_not = item['id'];
             var lido = item['lido'];
+            var link = item['link'];
             texto_notificacoes += 
               '<ons-list-item onclick="fn.pushPage({\'id\': \'notificacao.html\', \'title\': \'Notificação||'+id_not+'\'})">'+
               '    <p class="intro texto_notificacoes">'+
@@ -1764,11 +1765,13 @@
             var hash = '';
             var lido = '';
             var data_notificacao = '';
+            var link = '';
             if (item['id'] == dados[1]) {
               titulo = item['titulo'];
               mensagem = item['mensagem'];
               data_notificacao = item['data_notificacao'];
               hash = item['id'];
+              link = item['link'];
               lido = 'sim';
 
               texto_notificacao += 
@@ -1776,11 +1779,12 @@
                 '    <p class="intro">'+
                 '      <b>'+titulo+'</b></br></br>'+
                 '      '+mensagem+'</br></br>'+
+                '      '+link+'</br></br>'+
                 '      <i style="float: right!important;">'+data_notificacao+'</i>'+
                 '    </p>'+
                 '  </ons-list-item>';
 
-              lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao});
+              lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao, link: link});
               localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
             }
             else{
@@ -1789,8 +1793,9 @@
               data_notificacao = item['data_notificacao'];
               hash = item['id'];
               lido = item['lido'];
+              link = item['link'];
               if (item['id']) {
-                lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao});
+                lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao, link: link});
                 localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
               }
             }

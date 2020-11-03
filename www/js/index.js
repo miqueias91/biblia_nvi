@@ -725,7 +725,8 @@ var app = {
             var mensagem = item['mensagem'];
             var lido = item['lido'];
             var data_notificacao = item['data_notificacao'];
-            lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao});
+            var link = item['link'];
+            lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao, link: link});
             localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
           });
           firebase.database().ref('notificacoes').child(uid).remove();
