@@ -14,6 +14,8 @@ var velocidade = 0;
 var tamanho = 826;
 var pausar = 0;
 var rolagem = 0;
+var lista_notificacao = JSON.parse(localStorage.getItem('lista-notificacoes') || '[]');
+
 
 window.fn.toggleMenu = function () {
   document.getElementById('appSplitter').left.toggle();
@@ -56,21 +58,15 @@ var showTemplateDialog = function() {
       });
   }
 };
-
 //SCRIPT PARA ESCONDER O MODAL DE AGUARDE
 window.fn.hideDialog = function (id) {
   document.getElementById(id).hide();
 };
 
+
 var app = {
   // Application Constructor
   initialize: function() {
-    if (JSON.parse(ultimo_capitulo_lido)) {
-      fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
-    }
-    else{
-      fn.pushPage({'id': 'textoLivro.html', 'title': 'Gn||Gênesis||50||1'});
-    }
     document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
   },
   // deviceready Event Handler    
@@ -81,23 +77,29 @@ var app = {
   },
   // Update DOM on a Received Event
   receivedEvent: function(id) {
-    var userCadastrado = window.localStorage.getItem('userCadastrado');
     this.oneSignal();
     this.getIds();
+    this.buscaNotificacoes();
+    
+    if (JSON.parse(ultimo_capitulo_lido)) {
+      fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
+    }
+    else{
+      fn.pushPage({'id': 'textoLivro.html', 'title': 'Gn||Gênesis||50||1'});
+    }
   },
   oneSignal: function() {
     window.plugins.OneSignal
-      .startInit('aa08ceb7-09b5-42e6-8d98-b492ce2e5d40')
-      .handleNotificationOpened(function(jsonData) {
-        var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['body']));
-
-        ons.notification.alert(
-          mensagem,
-          {title: 'Ola!'}
-        );
-      })
-      .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
-      .endInit();
+    .startInit("aa08ceb7-09b5-42e6-8d98-b492ce2e5d40")   
+    .handleNotificationOpened(function(jsonData) {
+      var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['mensagem']));
+      ons.notification.alert(
+        mensagem,
+        {title: 'Mensagem'}
+      );
+    })
+    .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
+    .endInit();
   },
   //FUNÇÃO DE BUSCA
   onSearchKeyDown: function(id) {
@@ -658,37 +660,26 @@ var app = {
     return ano+'-'+mes+'-'+dia+' '+hora+':'+min+':'+seg;
   },
   getIds: function() {
-    var userCadastrado = window.localStorage.getItem('userCadastrado');
-    userCadastrado = false;
-    if (!userCadastrado) {
-      var userId = window.localStorage.getItem('userId');
-      var uid = window.localStorage.getItem('uid');
+    window.plugins.OneSignal.getIds(function(ids) {
+      window.localStorage.setItem('userId', ids.userId);
+      window.localStorage.setItem('pushToken', ids.pushToken);
+    });
 
-      if (!uid) {
-        firebase.auth().onAuthStateChanged(function(user) {
-          if (user) {
-            var isAnonymous = user.isAnonymous;
-            var uid = user.uid;
-            window.localStorage.setItem('uid',uid);
-          }
-        }); 
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        window.localStorage.setItem('uid',uid);
       }
+    });
 
-      if (!userId) {
-        window.plugins.OneSignal.getIds(function(ids) {
-          window.localStorage.setItem('userId', ids.userId);
-          window.localStorage.setItem('pushToken', ids.pushToken);
-        });
-      }
-
-      this.cadastraUser();
-    }
+    this.cadastraUser();
   },
   cadastraUser: function() {
     var userId = window.localStorage.getItem('userId');
     var pushToken = window.localStorage.getItem('pushToken');
     var uid = window.localStorage.getItem('uid');
-
+    
     if (userId && uid) {
       $.ajax({
         url: "https://www.innovatesoft.com.br/webservice/app/cadastraUser.php",
@@ -704,7 +695,6 @@ var app = {
         error: function(e) {
         },
         success: function(a) {
-          window.localStorage.setItem('userCadastrado', true);          
         },
       });
     }
@@ -719,6 +709,30 @@ var app = {
           'pagina': pagina,
           'origem': window.localStorage.getItem('uid')
         },
+      });
+    }
+  },
+  buscaNotificacoes: function(){
+    var uid = window.localStorage.getItem('uid');
+    alert(uid)
+    if (uid) {
+      firebase.database().ref('notificacoes').child(uid).on('value', (snapshot) => {
+        //localStorage.removeItem("lista-notificacoes");
+        var notificacoes = snapshot.val();
+        if (notificacoes) {
+          $.each(notificacoes, function (key, item) {
+            alert(item['hash'])
+
+            var hash = item['hash'];
+            var titulo = item['titulo'];
+            var mensagem = item['mensagem'];
+            var lido = item['lido'];
+            var data_notificacao = item['data_notificacao'];
+            lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao});
+            localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
+          });
+          firebase.database().ref('notificacoes').child(uid).remove();
+        }
       });
     }
   }

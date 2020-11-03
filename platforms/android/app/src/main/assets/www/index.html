@@ -34,14 +34,14 @@
 
         admob.banner.config({ 
           id: admobid.banner, 
-          isTesting: false, 
+          isTesting: true, 
           autoShow: true, 
         })
         admob.banner.prepare()
         
         admob.interstitial.config({
           id: admobid.interstitial,
-          isTesting: false,
+          isTesting: true,
           autoShow: false,
         })
         admob.interstitial.prepare()
@@ -97,7 +97,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.21" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.22" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -151,7 +151,6 @@
         </div>
       </ons-list-item>
 
-
       <ons-list-item onclick="fn.pushPage({'id': 'versiculosMarcados.html', 'title': 'Versículos Marcados'})">
         <div class="left">
             <i class="fas fa-edit"></i>
@@ -182,6 +181,18 @@
         </div>
         <div class="center">
           Configuração
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+      <ons-list-item onclick="fn.pushPage({'id': 'notificacoes.html', 'title': 'Notificações'})">
+        <div class="left">
+          <i class="fas fa-bell"></i>
+        </div>
+        <div class="center">
+          Notificações
         </div>
         <div class="right">
           <ons-icon icon="fa-link"></ons-icon>
@@ -390,8 +401,8 @@
       </ons-list>
     <script>
         ons.getScriptPage().onInit = function () {
-          app.registraAcesso('nvi/configuracao.html');
           admob.interstitial.show();
+          app.registraAcesso('nvi/configuracao.html');
           modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
           $("#modo_noturno").attr("checked",modo_noturno);
           
@@ -463,8 +474,8 @@
 
     <script>
       ons.getScriptPage().onInit = function () {
-        app.registraAcesso('nvi/palavraDia.html');
         admob.interstitial.show();
+        app.registraAcesso('nvi/palavraDia.html');
         $("#textoVersiculo").html('');
         this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
         var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13','Nm||23.19','Js||21.45','Js||23.14','1Jo||2.25','Ez||36.26','1Jo||1.9','1Rs||8.56','Dt||28.9','Jl||2.32','Sl||145.13','2||Pe||1.4','Tg||1.12','Sl||138.4','2Co||7.1','Sl||119.50','2Pe||3.9','Gl||3.16','Jo||16.33','Mt||6.26','Sl||34.10','Mt||6.11','Sl||23.1','Sl||4.8','Is||40.31','Jo||14.27','Lc||12.15','Dt||31.6','Hb||13.6','Rm||8.28','Tg||1.5','Sl||37.4','Mt||17.20','Is||41.10'];
@@ -510,8 +521,8 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-          app.registraAcesso('nvi/capitulosLidos.html');
           admob.interstitial.show();
+          app.registraAcesso('nvi/capitulosLidos.html');
           $("#textoCapitulosLidos").html('');
           this.querySelector('#capitulosLidos_ div.center').textContent = 'Capítulos Lidos';
           var lista_capitulos = JSON.parse(localStorage.getItem('lista-capitulos') || '[]');
@@ -866,8 +877,8 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-          app.registraAcesso('nvi/harpa.html');
           admob.interstitial.show();
+          app.registraAcesso('nvi/harpa.html');
           fn.showDialog('modal-aguarde');
           app.listaHinario('harpa');
           var timeoutID = 0;
@@ -1641,6 +1652,185 @@
         </style>
     </ons-page>
 </template>
+
+<template id="notificacoes.html">
+  <ons-page>
+        <ons-toolbar id="notificacoes_">
+            <div class="left">
+                <ons-back-button>Notificações</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+        <div id="textoNotificacoes">
+        </div>
+    <script>
+      ons.getScriptPage().onInit = function () {
+        // admob.interstitial.show();
+        // app.registraAcesso('nvi/palavraDia.html');
+        this.querySelector('#notificacoes_ div.center').textContent = 'Notificações';
+        notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
+        if (notificacoes) {
+          notificacoes = notificacoes.reverse();
+          var texto_notificacoes = '';
+
+          $.each(notificacoes, function (key, item) {
+            var titulo = item['titulo'];
+            var mensagem = item['mensagem'];
+            var data_notificacao = item['data_notificacao'];
+            var id_not = item['id'];
+            var lido = item['lido'];
+            texto_notificacoes += 
+              '<ons-list-item onclick="fn.pushPage({\'id\': \'notificacao.html\', \'title\': \'Notificação||'+id_not+'\'})">'+
+              '    <p class="intro texto_notificacoes">'+
+              '      <b>'+titulo+'</b></br></br>';
+              
+              if (lido == 'nao') {
+                texto_notificacoes += '<b>'+mensagem+'</b></br></br>';
+              }
+              else{
+                texto_notificacoes += mensagem+'</br></br>';
+              }
+
+            texto_notificacoes +=
+              '      <i style="float: right!important;">'+data_notificacao+'</i>'+
+              '    </p>'+
+              '  </ons-list-item>';
+          });
+          $("#textoNotificacoes").html(texto_notificacoes);
+        }
+        else{
+          $("#textoNotificacoes").html(
+          '<ons-list-item>'+
+          '    <p class="intro" style="text-align:center!important">Nenhuma notificação encontrada.</p>'+
+          '</ons-list-item>'
+          );
+        }
+      }
+    </script>
+    <style>
+      .texto_notificacoes {
+        max-width: 35ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+        .button-margin {
+            margin: 6px 0;
+        }
+
+      .intro {
+        text-align: left;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
+<template id="notificacao.html">
+  <ons-page>
+        <ons-toolbar id="notificacao_">
+            <div class="left">
+                <ons-back-button>Notificações</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+        <div id="textoNotificacao">
+        </div>
+    <script>
+      ons.getScriptPage().onInit = function () {
+        // admob.interstitial.show();
+        // app.registraAcesso('nvi/palavraDia.html');
+        var dados = this.data.title.split('||'); 
+        this.querySelector('#notificacao_ div.center').textContent = dados[0];
+        notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
+        if (notificacoes) {
+          localStorage.removeItem('lista-notificacoes');
+          var lista_notificacao = JSON.parse(localStorage.getItem('lista-notificacoes') || '[]');
+          var texto_notificacao = '';
+          $.each(notificacoes, function (key, item) {
+            var titulo = '';
+            var mensagem = '';
+            var hash = '';
+            var lido = '';
+            var data_notificacao = '';
+            if (item['id'] == dados[1]) {
+              titulo = item['titulo'];
+              mensagem = item['mensagem'];
+              data_notificacao = item['data_notificacao'];
+              hash = item['id'];
+              lido = 'sim';
+
+              texto_notificacao += 
+                '<ons-list-item>'+
+                '    <p class="intro">'+
+                '      <b>'+titulo+'</b></br></br>'+
+                '      '+mensagem+'</br></br>'+
+                '      <i style="float: right!important;">'+data_notificacao+'</i>'+
+                '    </p>'+
+                '  </ons-list-item>';
+
+              lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao});
+              localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
+            }
+            else{
+              titulo = item['titulo'];
+              mensagem = item['mensagem'];
+              data_notificacao = item['data_notificacao'];
+              hash = item['id'];
+              lido = item['lido'];
+              if (item['id']) {
+                lista_notificacao.push({id: hash, titulo: titulo, mensagem: mensagem, lido: lido, data_notificacao: data_notificacao});
+                localStorage.setItem("lista-notificacoes", JSON.stringify(lista_notificacao));
+              }
+            }
+          });
+
+          $("#textoNotificacao").html(texto_notificacao);
+        }
+        else{
+          $("#textoNotificacao").html(
+          '<ons-list-item>'+
+          '    <p class="intro" style="text-align:center!important">Nenhuma notificação encontrada.</p>'+
+          '</ons-list-item>'
+          );
+        }
+      }
+    </script>
+    <style>
+        .button-margin {
+            margin: 6px 0;
+        }
+
+      .intro {
+        text-align: left;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
 <script src="js/index.js"></script>
 
 </body>

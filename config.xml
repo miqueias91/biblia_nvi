@@ -65,4 +65,5 @@
     <plugin name="cordova-plugin-insomnia" spec="https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git" />
     <plugin name="cordova-plugin-x-socialsharing" spec="5.6.5" />
     <gap:plugin name="onesignal-cordova-plugin" source="npm" spec="^2.4.1" />
+    <engine name="android" spec="~7.0.0" />
 </widget>
