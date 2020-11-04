@@ -34,14 +34,14 @@
 
         admob.banner.config({ 
           id: admobid.banner, 
-          isTesting: true, 
+          isTesting: false, 
           autoShow: true, 
         })
         admob.banner.prepare()
         
         admob.interstitial.config({
           id: admobid.interstitial,
-          isTesting: true,
+          isTesting: false,
           autoShow: false,
         })
         admob.interstitial.prepare()
@@ -1668,7 +1668,7 @@
     <script>
       ons.getScriptPage().onInit = function () {
         admob.interstitial.show();
-        // app.registraAcesso('nvi/notificacoes.html');
+        app.registraAcesso('nvi/notificacoes.html');
         this.querySelector('#notificacoes_ div.center').textContent = 'Notificações';
 
 
@@ -1768,7 +1768,7 @@
         </div>
     <script>
       ons.getScriptPage().onInit = function () {
-        // app.registraAcesso('nvi/notificacao.html');
+        app.registraAcesso('nvi/notificacao.html');
         var dados = this.data.title.split('||'); 
         this.querySelector('#notificacao_ div.center').textContent = dados[0];
         notificacoes = JSON.parse(localStorage.getItem('lista-notificacoes'));
