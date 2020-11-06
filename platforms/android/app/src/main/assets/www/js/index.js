@@ -15,7 +15,9 @@ var tamanho = 826;
 var pausar = 0;
 var rolagem = 0;
 var lista_notificacao = JSON.parse(localStorage.getItem('lista-notificacoes') || '[]');
-
+if (window.localStorage.getItem('userId')) {
+  localStorage.removeItem('userId');
+}
 
 window.fn.toggleMenu = function () {
   document.getElementById('appSplitter').left.toggle();
@@ -661,7 +663,7 @@ var app = {
   },
   getIds: function() {
     window.plugins.OneSignal.getIds(function(ids) {
-      window.localStorage.setItem('userId', ids.userId);
+      window.localStorage.setItem('playerID', ids.userId);
       window.localStorage.setItem('pushToken', ids.pushToken);
     });
 
@@ -676,17 +678,17 @@ var app = {
     this.cadastraUser();
   },
   cadastraUser: function() {
-    var userId = window.localStorage.getItem('userId');
+    var playerID = window.localStorage.getItem('playerID');
     var pushToken = window.localStorage.getItem('pushToken');
     var uid = window.localStorage.getItem('uid');
     
-    if (userId && uid) {
+    if (playerID && uid) {
       $.ajax({
         url: "https://www.innovatesoft.com.br/webservice/app/cadastraUser.php",
         dataType: 'html',
         type: 'POST',
         data: {
-          'userId': userId,
+          'userId': playerID,
           'pushToken': pushToken,
           'uid': uid,
           'datacadastro': this.dateTime(),
