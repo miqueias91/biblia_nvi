@@ -1,19 +1,26 @@
 window.fn = {};
 $("#existeProximoCapitulo").val(0)
-var ultimo_livro_lido = localStorage.getItem('ultimo_livro_lido');
-var ultimo_livro_lido_abr = localStorage.getItem('ultimo_livro_lido_abr');
-var ultimo_capitulo_lido = localStorage.getItem('ultimo_capitulo_lido');
 var id = '';
 var usar_cores = 0;
-var fonte_versiculo = JSON.parse(localStorage.getItem('fonte-versiculo') || '20');
-localStorage.setItem("fonte-versiculo", fonte_versiculo);
-var modo_noturno = JSON.parse(localStorage.getItem('modo-noturno') || false);
-localStorage.setItem("modo-noturno", modo_noturno);
 var inicioLeitura = 0;
 var velocidade = 0;
 var tamanho = 826;
 var pausar = 0;
 var rolagem = 0;
+
+var ultimo_livro_lido = localStorage.getItem('ultimo_livro_lido');
+var ultimo_livro_lido_abr = localStorage.getItem('ultimo_livro_lido_abr');
+var ultimo_capitulo_lido = localStorage.getItem('ultimo_capitulo_lido');
+var fonte_versiculo = JSON.parse(localStorage.getItem('fonte-versiculo') || '20');
+localStorage.setItem("fonte-versiculo", fonte_versiculo);
+var modo_noturno = JSON.parse(localStorage.getItem('modo-noturno') || false);
+localStorage.setItem("modo-noturno", modo_noturno);
+
+if (!window.localStorage.getItem('versao-biblia')) {
+  localStorage.setItem("versao-biblia", 'nvi'); 
+}
+var versaoId = window.localStorage.getItem('versao-biblia');
+
 var lista_notificacao = JSON.parse(localStorage.getItem('lista-notificacoes') || '[]');
 if (window.localStorage.getItem('userId')) {
   localStorage.removeItem('userId');
@@ -69,6 +76,12 @@ window.fn.hideDialog = function (id) {
 var app = {
   // Application Constructor
   initialize: function() {
+    if (JSON.parse(ultimo_capitulo_lido)) {
+      fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
+    }
+    else{
+      fn.pushPage({'id': 'textoLivro.html', 'title': 'Gn||Gênesis||50||1'});
+    }
     document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
   },
   // deviceready Event Handler    
@@ -83,12 +96,12 @@ var app = {
     this.getIds();
     this.buscaNotificacoes();
     
-    if (JSON.parse(ultimo_capitulo_lido)) {
-      fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
-    }
-    else{
-      fn.pushPage({'id': 'textoLivro.html', 'title': 'Gn||Gênesis||50||1'});
-    }
+    // if (JSON.parse(ultimo_capitulo_lido)) {
+    //   fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
+    // }
+    // else{
+    //   fn.pushPage({'id': 'textoLivro.html', 'title': 'Gn||Gênesis||50||1'});
+    // }
   },
   oneSignal: function() {
     window.plugins.OneSignal
@@ -157,7 +170,7 @@ var app = {
     }
     return false;
   },  
-  buscaTexto: function(version,livro,capitulo, nome) {
+  buscaTexto: function(versaoId,livro,capitulo, nome) {
     inicioLeitura = 0;
     localStorage.setItem("ultimo_livro_lido", nome);
     localStorage.setItem("ultimo_livro_lido_abr", livro);
@@ -166,13 +179,13 @@ var app = {
     modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
 
     $("#textoLivro").html('');
-    var version = version || "nvi";
+    var versaoId = versaoId || "nvi";
     var selector = this;
     var texts = [];
 
     $.ajax({
       type : "GET",
-      url : "js/"+version+".json",
+      url : "js/"+versaoId+".json",
       dataType : "json",
       success : function(data){
         $(selector).each(function(){
@@ -237,7 +250,7 @@ var app = {
             $("#atual").val(parseInt($("#atual").val())-1);
             localStorage.setItem("ultimo_capitulo_lido", parseInt($("#atual").val()));
             $('#textoLivro_ div.center').html(ultimo_livro_lido+' '+parseInt($("#atual").val()));
-            app.buscaTexto('nvi',ultimo_livro_lido_abr,parseInt($("#atual").val()), ultimo_livro_lido);
+            app.buscaTexto(versaoId,ultimo_livro_lido_abr,parseInt($("#atual").val()), ultimo_livro_lido);
           }
           $("#existeProximoCapitulo").val(0);
         });
@@ -378,9 +391,9 @@ var app = {
   parar: function() {
     clearTimeout(t);
   },
-  buscaVersiculo: function(version,livro_capitulo_versiculo, id) {
+  buscaVersiculo: function(versaoId,livro_capitulo_versiculo, id) {
     $("#textoLivro").html('');
-    var version = version || "nvi";
+    var versaoId = versaoId || "nvi";
     var selector = this;
     var texts = [];
     var dados0 = livro_capitulo_versiculo.split('||');
@@ -390,7 +403,7 @@ var app = {
     var versiculo = dados1[1];
     $.ajax({
       type : "GET",
-      url : "js/"+version+".json",
+      url : "js/"+versaoId+".json",
       dataType : "json",
       success : function(data){
         $(selector).each(function(){
@@ -429,9 +442,9 @@ var app = {
       }
     });
   },
-  buscaVersiculoDia: function(version,livro_capitulo_versiculo, id) {
+  buscaVersiculoDia: function(versaoId,livro_capitulo_versiculo, id) {
     $("#textoLivro").html('');
-    var version = version || "nvi";
+    var versaoId = versaoId || "nvi";
     var selector = this;
     var texts = [];
     var dados0 = livro_capitulo_versiculo.split('||');
@@ -441,7 +454,7 @@ var app = {
     var versiculo = (dados1[1]-1);
     $.ajax({
       type : "GET",
-      url : "js/"+version+".json",
+      url : "js/"+versaoId+".json",
       dataType : "json",
       success : function(data){
         $(selector).each(function(){
@@ -483,14 +496,14 @@ var app = {
       }
     });
   },
-  buscaHinario: function(version,id) {
-    var version = version || "harpa";
+  buscaHinario: function(versaoId,id) {
+    var versaoId = versaoId || "harpa";
     var selector = this;
     var texto = "";
 
     $.ajax({
       type : "GET",
-      url : "js/"+version+".json",
+      url : "js/"+versaoId+".json",
       dataType : "json",
       success : function(data){
         $(selector).each(function(){
@@ -533,8 +546,8 @@ var app = {
       }
     });
   },
-  listaHinario: function(version) {
-    var version = version || "harpa";
+  listaHinario: function(versaoId) {
+    var versaoId = versaoId || "harpa";
     var text = "";
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -552,7 +565,7 @@ var app = {
         $("#listaharpa").html(text);
       }
     };
-    xmlhttp.open("GET", "js/"+version+".json", true);
+    xmlhttp.open("GET", "js/"+versaoId+".json", true);
     xmlhttp.send();
   },
   pesquisaHarpa: function(term){
@@ -593,6 +606,8 @@ var app = {
     }
   },
   pesquisaBiblia: function(term){
+    var versaoId = versaoId || "nvi";
+
     if (term != '') {
       term = term.toLowerCase();
       text = '';
@@ -630,7 +645,7 @@ var app = {
           // $("#resultado_pesquisa_biblia").css("display","");
         }
       };
-      xmlhttp.open("GET", "js/nvi.json", true);
+      xmlhttp.open("GET", "js/"+versaoId+".json", true);
       xmlhttp.send();
     }
   },
