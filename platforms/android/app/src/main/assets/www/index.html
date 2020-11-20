@@ -34,14 +34,14 @@
 
         admob.banner.config({ 
           id: admobid.banner, 
-          isTesting: false, 
+          isTesting: true, 
           autoShow: true, 
         })
         admob.banner.prepare()
         
         admob.interstitial.config({
           id: admobid.interstitial,
-          isTesting: false,
+          isTesting: true,
           autoShow: false,
         })
         admob.interstitial.prepare()
@@ -97,7 +97,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.23" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.24" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -223,7 +223,7 @@
         </div>
       </ons-list-item>
 
-      <ons-list-item onclick="fn.loadLink('https://www.instagram.com/oficial.umavidacomdeus/')">
+      <ons-list-item onclick="fn.loadLink('https://www.instagram.com/innovatesoft/')">
         <div class="left">
             <i class="fab fa-instagram"></i>
         </div>
@@ -235,7 +235,7 @@
         </div>
       </ons-list-item>
 
-      <ons-list-item onclick="fn.loadLink('https://play.google.com/store/apps/collection/cluster?clp=igNKChkKEzU4MzY0OTEwMzM3MTQyMDQzODIQCBgDEisKJWNvbS5waG9uZWdhcC5naXJpYXNlc3RhZG9zYnJhc2lsZWlyb3MQARgDGAE%3D:S:ANO1ljIUr74&gsr=Ck2KA0oKGQoTNTgzNjQ5MTAzMzcxNDIwNDM4MhAIGAMSKwolY29tLnBob25lZ2FwLmdpcmlhc2VzdGFkb3NicmFzaWxlaXJvcxABGAMYAQ%3D%3D:S:ANO1ljJSHsA')">
+      <ons-list-item onclick="fn.loadLink('https://bit.ly/3l9zjYi')">
         <div class="left">
           <i class="fab fa-google-play"></i>
         </div>
@@ -398,6 +398,17 @@
             </label>
           </div>
         </ons-list-item>
+
+        <ons-list-item onclick="fn.pushPage({'id': 'versoes.html', 'title': 'Versões'})">
+          <div class="left">
+          </div>
+          <div class="center">
+            Versões
+          </div>
+          <div class="right">
+            <ons-icon icon="fa-angle-right"></ons-icon>
+          </div>
+        </ons-list-item>
       </ons-list>
     <script>
         ons.getScriptPage().onInit = function () {
@@ -480,7 +491,7 @@
         this.querySelector('#palavraDia_ div.center').textContent = 'Palavra do Dia';
         var versiculos = ['Mt||11.28','Jo||15.7','at||1.8','Fp||1.6','2Sm||22.31','Mt||11.28','Hb||10.23','Fp||1.6','2Pe||1.4','Mt||5.8','Rm||1.6','Mt||10.32','Is||44.3','Jr||29.11','Fp||4.19','Ap||3.20','Ef||1.4','Ef||1.13','Mt||28.19','Jo||14.18','Jo||8.32','Mt||24.35','Sl||126.5','Jo||8.12','Jo||15.16','Hb||13.5','Tg||4.7','Mt||6.33','Jo||10.10','Jr||33.3','at||1.8','Hb||10.35-36','1Jo||5.4','Js||1.9','Js||1.9','Rm||8.1','Sl||31.24','Sl||91.1','Hb||12.1','2Tm||4.7','Rm||12.21','1Ts||5.17','Jo||14.18','Fp||4.12-13','1Co||15.55','Rm||8.38-39','Sl||41.1','Rm||8.31','Fp||4.6','Fp||4.13','Nm||23.19','Js||21.45','Js||23.14','1Jo||2.25','Ez||36.26','1Jo||1.9','1Rs||8.56','Dt||28.9','Jl||2.32','Sl||145.13','2||Pe||1.4','Tg||1.12','Sl||138.4','2Co||7.1','Sl||119.50','2Pe||3.9','Gl||3.16','Jo||16.33','Mt||6.26','Sl||34.10','Mt||6.11','Sl||23.1','Sl||4.8','Is||40.31','Jo||14.27','Lc||12.15','Dt||31.6','Hb||13.6','Rm||8.28','Tg||1.5','Sl||37.4','Mt||17.20','Is||41.10'];
 
-        app.buscaVersiculoDia('nvi',versiculos[(parseInt(Math.random()*(versiculos.length)) - 1)],"textoVersiculo");
+        app.buscaVersiculoDia(versiculos[(parseInt(Math.random()*(versiculos.length)) - 1)],"textoVersiculo");
       }
     </script>
     <style>
@@ -880,7 +891,7 @@
           admob.interstitial.show();
           app.registraAcesso('nvi/harpa.html');
           fn.showDialog('modal-aguarde');
-          app.listaHinario('harpa');
+          app.listaHinario();
           var timeoutID = 0;
           clearTimeout(timeoutID);
           timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 5);
@@ -1453,7 +1464,9 @@
             this.querySelector('#textoLivro_ div.center').textContent = dados[1]+' '+dados[3];
             //CHAMA DA FUNÇÃO PARA ABRIR MODAL
             fn.showDialog('modal-aguarde');
-            app.buscaTexto('nvi',dados[0],dados[3], dados[1]);
+            var versaoId = window.localStorage.getItem('versao-biblia');
+
+            app.buscaTexto(versaoId,dados[0],dados[3], dados[1]);
             
             var timeoutID = 0;
             clearTimeout(timeoutID);
@@ -1512,7 +1525,8 @@
                 app.registraAcesso('nvi/textoLivro.html?livro='+dados[0]+'&cap='+parseInt($("#atual").val()));
                 //CHAMA DA FUNÇÃO PARA ABRIR MODAL
                 fn.showDialog('modal-aguarde');
-                app.buscaTexto('nvi',dados[0],parseInt($("#atual").val()), dados[1]);
+                var versaoId = window.localStorage.getItem('versao-biblia');
+                app.buscaTexto(versaoId,dados[0],parseInt($("#atual").val()), dados[1]);
                 $('#textoLivro_ div.center').html(dados[1]+' '+parseInt($("#atual").val()));
                 var timeoutID = 0;
                 clearTimeout(timeoutID);
@@ -1532,7 +1546,8 @@
                 app.registraAcesso('nvi/textoLivro.html?livro='+dados[0]+'&cap='+parseInt($("#atual").val()));
                 //CHAMA DA FUNÇÃO PARA ABRIR MODAL
                 fn.showDialog('modal-aguarde');
-                app.buscaTexto('nvi',dados[0],parseInt($("#atual").val()), dados[1]);
+                var versaoId = window.localStorage.getItem('versao-biblia');
+                app.buscaTexto(versaoId,dados[0],parseInt($("#atual").val()), dados[1]);
                 $('#textoLivro_ div.center').html(dados[1]+' '+parseInt($("#atual").val()));
                 var timeoutID = 0;
                 clearTimeout(timeoutID);
@@ -1642,7 +1657,7 @@
           app.registraAcesso('nvi/conteudoHarpa.html?livro='+dados[0]);
           this.querySelector('#conteudoHarpa_ div.center').textContent = dados[0]+' - '+dados[1];
           $("#conteudoHarpa").html('');
-          app.buscaHinario('harpa',dados[0]);
+          app.buscaHinario(dados[0]);
         }
         </script>
         <style>
@@ -1893,7 +1908,121 @@
     </style>
   </ons-page>
 </template>
+<template id="versoes.html">
+  <ons-page>
+    <ons-toolbar id="versoes_">
+      <div class="left">
+          <ons-back-button>Versões</ons-back-button>
+      </div>
+      <div class="center"></div>
+      <div class="right"></div>
+    </ons-toolbar>
+    <div>
+      <ons-list-item tappable>
+        <label class="left">
+          <ons-radio class="versao" input-id="nvi" value="nvi"></ons-radio>
+        </label>
+        <label for="nvi" class="center">Bíblia Sagrada NVI</label>
+      </ons-list-item>
 
+      <ons-list-item tappable>
+        <label class="left">
+          <ons-radio class="versao" input-id="acf" value="acf"></ons-radio>
+        </label>
+        <label for="acf" class="center">Bíblia Sagrada ACF</label>
+      </ons-list-item>
+
+      <ons-list-item tappable modifier="longdivider">
+        <label class="left">
+          <ons-radio class="versao" input-id="arc" value="arc"></ons-radio>
+        </label>
+        <label for="arc" class="center">Bíblia Sagrada ARC</label>
+      </ons-list-item>
+
+      <ons-list-item tappable modifier="longdivider">
+        <label class="left">
+          <ons-radio class="versao" input-id="viva" value="viva"></ons-radio>
+        </label>
+        <label for="viva" class="center">Bíblia Sagrada Viva</label>
+      </ons-list-item>
+
+      <ons-list-item tappable modifier="longdivider">
+        <label class="left">
+          <ons-radio class="versao" input-id="ntlh" value="ntlh"></ons-radio>
+        </label>
+        <label for="ntlh" class="center">Bíblia Sagrada NTLH</label>
+      </ons-list-item>
+      
+      <ons-list-item tappable modifier="longdivider">
+        <label class="left">
+          <ons-radio class="versao" input-id="pt_kja" value="pt_kja"></ons-radio>
+        </label>
+        <label for="pt_kja" class="center">Bíblia Sagrada KJA (PT)</label>
+      </ons-list-item>
+
+      <ons-list-item tappable modifier="longdivider">
+        <label class="left">
+          <ons-radio class="versao" input-id="en_kjv" value="en_kjv"></ons-radio>
+        </label>
+        <label for="en_kjv" class="center">Bíblia Sagrada KJV (EN)</label>
+      </ons-list-item>
+    </div>
+    <script>
+      ons.getScriptPage().onInit = function () {
+        admob.interstitial.show();
+        app.registraAcesso('nvi/versoes.html');
+        this.querySelector('#versoes_ div.center').textContent = 'Versões';
+        if (!window.localStorage.getItem('versao-biblia')) {
+          versaoId = 'nvi';
+        }
+        else{
+          var versaoId = window.localStorage.getItem('versao-biblia');
+        }
+
+        document.getElementById(versaoId).checked = true;
+
+        const radios = document.querySelectorAll('.versao')
+        for (var i = 0; i < radios.length; i++) {
+          var radio = radios[i];
+          radio.addEventListener('change', function (event) {
+            if (event.target.id !== versaoId) {
+              localStorage.setItem("versao-biblia", event.target.value); 
+              document.getElementById(versaoId).checked = false;
+              versaoId = event.target.id;
+            }
+          })
+        }
+      }
+    </script>
+    <style>
+      .texto_notificacoes {
+        max-width: 35ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+        .button-margin {
+            margin: 6px 0;
+        }
+
+      .intro {
+        text-align: left;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
 <script src="js/index.js"></script>
 
 </body>
