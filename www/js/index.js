@@ -53,8 +53,6 @@ window.fn.showDialog = function (id) {
   elem.show();            
 };
 
-
-
 var showTemplateDialog = function() {
   var dialog = document.getElementById('my-dialog');
 
@@ -71,7 +69,6 @@ var showTemplateDialog = function() {
 window.fn.hideDialog = function (id) {
   document.getElementById(id).hide();
 };
-
 
 var app = {
   // Application Constructor
@@ -442,9 +439,8 @@ var app = {
       }
     });
   },
-  buscaVersiculoDia: function(versaoId,livro_capitulo_versiculo, id) {
+  buscaVersiculoDia: function(livro_capitulo_versiculo, id) {
     $("#textoLivro").html('');
-    var versaoId = versaoId || "nvi";
     var selector = this;
     var texts = [];
     var dados0 = livro_capitulo_versiculo.split('||');
@@ -454,7 +450,7 @@ var app = {
     var versiculo = (dados1[1]-1);
     $.ajax({
       type : "GET",
-      url : "js/"+versaoId+".json",
+      url : "js/nvi.json",
       dataType : "json",
       success : function(data){
         $(selector).each(function(){
@@ -496,14 +492,13 @@ var app = {
       }
     });
   },
-  buscaHinario: function(versaoId,id) {
-    var versaoId = versaoId || "harpa";
+  buscaHinario: function(id) {
     var selector = this;
     var texto = "";
 
     $.ajax({
       type : "GET",
-      url : "js/"+versaoId+".json",
+      url : "js/harpa.json",
       dataType : "json",
       success : function(data){
         $(selector).each(function(){
@@ -546,8 +541,7 @@ var app = {
       }
     });
   },
-  listaHinario: function(versaoId) {
-    var versaoId = versaoId || "harpa";
+  listaHinario: function() {
     var text = "";
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -565,7 +559,7 @@ var app = {
         $("#listaharpa").html(text);
       }
     };
-    xmlhttp.open("GET", "js/"+versaoId+".json", true);
+    xmlhttp.open("GET", "js/harpa.json", true);
     xmlhttp.send();
   },
   pesquisaHarpa: function(term){
