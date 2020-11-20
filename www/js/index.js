@@ -92,13 +92,6 @@ var app = {
     this.oneSignal();
     this.getIds();
     this.buscaNotificacoes();
-    
-    // if (JSON.parse(ultimo_capitulo_lido)) {
-    //   fn.pushPage({'id': 'textoLivro.html', 'title': ultimo_livro_lido_abr+'||'+ultimo_livro_lido+'||200||'+ultimo_capitulo_lido});
-    // }
-    // else{
-    //   fn.pushPage({'id': 'textoLivro.html', 'title': 'Gn||Gênesis||50||1'});
-    // }
   },
   oneSignal: function() {
     window.plugins.OneSignal
