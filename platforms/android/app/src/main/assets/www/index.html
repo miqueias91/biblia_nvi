@@ -97,7 +97,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.26" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.27" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -409,8 +409,34 @@
             <ons-icon icon="fa-angle-right"></ons-icon>
           </div>
         </ons-list-item>
+
+        <ons-list-item onclick="limparDados()">
+          <div class="left">
+          </div>
+          <div class="center">
+            Limpar dados
+          </div>
+          <div class="right">
+            <ons-icon icon="fa-angle-right"></ons-icon>
+          </div>
+        </ons-list-item>
       </ons-list>
     <script>
+          var limparDados = function() {
+            ons.notification.confirm({
+              title: 'Atenção',
+              message: 'Todos os dados desta aplicação serão apagados de forma permanente. Isto inclui todas as notificações, versículos marcados, capítulos lidos, etc',
+              buttonLabels: ['Cancelar','OK'],
+              callback: function (index) {
+                console.log(index)
+                if (1 == index) {
+                  localStorage.removeItem("lista-versiculos");
+                  localStorage.removeItem("lista-notificacoes");
+                  localStorage.removeItem("lista-capitulos");
+                }
+              }
+            })
+          };
         ons.getScriptPage().onInit = function () {
           admob.interstitial.show();
           app.registraAcesso('nvi/configuracao.html');
