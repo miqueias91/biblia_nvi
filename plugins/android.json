@@ -37,6 +37,11 @@
     },
     "onesignal-cordova-plugin": {
       "PACKAGE_NAME": "com.phonegap.teindico"
+    },
+    "phonegap-plugin-push": {
+      "ANDROID_SUPPORT_V13_VERSION": "27.+",
+      "FCM_VERSION": "11.6.2",
+      "PACKAGE_NAME": "com.phonegap.teindico"
     }
   },
   "dependent_plugins": {
