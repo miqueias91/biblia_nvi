@@ -97,7 +97,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.30" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.31" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -309,7 +309,9 @@
         var lista_marcadores = JSON.parse(localStorage.getItem('lista-versiculos') || '[]');
         if (lista_marcadores) {
           for(var i=0; i<lista_marcadores.length; i++) {
-            app.buscaVersiculo('nvi',lista_marcadores[i]['livro']+"||"+lista_marcadores[i]['num_capitulo']+"."+(parseInt(lista_marcadores[i]['num_versiculo'])+0),"textoVersiculo"); 
+            if (lista_marcadores[i]['livro']) {
+              app.buscaVersiculo('nvi',lista_marcadores[i]['livro']+"||"+lista_marcadores[i]['num_capitulo']+"."+(parseInt(lista_marcadores[i]['num_versiculo'])+0),"textoVersiculo"); 
+            }
           }   
         }
       }
@@ -1462,6 +1464,7 @@
           ons.getScriptPage().onInit = function () {
             var dados = this.data.title.split('||'); 
             var ultimoCap = dados[2];
+
             app.registraAcesso('nvi/textoLivro.html?livro='+dados[0]+'&cap='+dados[3]);
             this.querySelector('#textoLivro_ div.center').textContent = dados[1]+' '+dados[3];
             //CHAMA DA FUNÇÃO PARA ABRIR MODAL
@@ -1633,6 +1636,43 @@
 
               text += 'Versão: Bíblia Sagrada NVI\nLink: bit.ly/2PCUN2d';
               window.plugins.socialsharing.shareViaTwitter(text);
+            });
+
+            $( ".cores" ).click(function() {
+              marcado = $(this).attr('marcado');
+              var cor = $(this).attr('id');
+              var livro = $('#'+id).attr('livro');
+              var num_capitulo = $('#'+id).attr('num_capitulo');
+              var num_versiculo = $('#'+id).attr('num_versiculo');
+        
+              if (marcado==0) {
+                $('#'+id).attr('marcado',1);
+                $('#'+id).attr('txt_marcado',0);
+                $(".botao_controle").css("display","none");
+                $(".cores").css("display","");
+                $('#'+id).css("background","#f5f5f5");
+                lista_versiculos = JSON.parse(localStorage.getItem('lista-versiculos'));
+                app.retirarMarcadorVersiculo(livro, num_capitulo, num_versiculo, lista_versiculos);
+              }
+              else{
+                $(".copiar").css("display","none");
+                $(".compartilha").css("display","none");
+                id = $("[marcado=1]").attr('id');
+                $("#"+id).attr('marcado',0);
+                $('#'+id).attr('txt_marcado',1);
+                $(".cores").css("display","none");
+                $(".botao_controle").css("display","");
+                $("#"+id).css("background",cor);
+                var livro = $('#'+id).attr('livro');
+                var num_capitulo = $('#'+id).attr('num_capitulo');
+                var num_versiculo = $('#'+id).attr('num_versiculo');
+
+
+                var lista_versiculos = JSON.parse(localStorage.getItem('lista-versiculos') || '[]');
+                lista_versiculos.push({cor: cor, livro: livro, num_capitulo: num_capitulo, num_versiculo: num_versiculo});
+                localStorage.setItem("lista-versiculos", JSON.stringify(lista_versiculos));
+                usar_cores = 0;
+              }
             });
           }
         </script>
