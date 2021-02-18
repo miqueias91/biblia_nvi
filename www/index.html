@@ -97,7 +97,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.31" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.32" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -133,6 +133,17 @@
           <i class="fas fa-music"></i>
         </div>
           Harpa Cristã
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+      <ons-list-item onclick="fn.pushPage({'id': 'cantor.html', 'title': 'Cantor Cristão'})">
+        <div class="left">
+          <i class="fas fa-music"></i>
+        </div>
+          Cantor Cristão
         </div>
         <div class="right">
           <ons-icon icon="fa-link"></ons-icon>
@@ -1950,6 +1961,7 @@
     </style>
   </ons-page>
 </template>
+
 <template id="versoes.html">
   <ons-page>
     <ons-toolbar id="versoes_">
@@ -2064,6 +2076,392 @@
       }
     </style>
   </ons-page>
+</template>
+
+<template id="cantor.html">
+  <ons-page>
+    <ons-toolbar id="biblia_">
+        <div class="left">
+            <ons-back-button>Cantor Cristão</ons-back-button>
+        </div>
+        <div class="center"></div>
+        <div class="right" id="botao_pesquisa_cantor" style="color: #f5f5f5;margin-right: 16px;"><ons-icon icon="fa-search"></ons-icon></div>
+    </ons-toolbar>
+    <p style="text-align: center; margin: 0 0 10px 0;display: none;" id="pesquisa_cantor">
+        <ons-search-input style="width: 100%;"
+          placeholder="Pesquisar..."
+          class="pesquisa"
+          onchange="app.pesquisaCantor(this.value)"
+        ></ons-search-input>
+      </p>
+
+    <ons-list id="listacantor">
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '1||Antífona'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">1 - Antífona</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '2||Justo És, Senhor'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">2 - Justo És, Senhor</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '3||Louvor Ao Senhor'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">3 - Louvor Ao Senhor</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '4||Ao Deus Santo'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">4 - Ao Deus Santo</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '5||Presença Divina'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">5 - Presença Divina</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '6||Glória Ao Senhor'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">6 - Glória Ao Senhor</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '7||Maravilhas Divinas'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">7 - Maravilhas Divinas</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '8||Adoração'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">8 - Adoração</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '9||Santo'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">9 - Santo</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '10||Auxílio Divino'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">10 - Auxílio Divino</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '11||Ao Deus Trino'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">11 - Ao Deus Trino</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '12||Louvamos'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">12 - Louvamos</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '13||Adoração a Deus'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">13 - Adoração a Deus</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '14||O Deus de Abraão'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">14 - O Deus de Abraão</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '15||Exultação'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">15 - Exultação</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '16||Vinde Adorar'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">16 - Vinde Adorar</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '17||O Amor de Deus'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">17 - O Amor de Deus</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '18||Amor Sem Igual'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">18 - Amor Sem Igual</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '19||Boa Nova'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">19 - Boa Nova</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '20||Amor Perene'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">20 - Amor Perene</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '21||Louvor Ao Pai e Ao Filho'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">21 - Louvor Ao Pai e Ao Filho</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '22||Amor Sublime'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">22 - Amor Sublime</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '23||Deus, Fonte da Vida'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">23 - Deus, Fonte da Vida</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '24||Deus É Amor'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">24 - Deus É Amor</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '25||Amor'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">25 - Amor</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '26||Rei Excelso'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">26 - Rei Excelso</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '27||Natal'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">27 - Natal</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '28||Nasceu o Redentor'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">28 - Nasceu o Redentor</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '29||Nasce Jesus'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">29 - Nasce Jesus</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '30||Noite de Paz'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">30 - Noite de Paz</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '31||Lugar para Cristo'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">31 - Lugar para Cristo</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '32||Cristo Em Belém'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">32 - Cristo Em Belém</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '33||Nasceu Jesus'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">33 - Nasceu Jesus</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '34||Plena Graça'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">34 - Plena Graça</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '35||Incomparável'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">35 - Incomparável</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '36||O Amor de Jesus'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">36 - O Amor de Jesus</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '37||Amor Glorioso'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">37 - Amor Glorioso</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '38||Divino Amor'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">38 - Divino Amor</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '39||A Ovelha Perdida'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">39 - A Ovelha Perdida</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+      <ons-list-item class="showAd list-item list-item--material" onclick="fn.pushPage({'id': 'conteudoCantor.html', 'title': '40||Amor de Cristo'})" modifier="material">
+        <div class="center list-item__center list-item--material__center" style="font-size: 15px;">40 - Amor de Cristo</div>
+        <div class="left list-item__left list-item--material__left"></div>
+        <div class="right list-item__right list-item--material__right">
+        <ons-icon icon="fa-angle-right" class="ons-icon fa-angle-right fa" modifier="material"></ons-icon>
+      </div>
+      </ons-list-item>
+
+    </ons-list>
+
+    <ons-list style="display: none;" id="resultado_pesquisa_cantor">
+    </ons-list>
+
+    <script>
+        ons.getScriptPage().onInit = function () {
+          admob.interstitial.show();
+          app.registraAcesso('nvi/cantor.html');
+          fn.showDialog('modal-aguarde');
+          app.listaCantor();
+          var timeoutID = 0;
+          clearTimeout(timeoutID);
+          timeoutID = setTimeout(function() { fn.hideDialog('modal-aguarde') }, 5);
+          this.querySelector('#biblia_ div.center').textContent = 'Cantor Cristão';
+
+          var abriu_pesquisa_cantor = false
+          $( "#botao_pesquisa_cantor" ).click(function() {
+            $(".pesquisa").val('');
+            $("#resultado_pesquisa_cantor").html('');
+            if (!abriu_pesquisa_cantor) {
+              $("#pesquisa_cantor").css("display","");
+              $("#listacantor").css("display","none");
+              $("#botao_pesquisa_cantor").html('<ons-icon icon="fa-times"></ons-icon>');
+              abriu_pesquisa_cantor = true;
+            }
+            else{
+              $("#resultado_pesquisa_cantor").css("display","none");
+              $("#pesquisa_cantor").css("display","none");
+              $("#listacantor").css("display","");
+              $("#botao_pesquisa_cantor").html('<ons-icon icon="fa-search"></ons-icon>');
+              abriu_pesquisa_cantor = false;
+            }
+          });
+        }
+    </script>
+    <style>
+        .button-margin {
+            margin: 6px 0;
+        }
+
+      .intro {
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
+<template id="conteudoCantor.html">
+    <ons-page>
+        <ons-toolbar id="conteudoCantor_">
+            <div class="left">
+                <ons-back-button>Conteúdo Cantor</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+        <div id='conteudoCantor'></div>
+        <script>
+        ons.getScriptPage().onInit = function () {
+          admob.interstitial.show();
+          var dados = this.data.title.split('||'); 
+          app.registraAcesso('nvi/conteudoCantor.html?livro='+dados[0]);
+          this.querySelector('#conteudoCantor_ div.center').textContent = dados[0]+' - '+dados[1];
+          $("#conteudoCantor").html('');
+          app.buscaCantor(dados[0]);
+        }
+        </script>
+        <style>
+          .button-margin {
+            margin: 6px 0;
+          }
+        </style>
+    </ons-page>
 </template>
 <script src="js/index.js"></script>
 
