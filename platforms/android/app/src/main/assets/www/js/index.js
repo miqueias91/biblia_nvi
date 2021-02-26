@@ -102,9 +102,10 @@ var app = {
     .startInit("aa08ceb7-09b5-42e6-8d98-b492ce2e5d40")   
     .handleNotificationOpened(function(jsonData) {
       var mensagem = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['mensagem']));
+      var titulo = JSON.parse(JSON.stringify(jsonData['notification']['payload']['additionalData']['titulo']));
       ons.notification.alert(
         mensagem,
-        {title: 'Mensagem'}
+        {title: titulo}
       );
     })
     .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
