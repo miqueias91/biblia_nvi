@@ -97,7 +97,7 @@
       </div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="bottom">
-        <ons-tab label="Versão 1.0.33" page="home.html" active></ons-tab>
+        <ons-tab label="Versão 1.0.34" page="home.html" active></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -207,6 +207,18 @@
         </div>
         <div class="right">
           <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+
+      <ons-list-item onclick="fn.loadLink('https://cristaonarede.com.br/loja')">
+        <div class="left">
+          <i class="fas fa-store"></i>
+        </div>
+        <div class="center">
+          Livraria
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-external-link"></ons-icon>
         </div>
       </ons-list-item>
 
@@ -427,7 +439,7 @@
             })
           };
         ons.getScriptPage().onInit = function () {
-          admob.interstitial.show();
+          //admob.interstitial.show();
           app.registraAcesso('nvi/configuracao.html');
           modo_noturno = JSON.parse(localStorage.getItem('modo-noturno'));
           $("#modo_noturno").attr("checked",modo_noturno);
