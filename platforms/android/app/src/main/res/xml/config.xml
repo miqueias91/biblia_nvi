@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.teindico" version="1.0.34" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.phonegap.teindico" version="1.0.35" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <feature name="Clipboard">
         <param name="android-package" value="com.verso.cordova.clipboard.Clipboard" />
     </feature>
@@ -65,6 +65,11 @@
     <splash density="port-xhdpi" src="www/res/screen/android/drawable-port-xhdpi-screen.png" />
     <splash density="port-xxhdpi" src="www/res/screen/android/drawable-port-xxhdpi-screen.png" />
     <splash density="port-xxxhdpi" src="www/res/screen/android/drawable-port-xxxhdpi-screen.png" />
+    <resource-file src="res/drawable-hdpi/ic_stat_onesignal_default.png" target="app/src/main/res/drawable-hdpi/ic_stat_onesignal_default.png" />
+    <resource-file src="res/drawable-mdpi/ic_stat_onesignal_default.png" target="app/src/main/res/drawable-mdpi/ic_stat_onesignal_default.png" />
+    <resource-file src="res/drawable-xhdpi/ic_stat_onesignal_default.png" target="app/src/main/res/drawable-xhdpi/ic_stat_onesignal_default.png" />
+    <resource-file src="res/drawable-xxhdpi/ic_stat_onesignal_default.png" target="app/src/main/res/drawable-xxhdpi/ic_stat_onesignal_default.png" />
+    <resource-file src="res/drawable-xxxhdpi/ic_stat_onesignal_default.png" target="app/src/main/res/drawable-xxxhdpi/ic_stat_onesignal_default.png" />
     <allow-intent href="market:*" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="DisallowOverscroll" value="true" />
